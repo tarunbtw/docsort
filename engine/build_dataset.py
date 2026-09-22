@@ -36,10 +36,10 @@ logger = logging.getLogger(__name__)
 _ENV_PATH = Path(__file__).parent / ".env"
 load_dotenv(_ENV_PATH)
 
-_MODEL = "llama-3.1-8b-instant"
+_MODEL = "openai/gpt-oss-20b"
 _CHUNK_SIZE_CHARS = 1500
 _MIN_CHUNK_CHARS = 200
-_SLEEP_BETWEEN_CALLS = 2.5  # seconds — llama-3.1-8b-instant has a much higher daily ceiling (14,400/day).
+_SLEEP_BETWEEN_CALLS = 6.0  # seconds — gpt-oss-20b has the same 8k TPM cap as gpt-oss-120b; keep conservative spacing.
 
 _LABEL_PROMPT = """You are labeling text chunks for a dataset used to train a classifier that detects Indian government procurement/contract regulation documents (tenders, GeM, vendor eligibility, penalties, threshold limits, Office Memoranda on procurement policy).
 
