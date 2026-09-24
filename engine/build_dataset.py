@@ -53,6 +53,7 @@ _OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
 # Free-tier OpenRouter models rotated to spread load.
 # llm_extract.py uses Groq/gpt-oss-120b — completely separate key and quota.
 _MODELS = [
+    "qwen/qwen3.8-27b:free",       # priority
     "nex-agi/nex-n2.5-mini:free",
     "nex-agi/nex-n2.5-pro:free",
 ]
