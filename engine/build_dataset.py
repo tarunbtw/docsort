@@ -112,10 +112,11 @@ def chunk_text(text: str, chunk_size: int = _CHUNK_SIZE_CHARS) -> list[str]:
 def label_chunk(session: requests.Session, chunk: str, model: str) -> bool | None:
     """Ask the LLM to judge whether a chunk is procurement-related.
 
-    Uses OpenRouter's OpenAI-compatible endpoint via a plain HTTP POST.
+    Uses OpenRouter's API exactly as documented: data=json.dumps() payload with
+    reasoning enabled, not the requests json= shorthand.
 
     Args:
-        session: requests.Session with Authorization header pre-set.
+        session: requests.Session with Authorization and Content-Type headers pre-set.
         chunk: Text chunk to label.
         model: OpenRouter model ID to use for this call.
 
@@ -126,14 +127,15 @@ def label_chunk(session: requests.Session, chunk: str, model: str) -> bool | Non
     try:
         resp = session.post(
             _OPENROUTER_URL,
-            json={
+            data=json.dumps({
                 "model": model,
                 "messages": [
                     {"role": "system", "content": _LABEL_PROMPT},
                     {"role": "user", "content": chunk},
                 ],
                 "temperature": 0.0,
-            },
+                "reasoning": {"enabled": True},
+            }),
             timeout=30,
         )
         resp.raise_for_status()
@@ -146,6 +148,7 @@ def label_chunk(session: requests.Session, chunk: str, model: str) -> bool | Non
     except Exception as exc:  # noqa: BLE001
         logger.warning("Skipping chunk (model=%s) — API error: %s", model, exc)
         return None
+
 
 
 def load_done_pairs(csv_path: Path) -> set[tuple[str, int]]:
