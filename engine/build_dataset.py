@@ -14,13 +14,12 @@ sample, correct any wrong labels, then save the corrected file (columns: text,la
 only — drop source_file/chunk_index) as data/labeled_docs.csv before running
 train_classifier.py.
 
-Rate-limit strategy:
-    Groq free tier: 30 RPM / 1,000 RPD / 8,000 TPM — per model, per org.
-    We rotate across _MODELS (3 models, each with its own separate quota bucket)
-    so the effective daily ceiling is 3,000 requests. Sleep is 2 s between calls;
-    since each model only receives 1 in every 3 calls, its effective inter-call
-    gap is ~6 s — well within the 30 RPM cap.
-    openai/gpt-oss-120b is intentionally excluded: that is llm_extract.py's quota.
+API: OpenRouter (https://openrouter.ai) — no SDK, plain requests.
+Key: set OPENROUTER_API_KEY in engine/.env
+Models rotated:
+    nex-agi/nex-n2.5-mini:free  (free tier)
+    nex-agi/nex-n2.5-pro:free   (free tier)
+llm_extract.py is unaffected — it still uses Groq with its own GROQ_API_KEY.
 """
 
 import argparse
@@ -34,8 +33,8 @@ import time
 from pathlib import Path
 from typing import IO
 
+import requests
 from dotenv import load_dotenv
-from groq import Groq
 from pydantic import BaseModel, ValidationError
 
 # Make the src layout importable regardless of cwd (same trick as test_pipeline.py).
@@ -49,36 +48,29 @@ logger = logging.getLogger(__name__)
 _ENV_PATH = Path(__file__).parent / ".env"
 load_dotenv(_ENV_PATH)
 
-# Rotate across these models — each has its own separate quota on the Groq free tier.
-# openai/gpt-oss-120b is excluded: that quota bucket belongs to llm_extract.py.
-# Confirmed live as of 2026-09-23 (console.groq.com/docs/rate-limits):
-#   llama-3.1-8b-instant        30 RPM / 14,400 RPD  ← primary workhorse
-#   moonshotai/kimi-k2-instruct 60 RPM /  1,000 RPD
-#   qwen/qwen3-32b              60 RPM /  1,000 RPD
-# Effective daily ceiling with rotation: 16,400 RPD — far more than ~180 chunks need.
+_OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
+
+# Free-tier OpenRouter models rotated to spread load.
+# llm_extract.py uses Groq/gpt-oss-120b — completely separate key and quota.
 _MODELS = [
-    "llama-3.1-8b-instant",
-    "moonshotai/kimi-k2-instruct",
-    "qwen/qwen3-32b",
+    "nex-agi/nex-n2.5-mini:free",
+    "nex-agi/nex-n2.5-pro:free",
 ]
 
 _CHUNK_SIZE_CHARS = 1500
 _MIN_CHUNK_CHARS = 200
 
-# 2 s between calls. Each model only receives 1 in every 3 calls, so effective
-# per-model gap is ~6 s → ~10 RPM per model, well within the 30 RPM free-tier cap.
-_SLEEP_BETWEEN_CALLS = 2.0
+# 3 s between calls — conservative default for free-tier OpenRouter models.
+_SLEEP_BETWEEN_CALLS = 3.0
 
-_LABEL_PROMPT = """\
-You are labeling text chunks for a dataset used to train a classifier that detects \
-Indian government procurement/contract regulation documents (tenders, GeM, vendor \
-eligibility, penalties, threshold limits, Office Memoranda on procurement policy).
-
-Given the chunk of text below, decide if it is substantively about contract/procurement \
-regulation or policy — not just a document that happens to be government-issued.
-
-Respond with ONLY valid JSON, no prose:
-{"is_relevant": true or false}"""
+_LABEL_PROMPT = (
+    "You are labeling text chunks for a dataset used to train a classifier that detects "
+    "Indian government procurement/contract regulation documents (tenders, GeM, vendor "
+    "eligibility, penalties, threshold limits, Office Memoranda on procurement policy).\n\n"
+    "Given the chunk of text below, decide if it is substantively about contract/procurement "
+    "regulation or policy — not just a document that happens to be government-issued.\n\n"
+    'Respond with ONLY valid JSON, no prose:\n{"is_relevant": true or false}'
+)
 
 
 class _LabelResult(BaseModel):
@@ -116,28 +108,35 @@ def chunk_text(text: str, chunk_size: int = _CHUNK_SIZE_CHARS) -> list[str]:
     return [c for c in chunks if len(c) >= _MIN_CHUNK_CHARS]
 
 
-def label_chunk(client: Groq, chunk: str, model: str) -> bool | None:
+def label_chunk(session: requests.Session, chunk: str, model: str) -> bool | None:
     """Ask the LLM to judge whether a chunk is procurement-related.
 
+    Uses OpenRouter's OpenAI-compatible endpoint via a plain HTTP POST.
+
     Args:
-        client: Authenticated Groq client.
+        session: requests.Session with Authorization header pre-set.
         chunk: Text chunk to label.
-        model: Groq model ID to use for this call.
+        model: OpenRouter model ID to use for this call.
 
     Returns:
         True/False label, or None if the call/parse failed (chunk is skipped
         rather than given a guessed label).
     """
     try:
-        response = client.chat.completions.create(
-            model=model,
-            messages=[
-                {"role": "system", "content": _LABEL_PROMPT},
-                {"role": "user", "content": chunk},
-            ],
-            temperature=0.0,
+        resp = session.post(
+            _OPENROUTER_URL,
+            json={
+                "model": model,
+                "messages": [
+                    {"role": "system", "content": _LABEL_PROMPT},
+                    {"role": "user", "content": chunk},
+                ],
+                "temperature": 0.0,
+            },
+            timeout=30,
         )
-        raw = response.choices[0].message.content or ""
+        resp.raise_for_status()
+        raw = resp.json()["choices"][0]["message"]["content"] or ""
         result = _LabelResult.model_validate(json.loads(raw))
         return result.is_relevant
     except (json.JSONDecodeError, ValidationError) as exc:
@@ -177,7 +176,7 @@ def load_done_pairs(csv_path: Path) -> set[tuple[str, int]]:
 
 
 def process_pdf(
-    client: Groq,
+    session: requests.Session,
     pdf_path: Path,
     writer: "csv.writer[str]",
     f: IO[str],
@@ -189,7 +188,7 @@ def process_pdf(
     Chunks already present in done_pairs are skipped without an API call.
 
     Args:
-        client: Authenticated Groq client.
+        session: requests.Session with Authorization header pre-set.
         pdf_path: Path to the PDF.
         writer: Open csv.writer to write each labeled row to as soon as it is ready.
         f: The underlying file object (used to flush after each row).
@@ -217,7 +216,7 @@ def process_pdf(
             continue
 
         model = next(model_cycle)
-        label = label_chunk(client, chunk, model)
+        label = label_chunk(session, chunk, model)
         time.sleep(_SLEEP_BETWEEN_CALLS)
 
         if label is None:
@@ -241,13 +240,18 @@ def main() -> None:
     parser.add_argument("--out", type=Path, default=Path("data/labeled_docs_auto.csv"))
     args = parser.parse_args()
 
-    api_key = os.environ.get("GROQ_API_KEY")
+    api_key = os.environ.get("OPENROUTER_API_KEY")
     if not api_key:
-        raise RuntimeError("GROQ_API_KEY is not set.")
+        raise RuntimeError(
+            "OPENROUTER_API_KEY is not set. Add it to engine/.env and do not commit it."
+        )
 
-    # max_retries=2 caps the SDK's own automatic retry so our exception handling
-    # in label_chunk gets control quickly instead of waiting through long SDK loops.
-    client = Groq(api_key=api_key, max_retries=2)
+    # Single session — connection pooling, Authorization header set once.
+    session = requests.Session()
+    session.headers.update({
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json",
+    })
 
     pdf_files = sorted(args.pdf_dir.glob("*.pdf"))
     if not pdf_files:
@@ -278,7 +282,7 @@ def main() -> None:
 
         for pdf_path in pdf_files:
             n_relevant, n_total = process_pdf(
-                client, pdf_path, writer, f, model_cycle, done_pairs
+                session, pdf_path, writer, f, model_cycle, done_pairs
             )
             total_relevant += n_relevant
             total_rows += n_total
