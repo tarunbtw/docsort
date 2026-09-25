@@ -1,6 +1,6 @@
-import React from 'react';
-import { Search, ChevronDown, List, Layers, Clock, AlertTriangle, FileCheck, MoreVertical } from 'lucide-react';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, Radar, Legend } from 'recharts';
+import React, { useState, useEffect } from 'react';
+import { Search, List, Layers, Clock, AlertTriangle, FileCheck, MoreVertical } from 'lucide-react';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, Radar } from 'recharts';
 import { mockDocuments, chartData, radarData } from '../data';
 import { motion } from 'motion/react';
 import { Button } from '@/components/ui/button';
@@ -22,7 +22,82 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { toast } from 'sonner';
 
+import { fetchDashboardStats, fetchDocument, DocumentListItem, DocumentRecord } from '../lib/api';
+import DocumentModal from './DocumentModal';
+
+const defaultKPIs = [
+  { icon: List, title: 'Total Docs', value: '2.3k', label: 'All uploaded', trend: '+10.5%', highlight: false },
+  { icon: FileCheck, title: 'Compliant', value: '823', label: 'Auto-approved', trend: '+35.9%', highlight: true },
+  { icon: Clock, title: 'Pending Review', value: '1.2k', label: 'Awaiting checks', trend: '+20.5%', highlight: false },
+  { icon: AlertTriangle, title: 'Contradictions', value: '200', label: 'Flagged policies', trend: '-10.2%', highlight: false },
+  { icon: Layers, title: 'Processing', value: '102', label: 'Under AI review', trend: '+15.2%', highlight: false },
+];
+
 export default function Dashboard({ setActiveTab }: { setActiveTab: (tab: Tab) => void }) {
+  const [kpiCards, setKpiCards] = useState(defaultKPIs);
+  const [recentDocs, setRecentDocs] = useState<DocumentListItem[]>(mockDocuments.slice(0, 4));
+  const [selectedDoc, setSelectedDoc] = useState<DocumentRecord | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    async function loadStats() {
+      try {
+        const stats = await fetchDashboardStats();
+        if (stats && stats.kpis && stats.kpis.length > 0) {
+          const icons = [List, FileCheck, Clock, AlertTriangle, Layers];
+          const mapped = stats.kpis.map((kpi, idx) => ({
+            ...kpi,
+            icon: icons[idx % icons.length],
+          }));
+          setKpiCards(mapped);
+        }
+        if (stats && stats.recentDocs && stats.recentDocs.length > 0) {
+          setRecentDocs(stats.recentDocs);
+        }
+      } catch (err) {
+        // Fall back to default mock data silently
+        console.warn('Dashboard stats fallback to mock data:', err);
+      }
+    }
+    loadStats();
+  }, []);
+
+  const handlePreview = async (id: string, e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    try {
+      const doc = await fetchDocument(id);
+      setSelectedDoc(doc);
+      setIsModalOpen(true);
+    } catch {
+      const mock = recentDocs.find(d => d.id === id) || mockDocuments[0];
+      setSelectedDoc({
+        id: mock.id,
+        docNumber: mock.docNumber,
+        fileName: mock.title + '.pdf',
+        filePath: '',
+        fileUrl: mock.fileUrl || '/sample.pdf',
+        fileSize: 1024 * 350,
+        mimeType: 'application/pdf',
+        status: 'processed',
+        relevanceConfidence: 0.98,
+        compliance: mock.compliance,
+        complianceScore: mock.complianceScore,
+        uploadedAt: mock.uploadDate,
+        metadata: {
+          documentId: mock.id,
+          title: mock.title,
+          date: '15 Jan 2026',
+          issuingAuthority: mock.department,
+          omNumber: mock.docNumber,
+          categories: [mock.category],
+          summary: 'Official memorandum regarding procurement standards and public bidding conditions.',
+          verificationFlags: [],
+        },
+      });
+      setIsModalOpen(true);
+    }
+  };
+
   return (
     <>
       {/* Header */}
@@ -50,35 +125,32 @@ export default function Dashboard({ setActiveTab }: { setActiveTab: (tab: Tab) =
 
       {/* KPI Cards (Matches Reference Image 5-Card Layout) */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-6 mb-6">
-        {[
-          { icon: List, title: 'Total Docs', value: '2.3k', label: 'All uploaded', trend: '+10.5%', highlight: false },
-          { icon: FileCheck, title: 'Compliant', value: '823', label: 'Auto-approved', trend: '+35.9%', highlight: true },
-          { icon: Clock, title: 'Pending Review', value: '1.2k', label: 'Awaiting checks', trend: '+20.5%', highlight: false },
-          { icon: AlertTriangle, title: 'Contradictions', value: '200', label: 'Flagged policies', trend: '-10.2%', highlight: false },
-          { icon: Layers, title: 'Processing', value: '102', label: 'Under AI review', trend: '+15.2%', highlight: false },
-        ].map((kpi, index) => (
-          <motion.div 
-            initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.05 }}
-            key={index}
-            className={`p-6 rounded-[1.5rem] flex flex-col items-center justify-center text-center transition-all ${
-              kpi.highlight 
-                ? 'bg-white text-black border border-white' 
-                : 'bg-[#141414] text-[#f5f5f5] border border-[#262626]'
-            }`}
-          >
-            <kpi.icon size={20} className={`mb-3 ${kpi.highlight ? 'text-black' : 'text-[#a3a3a3]'}`} />
-            <span className="text-3xl font-semibold tracking-tight mb-1">{kpi.value}</span>
-            <span className={`text-xs font-medium mb-3 ${kpi.highlight ? 'text-gray-600' : 'text-[#525252]'}`}>{kpi.title}</span>
-            <div className={`text-[10px] font-semibold px-2 py-1 rounded-full ${
-              kpi.highlight ? 'text-white bg-black' :
-              kpi.trend.startsWith('+') ? 'text-[#a3a3a3] bg-[#262626]' 
-              : kpi.trend.startsWith('-') ? 'text-[#f5f5f5] bg-[#525252]'
-              : 'text-black bg-white'
-            }`}>
-              {kpi.trend}
-            </div>
-          </motion.div>
-        ))}
+        {kpiCards.map((kpi, index) => {
+          const Icon = kpi.icon;
+          return (
+            <motion.div 
+              initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.05 }}
+              key={index}
+              className={`p-6 rounded-[1.5rem] flex flex-col items-center justify-center text-center transition-all ${
+                kpi.highlight 
+                  ? 'bg-white text-black border border-white' 
+                  : 'bg-[#141414] text-[#f5f5f5] border border-[#262626]'
+              }`}
+            >
+              <Icon size={20} className={`mb-3 ${kpi.highlight ? 'text-black' : 'text-[#a3a3a3]'}`} />
+              <span className="text-3xl font-semibold tracking-tight mb-1">{kpi.value}</span>
+              <span className={`text-xs font-medium mb-3 ${kpi.highlight ? 'text-gray-600' : 'text-[#525252]'}`}>{kpi.title}</span>
+              <div className={`text-[10px] font-semibold px-2 py-1 rounded-full ${
+                kpi.highlight ? 'text-white bg-black' :
+                kpi.trend.startsWith('+') ? 'text-[#a3a3a3] bg-[#262626]' 
+                : kpi.trend.startsWith('-') ? 'text-[#f5f5f5] bg-[#525252]'
+                : 'text-black bg-white'
+              }`}>
+                {kpi.trend}
+              </div>
+            </motion.div>
+          );
+        })}
       </div>
 
       {/* Middle Section: Bar Chart & Radar Chart */}
@@ -188,14 +260,20 @@ export default function Dashboard({ setActiveTab }: { setActiveTab: (tab: Tab) =
               </tr>
             </thead>
             <tbody>
-              {mockDocuments.slice(0, 4).map((doc) => (
-                <tr key={doc.id} className="border-b border-[#262626] last:border-0 hover:bg-[#0a0a0a] transition-colors group cursor-pointer">
-                  <td className="py-4 text-[#a3a3a3] group-hover:text-[#f5f5f5] transition-colors">{doc.docNumber}</td>
+              {recentDocs.map((doc) => (
+                <tr 
+                  key={doc.id} 
+                  onClick={() => handlePreview(doc.id)}
+                  className="border-b border-[#262626] last:border-0 hover:bg-[#0a0a0a] transition-colors group cursor-pointer"
+                >
+                  <td className="py-4 text-[#a3a3a3] group-hover:text-[#f5f5f5] transition-colors font-mono text-xs">{doc.docNumber}</td>
                   <td className="py-4 text-[#f5f5f5] font-medium pr-4">{doc.title}</td>
                   <td className="py-4 text-[#a3a3a3] pr-4">{doc.department}</td>
-                  <td className="py-4 text-[#a3a3a3] pr-4">{doc.category}</td>
+                  <td className="py-4 text-[#a3a3a3] pr-4">
+                    <span className="bg-[#262626] px-2 py-0.5 rounded text-xs">{doc.category}</span>
+                  </td>
                   <td className="py-4 text-[#a3a3a3]">{doc.complianceScore}%</td>
-                  <td className="py-4 text-[#525252] pr-4">{doc.uploadDate}</td>
+                  <td className="py-4 text-[#525252] pr-4 whitespace-nowrap">{doc.uploadDate}</td>
                   <td className="py-4">
                     <Badge variant="outline" className={`font-medium ${
                       doc.compliance === 'Compliant' 
@@ -207,21 +285,23 @@ export default function Dashboard({ setActiveTab }: { setActiveTab: (tab: Tab) =
                       {doc.compliance}
                     </Badge>
                   </td>
-                  <td className="py-4 text-right pr-4">
+                  <td className="py-4 text-right pr-4" onClick={(e) => e.stopPropagation()}>
                     <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                       <DropdownMenu>
                         <DropdownMenuTrigger render={<Button variant="ghost" size="icon" className="h-8 w-8 text-[#a3a3a3] hover:text-white hover:bg-[#262626]" />}>
                           <MoreVertical size={16} />
                         </DropdownMenuTrigger>
                         <DropdownMenuContent className="bg-[#141414] border-[#262626] text-[#a3a3a3]">
-                          <DropdownMenuItem className="hover:bg-[#262626] hover:text-white cursor-pointer" onClick={() => toast('Previewing document...')}>
+                          <DropdownMenuItem className="hover:bg-[#262626] hover:text-white cursor-pointer" onClick={(e) => handlePreview(doc.id, e)}>
                             Preview
                           </DropdownMenuItem>
-                          <DropdownMenuItem className="hover:bg-[#262626] hover:text-white cursor-pointer" onClick={() => toast('Exporting document...')}>
-                            Export
-                          </DropdownMenuItem>
+                          {doc.fileUrl && (
+                            <DropdownMenuItem className="hover:bg-[#262626] hover:text-white cursor-pointer" onClick={() => window.open(doc.fileUrl, '_blank')}>
+                              Open in Tab
+                            </DropdownMenuItem>
+                          )}
                           <DropdownMenuSeparator className="bg-[#262626]" />
-                          <DropdownMenuItem className="text-red-500 hover:bg-red-950/30 hover:text-red-400 cursor-pointer" onClick={() => toast.error('Document deleted')}>
+                          <DropdownMenuItem className="text-red-500 hover:bg-red-950/30 hover:text-red-400 cursor-pointer" onClick={() => toast.error('To delete, please use Repository tab')}>
                             Delete
                           </DropdownMenuItem>
                         </DropdownMenuContent>
@@ -234,6 +314,13 @@ export default function Dashboard({ setActiveTab }: { setActiveTab: (tab: Tab) =
           </table>
         </div>
       </motion.div>
+
+      {/* Document Preview Modal */}
+      <DocumentModal
+        isOpen={isModalOpen}
+        document={selectedDoc}
+        onClose={() => setIsModalOpen(false)}
+      />
     </>
   );
 }
