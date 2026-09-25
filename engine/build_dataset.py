@@ -44,8 +44,8 @@ load_dotenv(_ENV_PATH)
 
 # APMix AI endpoint and model — single place to change these.
 _BASE_URL = "https://api.apmix.ai/v1"
-_MODEL = "deepseek-v4-flash-free"
-_FALLBACK_MODEL = "gpt-6-luna-free"  # tried once if _MODEL exhausts all retries
+_MODEL = "gpt-6-luna-free"
+_FALLBACK_MODEL = "deepseek-v4-flash-free"  # tried once if _MODEL exhausts all retries
 
 _CHUNK_SIZE_CHARS = 1500
 _MIN_CHUNK_CHARS = 200
