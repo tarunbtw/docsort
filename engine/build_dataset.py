@@ -45,6 +45,7 @@ load_dotenv(_ENV_PATH)
 # APMix AI endpoint and model — single place to change these.
 _BASE_URL = "https://api.apmix.ai/v1"
 _MODEL = "deepseek-v4-flash-free"
+_FALLBACK_MODEL = "gpt-6-luna-free"  # tried once if _MODEL exhausts all retries
 
 _CHUNK_SIZE_CHARS = 1500
 _MIN_CHUNK_CHARS = 200
@@ -138,8 +139,19 @@ def chunk_text(text: str, chunk_size: int = _CHUNK_SIZE_CHARS) -> list[str]:
     return [c for c in chunks if len(c) >= _MIN_CHUNK_CHARS]
 
 
+# HTTP status codes that are transient — worth retrying after a wait.
+_RETRYABLE_STATUS = {429, 500, 502, 503, 504}
+
+# Backoff delays in seconds between retry attempts (3 total attempts).
+_RETRY_DELAYS = [10.0, 30.0]
+
+
 def label_chunk(client: httpx.Client, api_key: str, chunk: str) -> bool | None:
     """Ask the LLM to judge whether a chunk is procurement-related.
+
+    Retries on transient server errors (503, 429, timeout) with backoff before
+    giving up and skipping the chunk. Permanent errors (bad JSON, 401, etc.)
+    skip immediately without retry.
 
     Args:
         client: httpx.Client session.
@@ -147,9 +159,77 @@ def label_chunk(client: httpx.Client, api_key: str, chunk: str) -> bool | None:
         chunk: Text chunk to label.
 
     Returns:
-        True/False label, or None if the call/parse failed (chunk is skipped
-        rather than given a guessed label).
+        True/False label, or None if all attempts failed (chunk is skipped).
     """
+    delays = [None] + _RETRY_DELAYS  # first attempt has no pre-delay
+    last_exc: Exception | None = None
+
+    for attempt, delay in enumerate(delays, start=1):
+        if delay is not None:
+            logger.info(
+                "Transient error — waiting %ds before retry (attempt %d/%d)...",
+                int(delay), attempt, len(delays),
+            )
+            time.sleep(delay)
+
+        try:
+            resp = client.post(
+                f"{_BASE_URL}/chat/completions",
+                headers={
+                    "Authorization": f"Bearer {api_key}",
+                    "Content-Type": "application/json",
+                },
+                json={
+                    "model": _MODEL,
+                    "messages": [
+                        {"role": "system", "content": _LABEL_PROMPT},
+                        {"role": "user", "content": chunk},
+                    ],
+                    "temperature": 0.0,
+                },
+                timeout=45.0,
+            )
+            # Raise immediately only for non-retryable HTTP errors.
+            if resp.status_code in _RETRYABLE_STATUS:
+                last_exc = httpx.HTTPStatusError(
+                    f"HTTP {resp.status_code}", request=resp.request, response=resp
+                )
+                continue  # retry
+
+            resp.raise_for_status()
+            raw = _extract_text_from_response(resp.json())
+            cleaned = _clean_json_str(raw)
+            result = _LabelResult.model_validate(json.loads(cleaned))
+            return result.is_relevant
+
+        except httpx.TimeoutException as exc:
+            last_exc = exc
+            continue  # retry timeouts
+
+        except httpx.HTTPStatusError as exc:
+            if exc.response.status_code in _RETRYABLE_STATUS:
+                last_exc = exc
+                continue  # retry
+            # Non-retryable HTTP error (400, 401, 403 …) — skip immediately.
+            logger.warning(
+                "Skipping chunk (model=%s): HTTP %d: %s",
+                _MODEL, exc.response.status_code, exc,
+            )
+            return None
+
+        except (json.JSONDecodeError, ValidationError) as exc:
+            # Bad JSON from LLM — no point retrying the same input.
+            logger.warning("Skipping chunk (model=%s): invalid label response: %s", _MODEL, exc)
+            return None
+
+        except Exception as exc:  # noqa: BLE001
+            last_exc = exc
+            continue  # retry unknown errors once
+
+    logger.warning(
+        "Primary model %s failed after %d attempts (last error: %s) — trying fallback %s.",
+        _MODEL, len(delays), last_exc, _FALLBACK_MODEL,
+    )
     try:
         resp = client.post(
             f"{_BASE_URL}/chat/completions",
@@ -158,7 +238,7 @@ def label_chunk(client: httpx.Client, api_key: str, chunk: str) -> bool | None:
                 "Content-Type": "application/json",
             },
             json={
-                "model": _MODEL,
+                "model": _FALLBACK_MODEL,
                 "messages": [
                     {"role": "system", "content": _LABEL_PROMPT},
                     {"role": "user", "content": chunk},
@@ -172,12 +252,13 @@ def label_chunk(client: httpx.Client, api_key: str, chunk: str) -> bool | None:
         cleaned = _clean_json_str(raw)
         result = _LabelResult.model_validate(json.loads(cleaned))
         return result.is_relevant
-    except (json.JSONDecodeError, ValidationError) as exc:
-        logger.warning("Skipping chunk (model=%s): invalid label response: %s", _MODEL, exc)
-        return None
     except Exception as exc:  # noqa: BLE001
-        logger.warning("Skipping chunk (model=%s): API error: %s", _MODEL, exc)
+        logger.warning(
+            "Skipping chunk: fallback model %s also failed: %s",
+            _FALLBACK_MODEL, exc,
+        )
         return None
+
 
 
 def load_done_pairs(csv_path: Path) -> set[tuple[str, int]]:
