@@ -1,0 +1,6 @@
+{
+  "name": "DocSort",
+  "description": "AI-Powered Procurement & Compliance Document Classifier",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

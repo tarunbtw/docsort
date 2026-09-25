@@ -1,0 +1,127 @@
+% nips_2017.sty - Official NIPS 2017 format (as in Attention Is All You Need)
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{nips_2017}[2017/04/18 NIPS 2017 submission/camera-ready style file]
+
+\newif\if@neuripsfinal\@neuripsfinalfalse
+\newif\if@neuripspreprint\@neuripspreprintfalse
+\newif\if@neuripsnonatbib\@neuripsnonatbibfalse
+
+\DeclareOption{final}{\@neuripsfinaltrue}
+\DeclareOption{preprint}{\@neuripspreprinttrue}
+\DeclareOption{nonatbib}{\@neuripsnonatbibtrue}
+\ProcessOptions\relax
+
+\if@neuripsnonatbib
+\else
+  \RequirePackage[numbers]{natbib}
+\fi
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+
+% Page layout: 8.5" x 11", text 5.5" x 9.0"
+\setlength{\paperheight}{11in}
+\setlength{\paperwidth}{8.5in}
+\setlength{\textheight}{9.0in}
+\setlength{\textwidth}{5.5in}
+\setlength{\topmargin}{-0.2in}
+\setlength{\headheight}{0in}
+\setlength{\headsep}{0in}
+\setlength{\topskip}{10pt}
+\setlength{\footskip}{0.4in}
+\setlength{\oddsidemargin}{0.5in}
+\setlength{\evensidemargin}{0.5in}
+\raggedbottom
+
+\renewcommand{\normalsize}{\fontsize{10pt}{12pt}\selectfont}
+\normalsize
+
+% Title and authors with official NIPS 2017 horizontal frame bars
+\def\@maketitle{%
+  \vbox to \z@{\vskip -2em\relax}%
+  \vbox{%
+    \hsize\textwidth
+    \linewidth\hsize
+    \vskip 0.1in
+    \hrule height 4\p@
+    \vskip 0.25in
+    \centering
+    {\LARGE\bf \@title \par}
+    \vskip 0.29in
+    \vskip -\parskip
+    \hrule height 1\p@
+    \vskip 0.45in
+    \setlength{\tabcolsep}{3pt}
+    \def\And{%
+      \end{tabular}\hfil\linebreak[0]\hfil
+      \begin{tabular}[t]{c}\bf\rule{\z@}{24\p@}\ignorespaces%
+    }
+    \def\AND{%
+      \end{tabular}\hfil\linebreak[4]\hfil
+      \begin{tabular}[t]{c}\bf\rule{\z@}{24\p@}\ignorespaces%
+    }
+    \begin{tabular}[t]{c}\bf\rule{\z@}{24\p@}\@author\end{tabular}%
+    \vskip 0.45in
+  }%
+}
+
+\def\maketitle{%
+  \par
+  \begingroup
+    \renewcommand{\thefootnote}{\fnsymbol{footnote}}
+    \@maketitle
+    \@thanks
+  \endgroup
+  \setcounter{footnote}{0}
+  \let\maketitle\relax
+  \let\@maketitle\relax
+  \gdef\@thanks{}\gdef\@author{}\gdef\@title{}
+}
+
+% Abstract - full width without quote indentation
+\renewenvironment{abstract}%
+{%
+  \vskip 0.15in%
+  \centerline{\large\bf Abstract}%
+  \vspace{1.2ex}%
+  \par
+  \fontsize{11pt}{14.5pt}\selectfont
+}%
+{%
+  \par
+  \vskip 0.35in
+}
+
+% Sections with clear, unstuffed vertical separation
+\renewcommand{\section}{\@startsection{section}{1}{\z@}%
+  {-3.5ex plus -1.0ex minus -0.5ex}%
+  {2.2ex plus 0.5ex minus 0.2ex}%
+  {\large\bf\raggedright}}
+
+\renewcommand{\subsection}{\@startsection{subsection}{2}{\z@}%
+  {-2.8ex plus -0.8ex minus -0.3ex}%
+  {1.8ex plus 0.4ex minus 0.2ex}%
+  {\normalsize\bf\raggedright}}
+
+\renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{\z@}%
+  {-2.2ex plus -0.6ex minus -0.2ex}%
+  {1.2ex plus 0.3ex minus 0.2ex}%
+  {\normalsize\itshape\raggedright}}
+
+\renewcommand{\paragraph}{\@startsection{paragraph}{4}{\z@}%
+  {2.5ex plus 0.8ex minus 0.3ex}%
+  {-1em}%
+  {\normalsize\bf}}
+
+% Spacing between text and floats
+\setlength{\floatsep}{16pt plus 2pt minus 2pt}
+\setlength{\textfloatsep}{20pt plus 3pt minus 3pt}
+\setlength{\intextsep}{16pt plus 2pt minus 2pt}
+
+% Float captions
+\RequirePackage{caption}
+\captionsetup[figure]{font=small,labelfont=bf,skip=8pt}
+\captionsetup[table]{font=small,labelfont=bf,skip=8pt}
+
+\endinput
