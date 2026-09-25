@@ -4,7 +4,7 @@ Run from engine/:
     python test_pipeline.py
 
 Loops over every .pdf in sample_docs/, calls process_document(), and pretty-prints
-the result. No test framework — results are verified by human inspection.
+the result. No test framework: results are verified by human inspection.
 """
 
 import json

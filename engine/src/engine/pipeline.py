@@ -1,4 +1,4 @@
-"""Pipeline orchestrator — the single public entry point for all document processing.
+"""Pipeline orchestrator: the single public entry point for all document processing.
 
 Nothing outside this module should import extract, classify, llm_extract, or verify
 directly. All callers (test scripts, FastAPI app) go through process_document().
@@ -28,15 +28,15 @@ def process_document(file_path: Path) -> dict:
         - {"status": "processed", "relevance_confidence": <float>, ...metadata...}
           on successful processing.
     """
-    # ── Step 1: Extract text ──────────────────────────────────────────────────
+    # Step 1: Extract text
     try:
         text = extract_text(file_path)
     except (ScannedDocumentError, FileNotFoundError, ValueError, OSError) as exc:
         logger.error("Text extraction failed for %s: %s", file_path, exc)
         return {"status": "error", "error": str(exc)}
 
-    # ── Step 2: TF-IDF relevance pre-filter ─────────────────────────────────
-    # This short-circuit is intentional — irrelevant documents never reach the LLM.
+    # Step 2: TF-IDF relevance pre-filter
+    # This short-circuit is intentional: irrelevant documents never reach the LLM.
     try:
         is_relevant, confidence = predict_relevance(text)
     except RuntimeError as exc:
@@ -47,7 +47,7 @@ def process_document(file_path: Path) -> dict:
         logger.info("Document %s classified as not relevant (%.3f)", file_path, confidence)
         return {"status": "not_relevant", "confidence": confidence}
 
-    logger.info("Document %s is relevant (%.3f) — proceeding to LLM extraction", file_path, confidence)
+    logger.info("Document %s is relevant (%.3f): proceeding to LLM extraction", file_path, confidence)
 
     # ── Step 3: LLM structured extraction ────────────────────────────────────
     try:

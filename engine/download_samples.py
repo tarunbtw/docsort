@@ -4,10 +4,8 @@ Run from engine/:
     python download_samples.py
 
 Downloads every URL in _URLS below into sample_docs/, using the URL's filename.
-Skips files that already exist, so it's safe to re-run after adding more URLs.
-Add more URLs to the _RELEVANT / _NOT_RELEVANT lists as you find them — the split
-is just for your own bookkeeping when you get to manual review, it has no effect
-on the download itself.
+Skips files that already exist, so it is safe to re-run after adding more URLs.
+Add more URLs to the _RELEVANT / _NOT_RELEVANT lists as needed.
 """
 
 import logging
@@ -15,13 +13,13 @@ import time
 from pathlib import Path
 from urllib.parse import unquote, urlparse
 
-import requests
+import httpx
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 logger = logging.getLogger(__name__)
 
 _OUT_DIR = Path(__file__).parent / "sample_docs"
-_TIMEOUT_SECONDS = 30
+_TIMEOUT_SECONDS = 30.0
 _SLEEP_BETWEEN_DOWNLOADS = 1.0
 
 # Some government servers reject requests with no User-Agent header.
@@ -46,9 +44,7 @@ _RELEVANT = [
     "https://doe.gov.in/files/circulars_document/Draft_Works_Manual_2nd_Edition.pdf",
 ]
 
-# Real government documents that are NOT procurement-related — negative examples.
-# .nic.in-style domains (dopt.gov.in, dfe.gov.in) frequently block/rate-limit
-# requests from cloud IP ranges like Colab's — ugc.gov.in has proven more reliable.
+# Real government documents that are NOT procurement-related: negative examples.
 _NOT_RELEVANT = [
     "https://www.ugc.gov.in/pdfnews/3045759_Draft-Regulation-Minimum-Qualifications-for-Appointment-and-Promotion-of-Teachers-and-Academic-Staff-in-Universities-and-Colleges-and-Measures-for-the-Maintenance-of-Standards-in-HE-Regulations-2025.pdf",
     "https://www.ugc.gov.in/pdfnews/7039866_UGC-Letter-Draft-Regulation-and-Guidelines.pdf",
@@ -73,10 +69,11 @@ def _filename_from_url(url: str) -> str:
     return unquote(Path(urlparse(url).path).name)
 
 
-def download_one(url: str, out_dir: Path) -> bool:
+def download_one(client: httpx.Client, url: str, out_dir: Path) -> bool:
     """Download a single PDF, skipping if it already exists.
 
     Args:
+        client: httpx.Client instance.
         url: URL to download.
         out_dir: Destination directory.
 
@@ -92,18 +89,18 @@ def download_one(url: str, out_dir: Path) -> bool:
 
     for attempt in range(1, 3):  # One retry for transient timeouts/resets.
         try:
-            response = requests.get(url, headers=_HEADERS, timeout=_TIMEOUT_SECONDS)
+            response = client.get(url, headers=_HEADERS, timeout=_TIMEOUT_SECONDS, follow_redirects=True)
             response.raise_for_status()
-            break
-        except requests.RequestException as exc:
+            dest.write_bytes(response.content)
+            logger.info("Downloaded: %s (%d bytes)", filename, len(response.content))
+            return True
+        except httpx.HTTPError as exc:
             logger.warning("Attempt %d failed for %s: %s", attempt, url, exc)
             if attempt == 2:
                 return False
             time.sleep(3)
 
-    dest.write_bytes(response.content)
-    logger.info("Downloaded: %s (%d bytes)", filename, len(response.content))
-    return True
+    return False
 
 
 def main() -> None:
@@ -111,10 +108,11 @@ def main() -> None:
     _OUT_DIR.mkdir(parents=True, exist_ok=True)
 
     successes = 0
-    for url in _URLS:
-        if download_one(url, _OUT_DIR):
-            successes += 1
-        time.sleep(_SLEEP_BETWEEN_DOWNLOADS)
+    with httpx.Client(verify=False) as client:
+        for url in _URLS:
+            if download_one(client, url, _OUT_DIR):
+                successes += 1
+            time.sleep(_SLEEP_BETWEEN_DOWNLOADS)
 
     print(f"\nDownloaded/verified {successes}/{len(_URLS)} files into {_OUT_DIR}")
 

@@ -1,7 +1,7 @@
-"""Verification layer — confirms that verbatim-extracted fields appear in source text.
+"""Verification layer: confirms that verbatim-extracted fields appear in source text.
 
 Flags any field whose value cannot be found in the source, without modifying
-the extracted values themselves. Flagging is the only action — no silent correction.
+the extracted values themselves. Flagging is the only action: no silent correction.
 """
 
 import logging
@@ -33,7 +33,7 @@ def verify_fields(extracted: dict, source_text: str) -> dict:
         source_text: The original document text the LLM was given.
 
     Returns:
-        The input dict with an added 'verification_flags' key — a list of field
+        The input dict with an added 'verification_flags' key, containing a list of field
         names whose values could NOT be confirmed in source_text. Empty list means
         all checks passed.
     """
@@ -43,12 +43,12 @@ def verify_fields(extracted: dict, source_text: str) -> dict:
     for field in _VERBATIM_FIELDS:
         value = extracted.get(field)
         if value is None:
-            # Null means "not found in document" — nothing to verify.
+            # Null means "not found in document": nothing to verify.
             continue
 
         if _normalise(str(value)) not in normalised_source:
             logger.warning(
-                "Field '%s' value %r not found in source text — flagging.", field, value
+                "Field '%s' value %r not found in source text: flagging.", field, value
             )
             flags.append(field)
 

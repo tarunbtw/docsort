@@ -1,43 +1,36 @@
-"""Batch chunking + LLM auto-labeling for building the real TF-IDF training dataset.
+"""Batch chunking and LLM auto-labeling for building the real TF-IDF training dataset.
 
-Run from engine/ (or in Colab, with sys.path already pointing at src/):
+Run from engine/:
     python build_dataset.py --pdf-dir sample_docs --out data/labeled_docs_auto.csv
 
 Re-running the same command is safe: chunks already written to the output CSV are
-skipped automatically, so a Colab disconnect or rate-limit interrupt can be resumed
-by just running the same command again.
+skipped automatically, so any interrupt can be resumed by running the command again.
 
 Splits each PDF into fixed-size text chunks, asks the LLM to judge relevance for
 each chunk, and writes results to a CSV for human spot-check review. This is a
-weak-supervision step — the output is NOT meant to be trusted as-is. Review a
-sample, correct any wrong labels, then save the corrected file (columns: text,label
-only — drop source_file/chunk_index) as data/labeled_docs.csv before running
-train_classifier.py.
+weak-supervision step: the output is reviewed to correct wrong labels, then saved
+(columns: text,label only) as data/labeled_docs.csv before running train_classifier.py.
 
-API: OpenRouter (https://openrouter.ai) — no SDK, plain requests.
-Key: set OPENROUTER_API_KEY in engine/.env
-Models rotated:
-    nex-agi/nex-n2.5-mini:free  (free tier)
-    nex-agi/nex-n2.5-pro:free   (free tier)
-llm_extract.py is unaffected — it still uses Groq with its own GROQ_API_KEY.
+API: APMix AI (https://api.apmix.ai/v1 or https://api.apmix.ai)
+Key: set APMIX_API_KEY in engine/.env
 """
 
 import argparse
 import csv
-import itertools
 import json
 import logging
 import os
+import re
 import sys
 import time
 from pathlib import Path
 from typing import IO
 
-import requests
 from dotenv import load_dotenv
+import httpx
 from pydantic import BaseModel, ValidationError
 
-# Make the src layout importable regardless of cwd (same trick as test_pipeline.py).
+# Make the src layout importable regardless of cwd.
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
 from engine.extract import ScannedDocumentError, extract_text  # noqa: E402
@@ -48,28 +41,22 @@ logger = logging.getLogger(__name__)
 _ENV_PATH = Path(__file__).parent / ".env"
 load_dotenv(_ENV_PATH)
 
-_OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
-
-# Free-tier OpenRouter models rotated to spread load.
-# llm_extract.py uses Groq/gpt-oss-120b — completely separate key and quota.
-_MODELS = [
-    "qwen/qwen3.8-27b:free",       # priority
-    "nex-agi/nex-n2.5-mini:free",
-    "nex-agi/nex-n2.5-pro:free",
-]
+_BASE_URL = os.environ.get("APMIX_BASE_URL", "https://api.apmix.ai/v1").rstrip("/")
+_ANTHROPIC_BASE_URL = os.environ.get("APMIX_ANTHROPIC_BASE_URL", "https://api.apmix.ai").rstrip("/")
+_MODEL = os.environ.get("APMIX_MODEL", os.environ.get("LLM_MODEL", "claude-3-5-sonnet-20241022"))
 
 _CHUNK_SIZE_CHARS = 1500
 _MIN_CHUNK_CHARS = 200
 
-# 3 s between calls — conservative default for free-tier OpenRouter models.
-_SLEEP_BETWEEN_CALLS = 3.0
+# Pause between calls to remain well within provider rate limits.
+_SLEEP_BETWEEN_CALLS = 1.0
 
 _LABEL_PROMPT = (
     "You are labeling text chunks for a dataset used to train a classifier that detects "
     "Indian government procurement/contract regulation documents (tenders, GeM, vendor "
     "eligibility, penalties, threshold limits, Office Memoranda on procurement policy).\n\n"
     "Given the chunk of text below, decide if it is substantively about contract/procurement "
-    "regulation or policy — not just a document that happens to be government-issued.\n\n"
+    "regulation or policy, not just a document that happens to be government-issued.\n\n"
     'Respond with ONLY valid JSON, no prose:\n{"is_relevant": true or false}'
 )
 
@@ -78,6 +65,47 @@ class _LabelResult(BaseModel):
     """Schema for the LLM's binary relevance judgment on one chunk."""
 
     is_relevant: bool
+
+
+def _get_api_key() -> str:
+    """Retrieve API key from environment variables."""
+    api_key = (
+        os.environ.get("APMIX_API_KEY")
+        or os.environ.get("ANTHROPIC_API_KEY")
+        or os.environ.get("OPENAI_API_KEY")
+    )
+    if not api_key:
+        raise RuntimeError(
+            "APMIX_API_KEY is not set. Add it to engine/.env and do not commit it."
+        )
+    return api_key
+
+
+def _clean_json_str(raw: str) -> str:
+    """Strip markdown code block fences and whitespace from raw LLM output."""
+    s = raw.strip()
+    if s.startswith("```"):
+        s = re.sub(r"^```(?:json)?\s*", "", s, flags=re.IGNORECASE)
+        s = re.sub(r"\s*```$", "", s)
+    return s.strip()
+
+
+def _extract_text_from_response(data: dict) -> str:
+    """Extract response text from either OpenAI or Anthropic response format."""
+    if "choices" in data and len(data["choices"]) > 0:
+        msg = data["choices"][0].get("message", {})
+        content = msg.get("content")
+        if content is not None:
+            return content
+
+    if "content" in data and isinstance(data["content"], list) and len(data["content"]) > 0:
+        first = data["content"][0]
+        if isinstance(first, dict) and "text" in first:
+            return first["text"]
+        if isinstance(first, str):
+            return first
+
+    raise ValueError(f"Unrecognized response structure from LLM API: {list(data.keys())}")
 
 
 def chunk_text(text: str, chunk_size: int = _CHUNK_SIZE_CHARS) -> list[str]:
@@ -109,46 +137,67 @@ def chunk_text(text: str, chunk_size: int = _CHUNK_SIZE_CHARS) -> list[str]:
     return [c for c in chunks if len(c) >= _MIN_CHUNK_CHARS]
 
 
-def label_chunk(session: requests.Session, chunk: str, model: str) -> bool | None:
+def label_chunk(client: httpx.Client, api_key: str, chunk: str) -> bool | None:
     """Ask the LLM to judge whether a chunk is procurement-related.
 
-    Uses OpenRouter's API exactly as documented: data=json.dumps() payload with
-    reasoning enabled, not the requests json= shorthand.
-
     Args:
-        session: requests.Session with Authorization and Content-Type headers pre-set.
+        client: httpx.Client session.
+        api_key: APMix API key.
         chunk: Text chunk to label.
-        model: OpenRouter model ID to use for this call.
 
     Returns:
         True/False label, or None if the call/parse failed (chunk is skipped
         rather than given a guessed label).
     """
+    mode = os.environ.get("APMIX_MODE", "").lower().strip()
+
     try:
-        resp = session.post(
-            _OPENROUTER_URL,
-            data=json.dumps({
-                "model": model,
-                "messages": [
-                    {"role": "system", "content": _LABEL_PROMPT},
-                    {"role": "user", "content": chunk},
-                ],
-                "temperature": 0.0,
-                "reasoning": {"enabled": True},
-            }),
-            timeout=30,
-        )
+        if mode == "anthropic":
+            resp = client.post(
+                f"{_ANTHROPIC_BASE_URL}/v1/messages",
+                headers={
+                    "x-api-key": api_key,
+                    "anthropic-version": "2023-06-01",
+                    "Content-Type": "application/json",
+                },
+                json={
+                    "model": _MODEL,
+                    "system": _LABEL_PROMPT,
+                    "messages": [{"role": "user", "content": chunk}],
+                    "max_tokens": 100,
+                    "temperature": 0.0,
+                },
+                timeout=45.0,
+            )
+        else:
+            resp = client.post(
+                f"{_BASE_URL}/chat/completions",
+                headers={
+                    "Authorization": f"Bearer {api_key}",
+                    "Content-Type": "application/json",
+                },
+                json={
+                    "model": _MODEL,
+                    "messages": [
+                        {"role": "system", "content": _LABEL_PROMPT},
+                        {"role": "user", "content": chunk},
+                    ],
+                    "temperature": 0.0,
+                },
+                timeout=45.0,
+            )
+
         resp.raise_for_status()
-        raw = resp.json()["choices"][0]["message"]["content"] or ""
-        result = _LabelResult.model_validate(json.loads(raw))
+        raw = _extract_text_from_response(resp.json())
+        cleaned = _clean_json_str(raw)
+        result = _LabelResult.model_validate(json.loads(cleaned))
         return result.is_relevant
     except (json.JSONDecodeError, ValidationError) as exc:
-        logger.warning("Skipping chunk (model=%s) — invalid label response: %s", model, exc)
+        logger.warning("Skipping chunk (model=%s): invalid label response: %s", _MODEL, exc)
         return None
     except Exception as exc:  # noqa: BLE001
-        logger.warning("Skipping chunk (model=%s) — API error: %s", model, exc)
+        logger.warning("Skipping chunk (model=%s): API error: %s", _MODEL, exc)
         return None
-
 
 
 def load_done_pairs(csv_path: Path) -> set[tuple[str, int]]:
@@ -180,11 +229,11 @@ def load_done_pairs(csv_path: Path) -> set[tuple[str, int]]:
 
 
 def process_pdf(
-    session: requests.Session,
+    client: httpx.Client,
+    api_key: str,
     pdf_path: Path,
     writer: "csv.writer[str]",
     f: IO[str],
-    model_cycle: "itertools.cycle[str]",
     done_pairs: set[tuple[str, int]],
 ) -> tuple[int, int]:
     """Extract, chunk, label every chunk of a single PDF, and write rows immediately.
@@ -192,12 +241,12 @@ def process_pdf(
     Chunks already present in done_pairs are skipped without an API call.
 
     Args:
-        session: requests.Session with Authorization header pre-set.
+        client: httpx.Client session.
+        api_key: APMix API key.
         pdf_path: Path to the PDF.
         writer: Open csv.writer to write each labeled row to as soon as it is ready.
         f: The underlying file object (used to flush after each row).
-        model_cycle: Infinite iterator that yields the next model name to use.
-        done_pairs: (source_file, chunk_index) pairs already written — skip these.
+        done_pairs: (source_file, chunk_index) pairs already written: skip these.
 
     Returns:
         Tuple of (n_relevant, n_total) counts for new rows written from this PDF.
@@ -206,7 +255,7 @@ def process_pdf(
     try:
         text = extract_text(pdf_path)
     except (ScannedDocumentError, FileNotFoundError, ValueError) as exc:
-        logger.warning("Skipping %s — extraction failed: %s", pdf_path.name, exc)
+        logger.warning("Skipping %s: extraction failed: %s", pdf_path.name, exc)
         return 0, 0
 
     chunks = chunk_text(text)
@@ -216,18 +265,17 @@ def process_pdf(
     n_total = 0
     for i, chunk in enumerate(chunks):
         if (pdf_path.name, i) in done_pairs:
-            logger.debug("Skipping %s chunk %d — already labeled.", pdf_path.name, i)
+            logger.debug("Skipping %s chunk %d: already labeled.", pdf_path.name, i)
             continue
 
-        model = next(model_cycle)
-        label = label_chunk(session, chunk, model)
+        label = label_chunk(client, api_key, chunk)
         time.sleep(_SLEEP_BETWEEN_CALLS)
 
         if label is None:
             continue
 
         writer.writerow([pdf_path.name, i, chunk, int(label)])
-        # Flush after every row — a crash or Colab disconnect loses nothing already written.
+        # Flush after every row: crashes or interrupts lose nothing already written.
         f.flush()
 
         n_total += 1
@@ -244,18 +292,7 @@ def main() -> None:
     parser.add_argument("--out", type=Path, default=Path("data/labeled_docs_auto.csv"))
     args = parser.parse_args()
 
-    api_key = os.environ.get("OPENROUTER_API_KEY")
-    if not api_key:
-        raise RuntimeError(
-            "OPENROUTER_API_KEY is not set. Add it to engine/.env and do not commit it."
-        )
-
-    # Single session — connection pooling, Authorization header set once.
-    session = requests.Session()
-    session.headers.update({
-        "Authorization": f"Bearer {api_key}",
-        "Content-Type": "application/json",
-    })
+    api_key = _get_api_key()
 
     pdf_files = sorted(args.pdf_dir.glob("*.pdf"))
     if not pdf_files:
@@ -268,37 +305,36 @@ def main() -> None:
     done_pairs = load_done_pairs(args.out)
     resuming = bool(done_pairs)
     if resuming:
-        logger.info("Resuming — %d chunks already labeled, will skip those.", len(done_pairs))
+        logger.info("Resuming: %d chunks already labeled, skipping those.", len(done_pairs))
     else:
-        logger.info("Starting fresh run across %d PDFs.", len(pdf_files))
+        logger.info("Starting fresh run across %d PDFs using model: %s", len(pdf_files), _MODEL)
 
-    model_cycle: itertools.cycle[str] = itertools.cycle(_MODELS)
     total_relevant = 0
     total_rows = 0
 
-    # Append when resuming (preserve existing rows); write fresh otherwise.
     open_mode = "a" if resuming else "w"
-    with args.out.open(open_mode, newline="", encoding="utf-8") as f:
-        writer = csv.writer(f)
-        if not resuming:
-            writer.writerow(["source_file", "chunk_index", "text", "label"])
-            f.flush()
+    with httpx.Client() as client:
+        with args.out.open(open_mode, newline="", encoding="utf-8") as f:
+            writer = csv.writer(f)
+            if not resuming:
+                writer.writerow(["source_file", "chunk_index", "text", "label"])
+                f.flush()
 
-        for pdf_path in pdf_files:
-            n_relevant, n_total = process_pdf(
-                session, pdf_path, writer, f, model_cycle, done_pairs
-            )
-            total_relevant += n_relevant
-            total_rows += n_total
+            for pdf_path in pdf_files:
+                n_relevant, n_total = process_pdf(
+                    client, api_key, pdf_path, writer, f, done_pairs
+                )
+                total_relevant += n_relevant
+                total_rows += n_total
 
     print(f"\nWrote {total_rows} new labeled chunks to {args.out}")
     if resuming:
         print(f"  (+ {len(done_pairs)} chunks from previous run, already on disk)")
     print(f"  relevant: {total_relevant}, not_relevant: {total_rows - total_relevant}")
     print(
-        "\nThis is auto-labeled (weak supervision) data. Review a sample before "
-        "trusting it. Save the reviewed version as data/labeled_docs.csv with "
-        "columns: text,label (drop source_file/chunk_index) before training."
+        "\nThis is auto-labeled data. Review a sample before trusting it. "
+        "Save the reviewed version as data/labeled_docs.csv with columns: "
+        "text,label (drop source_file/chunk_index) before training."
     )
 
 

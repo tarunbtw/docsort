@@ -1,4 +1,4 @@
-"""Relevance classifier — wraps the trained TF-IDF + LR pipeline.
+"""Relevance classifier: wraps the trained TF-IDF + LR pipeline.
 
 The model is loaded lazily on first use so that importing this module at
 startup incurs no I/O cost if predict_relevance is never called.
@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 _MODEL_PATH = Path(__file__).parent.parent.parent / "models" / "tfidf_lr.pkl"
 
-# Module-level cache — populated on first call to predict_relevance.
+# Module-level cache: populated on first call to predict_relevance.
 _pipeline: Pipeline | None = None
 
 

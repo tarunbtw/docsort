@@ -1,4 +1,4 @@
-"""LLM-based structured metadata extraction using Groq.
+"""LLM-based structured metadata extraction using APMix AI (OpenAI and Anthropic compatible).
 
 One retry on JSON/validation failure before raising LLMExtractionError.
 """
@@ -6,28 +6,30 @@ One retry on JSON/validation failure before raising LLMExtractionError.
 import json
 import logging
 import os
+import re
 from pathlib import Path
 
 from dotenv import load_dotenv
-from groq import Groq
+import httpx
 from pydantic import BaseModel, ValidationError, field_validator
 
 logger = logging.getLogger(__name__)
 
-# Load .env from the engine root (two levels up from this file: src/engine/ → engine/).
+# Load .env from the engine root (two levels up from this file: src/engine/ -> engine/).
 _ENV_PATH = Path(__file__).parent.parent.parent / ".env"
 load_dotenv(_ENV_PATH)
 
-# Single place to change the model — never scatter as magic strings.
-_MODEL = "openai/gpt-oss-120b"
+# Base URLs and model configuration
+_BASE_URL = os.environ.get("APMIX_BASE_URL", "https://api.apmix.ai/v1").rstrip("/")
+_ANTHROPIC_BASE_URL = os.environ.get("APMIX_ANTHROPIC_BASE_URL", "https://api.apmix.ai").rstrip("/")
+_MODEL = os.environ.get("APMIX_MODEL", os.environ.get("LLM_MODEL", "claude-3-5-sonnet-20241022"))
 
-# Characters sent to the LLM are capped here to avoid 400 context-limit errors.
+# Characters sent to the LLM are capped here to avoid context limit errors.
 # The key verbatim fields (title, OM number, date, issuing authority) reliably
-# appear in the header/lead section, so truncating the tail is an acceptable
-# simplification. Cite this constant in the paper as a known limitation.
+# appear in the header/lead section, so truncating the tail is an acceptable simplification.
 _MAX_INPUT_CHARS = 10_000
 
-# Closed vocabulary for categories — LLM must choose from this list only.
+# Closed vocabulary for categories: LLM must choose from this list only.
 ALLOWED_CATEGORIES = [
     "e-procurement",
     "tendering",
@@ -40,7 +42,7 @@ ALLOWED_CATEGORIES = [
 
 _SYSTEM_PROMPT = f"""You are a structured data extractor for Indian government procurement documents.
 
-Extract the following fields from the document text and respond with ONLY valid JSON — no prose, no markdown fences, no explanation.
+Extract the following fields from the document text and respond with ONLY valid JSON: no prose, no markdown fences, no explanation.
 
 Fields:
 - title (string or null): exact title of the document, verbatim from the text
@@ -83,28 +85,110 @@ class ExtractedDocument(BaseModel):
 
 
 class LLMExtractionError(Exception):
-    """Raised when the LLM fails to return valid structured output after one retry."""
+    """Raised when the LLM fails to return valid structured output after retries."""
 
 
-def _call_groq(client: Groq, text: str) -> str:
-    """Send extraction prompt to Groq and return the raw response string.
+def _get_api_key() -> str:
+    """Retrieve API key from environment variables."""
+    api_key = (
+        os.environ.get("APMIX_API_KEY")
+        or os.environ.get("ANTHROPIC_API_KEY")
+        or os.environ.get("OPENAI_API_KEY")
+    )
+    if not api_key:
+        raise LLMExtractionError(
+            "APMIX_API_KEY is not set. Add it to engine/.env and do not commit it."
+        )
+    return api_key
 
-    Args:
-        client: Authenticated Groq client.
-        text: Document text to extract from.
 
-    Returns:
-        Raw string content of the LLM's response.
-    """
-    response = client.chat.completions.create(
-        model=_MODEL,
-        messages=[
+def _clean_json_str(raw: str) -> str:
+    """Strip markdown code block fences and whitespace from raw LLM output."""
+    s = raw.strip()
+    if s.startswith("```"):
+        s = re.sub(r"^```(?:json)?\s*", "", s, flags=re.IGNORECASE)
+        s = re.sub(r"\s*```$", "", s)
+    return s.strip()
+
+
+def _extract_text_from_response(data: dict) -> str:
+    """Extract response text from either OpenAI or Anthropic response format."""
+    # OpenAI format: choices[0].message.content
+    if "choices" in data and len(data["choices"]) > 0:
+        msg = data["choices"][0].get("message", {})
+        content = msg.get("content")
+        if content is not None:
+            return content
+
+    # Anthropic format: content[0].text
+    if "content" in data and isinstance(data["content"], list) and len(data["content"]) > 0:
+        first = data["content"][0]
+        if isinstance(first, dict) and "text" in first:
+            return first["text"]
+        if isinstance(first, str):
+            return first
+
+    raise ValueError(f"Unrecognized response structure from LLM API: {list(data.keys())}")
+
+
+def _call_apmix_openai(client: httpx.Client, api_key: str, text: str) -> str:
+    """Call APMix using OpenAI-compatible chat completions endpoint."""
+    url = f"{_BASE_URL}/chat/completions"
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json",
+    }
+    payload = {
+        "model": _MODEL,
+        "messages": [
             {"role": "system", "content": _SYSTEM_PROMPT},
             {"role": "user", "content": text},
         ],
-        temperature=0.0,  # Deterministic for extraction — no creativity needed.
-    )
-    return response.choices[0].message.content or ""
+        "temperature": 0.0,
+    }
+    resp = client.post(url, headers=headers, json=payload, timeout=60.0)
+    resp.raise_for_status()
+    return _extract_text_from_response(resp.json())
+
+
+def _call_apmix_anthropic(client: httpx.Client, api_key: str, text: str) -> str:
+    """Call APMix using Anthropic messages endpoint."""
+    url = f"{_ANTHROPIC_BASE_URL}/v1/messages"
+    headers = {
+        "x-api-key": api_key,
+        "anthropic-version": "2023-06-01",
+        "Content-Type": "application/json",
+    }
+    payload = {
+        "model": _MODEL,
+        "system": _SYSTEM_PROMPT,
+        "messages": [
+            {"role": "user", "content": text},
+        ],
+        "max_tokens": 1500,
+        "temperature": 0.0,
+    }
+    resp = client.post(url, headers=headers, json=payload, timeout=60.0)
+    resp.raise_for_status()
+    return _extract_text_from_response(resp.json())
+
+
+def _call_apmix(client: httpx.Client, text: str) -> str:
+    """Route call to APMix based on configured mode with automatic fallback."""
+    api_key = _get_api_key()
+    mode = os.environ.get("APMIX_MODE", "").lower().strip()
+
+    if mode == "anthropic":
+        return _call_apmix_anthropic(client, api_key, text)
+
+    # Default to OpenAI-compatible endpoint, falling back to Anthropic if 404 or unsupported
+    try:
+        return _call_apmix_openai(client, api_key, text)
+    except httpx.HTTPStatusError as exc:
+        if exc.response.status_code in (404, 405):
+            logger.info("OpenAI endpoint returned %d, falling back to Anthropic endpoint", exc.response.status_code)
+            return _call_apmix_anthropic(client, api_key, text)
+        raise
 
 
 def _parse_and_validate(raw: str) -> ExtractedDocument:
@@ -120,7 +204,8 @@ def _parse_and_validate(raw: str) -> ExtractedDocument:
         json.JSONDecodeError: If the string is not valid JSON.
         ValidationError: If the JSON does not match the schema.
     """
-    data = json.loads(raw)
+    cleaned = _clean_json_str(raw)
+    data = json.loads(cleaned)
     return ExtractedDocument.model_validate(data)
 
 
@@ -135,16 +220,9 @@ def extract_structured(text: str) -> dict:
         (added downstream by verify.py).
 
     Raises:
-        LLMExtractionError: If the LLM fails to return valid structured data after
-                            one retry.
+        LLMExtractionError: If the LLM fails to return valid structured data after retries.
     """
-    api_key = os.environ.get("GROQ_API_KEY")
-    if not api_key:
-        raise LLMExtractionError(
-            "GROQ_API_KEY is not set. Add it to engine/.env and do not commit it."
-        )
-
-    client = Groq(api_key=api_key)
+    _get_api_key()  # Fast fail if no key configured
 
     original_len = len(text)
     if original_len > _MAX_INPUT_CHARS:
@@ -156,31 +234,24 @@ def extract_structured(text: str) -> dict:
         )
         text = text[:_MAX_INPUT_CHARS]
 
-    for attempt in range(1, 3):  # Two attempts total: initial + one retry.
-        try:
-            raw = _call_groq(client, text)
-            logger.debug("LLM raw response (attempt %d): %s", attempt, raw[:200])
-            doc = _parse_and_validate(raw)
-            return doc.model_dump()
-        except (json.JSONDecodeError, ValidationError) as exc:
-            # Malformed or schema-invalid response — retry once.
-            logger.warning("Extraction attempt %d failed (parse/validation): %s", attempt, exc)
-            if attempt == 2:
-                raise LLMExtractionError(
-                    f"LLM returned invalid data after {attempt} attempts. "
-                    f"Last error: {exc}"
-                ) from exc
-            # Fall through to retry.
-        except Exception as exc:  # noqa: BLE001
-            # API-level failures: GroqError, rate limits, timeouts, connection drops.
-            # These are not retryable by prompt change, but a single retry is worth
-            # attempting for transient issues (e.g. brief timeout, rate-limit backoff).
-            logger.warning("Extraction attempt %d failed (API error): %s", attempt, exc)
-            if attempt == 2:
-                raise LLMExtractionError(
-                    f"Groq API error after {attempt} attempts. Last error: {exc}"
-                ) from exc
-            # Fall through to retry.
+    with httpx.Client() as client:
+        for attempt in range(1, 3):  # Two attempts total: initial + one retry
+            try:
+                raw = _call_apmix(client, text)
+                logger.debug("LLM raw response (attempt %d): %s", attempt, raw[:200])
+                doc = _parse_and_validate(raw)
+                return doc.model_dump()
+            except (json.JSONDecodeError, ValidationError) as exc:
+                logger.warning("Extraction attempt %d failed (parse/validation): %s", attempt, exc)
+                if attempt == 2:
+                    raise LLMExtractionError(
+                        f"LLM returned invalid data after {attempt} attempts. Last error: {exc}"
+                    ) from exc
+            except Exception as exc:  # noqa: BLE001
+                logger.warning("Extraction attempt %d failed (API error): %s", attempt, exc)
+                if attempt == 2:
+                    raise LLMExtractionError(
+                        f"APMix API error after {attempt} attempts. Last error: {exc}"
+                    ) from exc
 
-    # Unreachable — satisfies the type checker.
     raise LLMExtractionError("Unexpected exit from retry loop.")
