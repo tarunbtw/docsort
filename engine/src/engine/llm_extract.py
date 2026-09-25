@@ -1,5 +1,6 @@
-"""LLM-based structured metadata extraction using APMix AI (OpenAI and Anthropic compatible).
+"""LLM-based structured metadata extraction using APMix AI.
 
+Model: deepseek-v4-flash-free via https://api.apmix.ai/v1
 One retry on JSON/validation failure before raising LLMExtractionError.
 """
 
@@ -19,10 +20,9 @@ logger = logging.getLogger(__name__)
 _ENV_PATH = Path(__file__).parent.parent.parent / ".env"
 load_dotenv(_ENV_PATH)
 
-# Base URLs and model configuration
-_BASE_URL = os.environ.get("APMIX_BASE_URL", "https://api.apmix.ai/v1").rstrip("/")
-_ANTHROPIC_BASE_URL = os.environ.get("APMIX_ANTHROPIC_BASE_URL", "https://api.apmix.ai").rstrip("/")
-_MODEL = os.environ.get("APMIX_MODEL", os.environ.get("LLM_MODEL", "claude-3-5-sonnet-20241022"))
+# APMix AI endpoint and model — single place to change these.
+_BASE_URL = "https://api.apmix.ai/v1"
+_MODEL = "deepseek-v4-flash-free"
 
 # Characters sent to the LLM are capped here to avoid context limit errors.
 # The key verbatim fields (title, OM number, date, issuing authority) reliably
@@ -131,64 +131,36 @@ def _extract_text_from_response(data: dict) -> str:
     raise ValueError(f"Unrecognized response structure from LLM API: {list(data.keys())}")
 
 
-def _call_apmix_openai(client: httpx.Client, api_key: str, text: str) -> str:
-    """Call APMix using OpenAI-compatible chat completions endpoint."""
-    url = f"{_BASE_URL}/chat/completions"
-    headers = {
-        "Authorization": f"Bearer {api_key}",
-        "Content-Type": "application/json",
-    }
-    payload = {
-        "model": _MODEL,
-        "messages": [
-            {"role": "system", "content": _SYSTEM_PROMPT},
-            {"role": "user", "content": text},
-        ],
-        "temperature": 0.0,
-    }
-    resp = client.post(url, headers=headers, json=payload, timeout=60.0)
-    resp.raise_for_status()
-    return _extract_text_from_response(resp.json())
-
-
-def _call_apmix_anthropic(client: httpx.Client, api_key: str, text: str) -> str:
-    """Call APMix using Anthropic messages endpoint."""
-    url = f"{_ANTHROPIC_BASE_URL}/v1/messages"
-    headers = {
-        "x-api-key": api_key,
-        "anthropic-version": "2023-06-01",
-        "Content-Type": "application/json",
-    }
-    payload = {
-        "model": _MODEL,
-        "system": _SYSTEM_PROMPT,
-        "messages": [
-            {"role": "user", "content": text},
-        ],
-        "max_tokens": 1500,
-        "temperature": 0.0,
-    }
-    resp = client.post(url, headers=headers, json=payload, timeout=60.0)
-    resp.raise_for_status()
-    return _extract_text_from_response(resp.json())
-
-
 def _call_apmix(client: httpx.Client, text: str) -> str:
-    """Route call to APMix based on configured mode with automatic fallback."""
+    """POST to APMix OpenAI-compatible chat completions endpoint.
+
+    Args:
+        client: httpx.Client (connection-pooled, caller-managed).
+        text: Document text to extract from.
+
+    Returns:
+        Raw string content of the LLM's response.
+    """
     api_key = _get_api_key()
-    mode = os.environ.get("APMIX_MODE", "").lower().strip()
+    resp = client.post(
+        f"{_BASE_URL}/chat/completions",
+        headers={
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json",
+        },
+        json={
+            "model": _MODEL,
+            "messages": [
+                {"role": "system", "content": _SYSTEM_PROMPT},
+                {"role": "user", "content": text},
+            ],
+            "temperature": 0.0,
+        },
+        timeout=60.0,
+    )
+    resp.raise_for_status()
+    return _extract_text_from_response(resp.json())
 
-    if mode == "anthropic":
-        return _call_apmix_anthropic(client, api_key, text)
-
-    # Default to OpenAI-compatible endpoint, falling back to Anthropic if 404 or unsupported
-    try:
-        return _call_apmix_openai(client, api_key, text)
-    except httpx.HTTPStatusError as exc:
-        if exc.response.status_code in (404, 405):
-            logger.info("OpenAI endpoint returned %d, falling back to Anthropic endpoint", exc.response.status_code)
-            return _call_apmix_anthropic(client, api_key, text)
-        raise
 
 
 def _parse_and_validate(raw: str) -> ExtractedDocument:

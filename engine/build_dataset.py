@@ -11,7 +11,8 @@ each chunk, and writes results to a CSV for human spot-check review. This is a
 weak-supervision step: the output is reviewed to correct wrong labels, then saved
 (columns: text,label only) as data/labeled_docs.csv before running train_classifier.py.
 
-API: APMix AI (https://api.apmix.ai/v1 or https://api.apmix.ai)
+API: APMix AI — https://api.apmix.ai/v1
+Model: deepseek-v4-flash-free
 Key: set APMIX_API_KEY in engine/.env
 """
 
@@ -41,9 +42,9 @@ logger = logging.getLogger(__name__)
 _ENV_PATH = Path(__file__).parent / ".env"
 load_dotenv(_ENV_PATH)
 
-_BASE_URL = os.environ.get("APMIX_BASE_URL", "https://api.apmix.ai/v1").rstrip("/")
-_ANTHROPIC_BASE_URL = os.environ.get("APMIX_ANTHROPIC_BASE_URL", "https://api.apmix.ai").rstrip("/")
-_MODEL = os.environ.get("APMIX_MODEL", os.environ.get("LLM_MODEL", "claude-3-5-sonnet-20241022"))
+# APMix AI endpoint and model — single place to change these.
+_BASE_URL = "https://api.apmix.ai/v1"
+_MODEL = "deepseek-v4-flash-free"
 
 _CHUNK_SIZE_CHARS = 1500
 _MIN_CHUNK_CHARS = 200
@@ -149,44 +150,23 @@ def label_chunk(client: httpx.Client, api_key: str, chunk: str) -> bool | None:
         True/False label, or None if the call/parse failed (chunk is skipped
         rather than given a guessed label).
     """
-    mode = os.environ.get("APMIX_MODE", "").lower().strip()
-
     try:
-        if mode == "anthropic":
-            resp = client.post(
-                f"{_ANTHROPIC_BASE_URL}/v1/messages",
-                headers={
-                    "x-api-key": api_key,
-                    "anthropic-version": "2023-06-01",
-                    "Content-Type": "application/json",
-                },
-                json={
-                    "model": _MODEL,
-                    "system": _LABEL_PROMPT,
-                    "messages": [{"role": "user", "content": chunk}],
-                    "max_tokens": 100,
-                    "temperature": 0.0,
-                },
-                timeout=45.0,
-            )
-        else:
-            resp = client.post(
-                f"{_BASE_URL}/chat/completions",
-                headers={
-                    "Authorization": f"Bearer {api_key}",
-                    "Content-Type": "application/json",
-                },
-                json={
-                    "model": _MODEL,
-                    "messages": [
-                        {"role": "system", "content": _LABEL_PROMPT},
-                        {"role": "user", "content": chunk},
-                    ],
-                    "temperature": 0.0,
-                },
-                timeout=45.0,
-            )
-
+        resp = client.post(
+            f"{_BASE_URL}/chat/completions",
+            headers={
+                "Authorization": f"Bearer {api_key}",
+                "Content-Type": "application/json",
+            },
+            json={
+                "model": _MODEL,
+                "messages": [
+                    {"role": "system", "content": _LABEL_PROMPT},
+                    {"role": "user", "content": chunk},
+                ],
+                "temperature": 0.0,
+            },
+            timeout=45.0,
+        )
         resp.raise_for_status()
         raw = _extract_text_from_response(resp.json())
         cleaned = _clean_json_str(raw)
