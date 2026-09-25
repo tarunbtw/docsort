@@ -128,6 +128,16 @@ func (h *Handler) UploadDocument(w http.ResponseWriter, r *http.Request) {
 		compStatus = "Contradiction"
 	}
 
+	// Stage 2 did not run, so no metadata was extracted: the document cannot be
+	// reported as compliant even though no verification flags were raised.
+	if result.ExtractionStatus == "llm_unavailable" {
+		log.Printf("Document %s: metadata extraction unavailable, marking for review", docID)
+		compStatus = "Needs Review"
+		if score > 60 {
+			score = 60
+		}
+	}
+
 	meta := &database.DocumentMetadata{
 		DocumentID:        docID,
 		Title:             result.Title,

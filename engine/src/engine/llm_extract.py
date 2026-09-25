@@ -1,6 +1,11 @@
-"""LLM-based structured metadata extraction using APMix AI.
+"""LLM-based structured metadata extraction via an OpenAI- or Anthropic-compatible API.
 
-Model: deepseek-v4-flash-free via https://api.apmix.ai/v1
+Endpoint, model and protocol are read from the environment at call time:
+    APMIX_BASE_URL            OpenAI-compatible base URL (default https://api.apmix.ai/v1)
+    APMIX_ANTHROPIC_BASE_URL  Anthropic base URL (default https://api.apmix.ai)
+    APMIX_MODEL               model id (default deepseek-v4-flash-free)
+    APMIX_MODE                "" for /chat/completions, "anthropic" for /v1/messages
+
 One retry on JSON/validation failure before raising LLMExtractionError.
 """
 
@@ -20,9 +25,31 @@ logger = logging.getLogger(__name__)
 _ENV_PATH = Path(__file__).parent.parent.parent / ".env"
 load_dotenv(_ENV_PATH)
 
-# APMix AI endpoint and model — single place to change these.
-_BASE_URL = "https://api.apmix.ai/v1"
-_MODEL = "deepseek-v4-flash-free"
+# Defaults used when the corresponding environment variable is unset.
+_DEFAULT_BASE_URL = "https://api.apmix.ai/v1"
+_DEFAULT_ANTHROPIC_BASE_URL = "https://api.apmix.ai"
+_DEFAULT_MODEL = "deepseek-v4-flash-free"
+
+
+def _base_url() -> str:
+    """OpenAI-compatible base URL, resolved from the environment at call time."""
+    return os.environ.get("APMIX_BASE_URL", _DEFAULT_BASE_URL).rstrip("/")
+
+
+def _anthropic_base_url() -> str:
+    """Anthropic-compatible base URL, resolved from the environment at call time."""
+    return os.environ.get("APMIX_ANTHROPIC_BASE_URL", _DEFAULT_ANTHROPIC_BASE_URL).rstrip("/")
+
+
+def _model() -> str:
+    """Model id, resolved from the environment at call time."""
+    return os.environ.get("APMIX_MODEL") or os.environ.get("LLM_MODEL") or _DEFAULT_MODEL
+
+
+def _mode() -> str:
+    """Wire protocol selector: '' (OpenAI-compatible) or 'anthropic'."""
+    return os.environ.get("APMIX_MODE", "").lower().strip()
+
 
 # Characters sent to the LLM are capped here to avoid context limit errors.
 # The key verbatim fields (title, OM number, date, issuing authority) reliably
@@ -131,8 +158,8 @@ def _extract_text_from_response(data: dict) -> str:
     raise ValueError(f"Unrecognized response structure from LLM API: {list(data.keys())}")
 
 
-def _call_apmix(client: httpx.Client, text: str) -> str:
-    """POST to APMix OpenAI-compatible chat completions endpoint.
+def _call_openai(client: httpx.Client, text: str) -> str:
+    """POST to an OpenAI-compatible chat completions endpoint.
 
     Args:
         client: httpx.Client (connection-pooled, caller-managed).
@@ -143,13 +170,13 @@ def _call_apmix(client: httpx.Client, text: str) -> str:
     """
     api_key = _get_api_key()
     resp = client.post(
-        f"{_BASE_URL}/chat/completions",
+        f"{_base_url()}/chat/completions",
         headers={
             "Authorization": f"Bearer {api_key}",
             "Content-Type": "application/json",
         },
         json={
-            "model": _MODEL,
+            "model": _model(),
             "messages": [
                 {"role": "system", "content": _SYSTEM_PROMPT},
                 {"role": "user", "content": text},
@@ -160,6 +187,52 @@ def _call_apmix(client: httpx.Client, text: str) -> str:
     )
     resp.raise_for_status()
     return _extract_text_from_response(resp.json())
+
+
+def _call_anthropic(client: httpx.Client, text: str) -> str:
+    """POST to an Anthropic-compatible messages endpoint.
+
+    Args:
+        client: httpx.Client (connection-pooled, caller-managed).
+        text: Document text to extract from.
+
+    Returns:
+        Raw string content of the LLM's response.
+    """
+    api_key = _get_api_key()
+    resp = client.post(
+        f"{_anthropic_base_url()}/v1/messages",
+        headers={
+            "x-api-key": api_key,
+            "anthropic-version": "2023-06-01",
+            "Content-Type": "application/json",
+        },
+        json={
+            "model": _model(),
+            "system": _SYSTEM_PROMPT,
+            "messages": [{"role": "user", "content": text}],
+            "max_tokens": 1500,
+            "temperature": 0.0,
+        },
+        timeout=60.0,
+    )
+    resp.raise_for_status()
+    return _extract_text_from_response(resp.json())
+
+
+def _call_apmix(client: httpx.Client, text: str) -> str:
+    """Route the extraction call to the configured protocol.
+
+    Args:
+        client: httpx.Client (connection-pooled, caller-managed).
+        text: Document text to extract from.
+
+    Returns:
+        Raw string content of the LLM's response.
+    """
+    if _mode() == "anthropic":
+        return _call_anthropic(client, text)
+    return _call_openai(client, text)
 
 
 

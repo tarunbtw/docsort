@@ -1,5 +1,5 @@
-text,label
-"UNIVERSITY GRANTS COMMISSION
+source_file,chunk_index,text,label,confidence,evidence
+3045759_Draft-Regulation-Minimum-Qualifications-for-Appointment-and-Promotion-of-Teachers-and-Academic-Staff-in-Universities-and-Colleges-and-Measures-for-the-Maintenance-of-Standards-in-HE-Regulations-2025.pdf,0,"UNIVERSITY GRANTS COMMISSION
 NOTIFICATION
 New Delhi, the ……………2025
 Draft UGC (Minimum Qualifications for Appointment and Promotion
@@ -43,8 +43,8 @@ institutions (HEIs).
 1.5 For the purposes of direct recruitment and promotion in teaching
 posts in disciplines relating to affiliated colleges and university
 education, inter alia in the fields of health, medicine, special
-1",0
-"education, agriculture, veterinary and allied fields, teacher education,
+1",0,1.000,-recruitment;-promotion;-academic;-appointment;-university;-teachers;-college;-colleges;-education;-higher education
+3045759_Draft-Regulation-Minimum-Qualifications-for-Appointment-and-Promotion-of-Teachers-and-Academic-Staff-in-Universities-and-Colleges-and-Measures-for-the-Maintenance-of-Standards-in-HE-Regulations-2025.pdf,1,"education, agriculture, veterinary and allied fields, teacher education,
 physiotherapy, occupational therapy, standards laid down by
 authorities established by the relevant Act of Parliament under article
 246 of the Constitution for the purpose of co-ordination and
@@ -88,8 +88,8 @@ vi. “Credit” means the number of hours of instruction required per week
 over a semester as defined in the National Credit Framework (NCrF)
 vii. “Degree” means a degree specified under sub-section (3) of section
 22 of the Act;
-2",0
-"viii. “External Subject Expert” means a renowned expert not below the
+2",0,1.000,-recruitment;-promotion;-examination;-academic;-university;-degree;-students;-teacher;-college;-colleges;-course;-semester;-education;-higher education;-research
+3045759_Draft-Regulation-Minimum-Qualifications-for-Appointment-and-Promotion-of-Teachers-and-Academic-Staff-in-Universities-and-Colleges-and-Measures-for-the-Maintenance-of-Standards-in-HE-Regulations-2025.pdf,2,"viii. “External Subject Expert” means a renowned expert not below the
 academic level 14 in the subject who is not an employee or retiree
 from the Higher Educational Institution where the
 recruitment/promotion takes place;
@@ -133,8 +133,8 @@ xxiii. “SET or SLET” means State Eligibility Test (SET) or State Level
 Eligibility Test (SLET) conducted at the State level to determine the
 eligibility for the post of Assistant Professor in HEIs of that particular
 State;
-3",0
-"Innovative Teaching Contribution; (2) Research or Teaching Lab
+3",0,1.000,-recruitment;-promotion;-academic;-university;-degree;-faculty;-college;-course;-education;-educational;-higher education;-research;-programme
+3045759_Draft-Regulation-Minimum-Qualifications-for-Appointment-and-Promotion-of-Teachers-and-Academic-Staff-in-Universities-and-Colleges-and-Measures-for-the-Maintenance-of-Standards-in-HE-Regulations-2025.pdf,4,"Innovative Teaching Contribution; (2) Research or Teaching Lab
 Development; (3) Consultancy / Sponsored Research funding as a
 Principal Investigator or Co-Principal Investigator; (4) Teaching
 contributions in Indian languages; (5) Teaching-Learning and
@@ -182,8 +182,8 @@ constituted in accordance with these regulations.
 3.12 The Ph.D. Degree shall be a mandatory qualification for promotion
 to Assistant Professor (Academic Level 12), Associate Professor
 (Academic Level 13A) and Professor (Academic Level 14) in
-5",0
-"universities and colleges.
+5",0,1.000,-recruitment;-promotion;-academic;-university;-degree;-student;-students;-college;-education;-research;-cadre
+3045759_Draft-Regulation-Minimum-Qualifications-for-Appointment-and-Promotion-of-Teachers-and-Academic-Staff-in-Universities-and-Colleges-and-Measures-for-the-Maintenance-of-Standards-in-HE-Regulations-2025.pdf,5,"universities and colleges.
 3.13 The time candidates take to acquire M.Phil. and/or Ph.D. Degree
 shall not be considered as teaching/ research experience to be
 claimed for appointment to the teaching positions. Further, the period
@@ -229,8 +229,8 @@ Physical Education, Journalism & Mass Communication,
 Engineering/Technology, Management, Drama, Yoga, Music,
 Performing Arts, Visual Arts, and Other Traditional Indian Art
 Forms like Sculpture etc. in Universities and Colleges)
-6",0
-"book as an author or two books as a co-author by a reputed
+6",0,1.000,-recruitment;-promotion;-leave;-appointment;-medical;-university;-degree;-degrees;-faculty;-teacher;-college;-colleges;-education;-research;-cadre
+3045759_Draft-Regulation-Minimum-Qualifications-for-Appointment-and-Promotion-of-Teachers-and-Academic-Staff-in-Universities-and-Colleges-and-Measures-for-the-Maintenance-of-Standards-in-HE-Regulations-2025.pdf,7,"book as an author or two books as a co-author by a reputed
 publisher or eight granted patents. A combination of research
 publications, book chapters and granted patents totalling eight
 can be considered.
@@ -273,8 +273,8 @@ books, book chapters and granted patents totalling ten, can be
 considered.
 iv) As a sole supervisor, one doctoral candidate was awarded a
 Ph.D. degree, or as a co-supervisor, two doctoral candidates
-8",0
-"were awarded Ph.D. degrees.
+8",0,1.000,-academic;-university;-degree;-college;-education;-research
+3045759_Draft-Regulation-Minimum-Qualifications-for-Appointment-and-Promotion-of-Teachers-and-Academic-Staff-in-Universities-and-Colleges-and-Measures-for-the-Maintenance-of-Standards-in-HE-Regulations-2025.pdf,8,"were awarded Ph.D. degrees.
 v) Notable contributions in at least four areas out of the nine given
 at 3.8.
 Either the above qualifications or the following qualifications can be
@@ -315,8 +315,8 @@ Information Science, or a relevant/allied discipline (NCrF Level 8).
 ii. A minimum of eight years experience as an Assistant Librarian in a
 University / College.
 iii. Notable contributions in at least four areas out of the nine given at
-9",0
-"3.9
+9",0,1.000,-academic;-university;-degree;-degrees;-college;-colleges
+3045759_Draft-Regulation-Minimum-Qualifications-for-Appointment-and-Promotion-of-Teachers-and-Academic-Staff-in-Universities-and-Colleges-and-Measures-for-the-Maintenance-of-Standards-in-HE-Regulations-2025.pdf,9,"3.9
 4.1. VI. Librarian (Academic Level 14) in universities
 i. A UG degree in Library Science, Information Science, or a
 relevant/allied discipline (NCrF Level 6) with at least 75% marks or
@@ -355,8 +355,8 @@ Or
 B. A medal winner in the Asian Games / Commonwealth Games / Asia
 Cup / Asian Para Games / Para Sports at the Commonwealth
 Games who has an undergraduate degree (NCrF level 5.5/6) in any
-10",0
-"iii. Notable contributions in at least four areas out of the nine given
+10",0,1.000,-academic;-university;-degree;-college;-colleges;-education;-research
+3045759_Draft-Regulation-Minimum-Qualifications-for-Appointment-and-Promotion-of-Teachers-and-Academic-Staff-in-Universities-and-Colleges-and-Measures-for-the-Maintenance-of-Standards-in-HE-Regulations-2025.pdf,11,"iii. Notable contributions in at least four areas out of the nine given
 at 3.10
 iv. Passed the physical fitness test in accordance with these
 regulations.
@@ -393,8 +393,8 @@ Arts, Commerce, Humanities, Education, Law, Social Sciences,
 Sciences, Languages, Library Science, Physical Education,
 Journalism & Mass Communication, Engineering/Technology,
 Management, Drama, Yoga, Music, Performing Arts, Visual Arts,
-12",0
-"and Other Traditional Indian Art Forms like Sculpture etc. in
+12",0,0.775,-medical;-degree;-education
+3045759_Draft-Regulation-Minimum-Qualifications-for-Appointment-and-Promotion-of-Teachers-and-Academic-Staff-in-Universities-and-Colleges-and-Measures-for-the-Maintenance-of-Standards-in-HE-Regulations-2025.pdf,12,"and Other Traditional Indian Art Forms like Sculpture etc. in
 Universities and Colleges)
 4.2. I. Selection Committee Composition for Assistant Professor,
 Assistant Librarian, Assistant Director of Physical Education
@@ -438,8 +438,8 @@ College governing body or equivalent statutory body from a panel
 of five names approved by the relevant statutory bodies of the
 affiliating university and recommended by the Vice-Chancellor.
 Note: (1) Five members, including at least two external subject experts,
-13",0
-"The seniority level is strictly assigned by the date of promotion to
+13",0,1.000,-academic;-university;-faculty;-teacher;-college;-colleges;-education
+3045759_Draft-Regulation-Minimum-Qualifications-for-Appointment-and-Promotion-of-Teachers-and-Academic-Staff-in-Universities-and-Colleges-and-Measures-for-the-Maintenance-of-Standards-in-HE-Regulations-2025.pdf,14,"The seniority level is strictly assigned by the date of promotion to
 professor (Academic level 14) rather than the date of granting of
 professor (Academic level 15).
 5.2. Minimum Qualifications, Experience, and Accomplishments (For
@@ -483,8 +483,8 @@ iii. Completed any of the following: one Refresher Course or
 Faculty Development Programme in online mode recognized by
 the regulatory bodies (UGC, AICTE, etc.) during the
 assessment period.
-15",0
-"iv. Notable contributions in at least four areas out of the nine given
+15",0,1.000,+eligibility criteria;-seniority;-promotion;-academic;-degree;-faculty;-course;-education;-research;-programme
+3045759_Draft-Regulation-Minimum-Qualifications-for-Appointment-and-Promotion-of-Teachers-and-Academic-Staff-in-Universities-and-Colleges-and-Measures-for-the-Maintenance-of-Standards-in-HE-Regulations-2025.pdf,15,"iv. Notable contributions in at least four areas out of the nine given
 at 3.8 during the assessment period.
 v. Contributions such as three research publications in peer-
 reviewed journals or publication of three book chapters or
@@ -526,8 +526,8 @@ iv. Contributions such as three research publications in peer-
 reviewed journals or publication of three book chapters or
 publication of a book as an author or two books as a co-
 author by a reputed publisher or three granted patents during
-16",0
-"the assessment period.
+16",0,1.000,-academic;-degree;-degrees;-faculty;-course;-research;-programme
+3045759_Draft-Regulation-Minimum-Qualifications-for-Appointment-and-Promotion-of-Teachers-and-Academic-Staff-in-Universities-and-Colleges-and-Measures-for-the-Maintenance-of-Standards-in-HE-Regulations-2025.pdf,16,"the assessment period.
 Note: A combination of research publications, book chapters
 and granted patents totalling three can also be considered.
 v. As a sole supervisor at least one doctoral candidate awarded
@@ -570,8 +570,8 @@ Refresher Course or Research Methodology Course or
 Faculty Development Programme in online mode recognized
 by the regulatory bodies (UGC, AICTE, etc.).
 ii. Notable contributions in at least four areas out of the nine
-17",0
-"granted patents totalling ten of which three shall be a combination
+17",0,1.000,+eligibility criteria;-academic;-university;-degree;-degrees;-faculty;-colleges;-course;-research;-programme
+3045759_Draft-Regulation-Minimum-Qualifications-for-Appointment-and-Promotion-of-Teachers-and-Academic-Staff-in-Universities-and-Colleges-and-Measures-for-the-Maintenance-of-Standards-in-HE-Regulations-2025.pdf,18,"granted patents totalling ten of which three shall be a combination
 of research papers or book chapters or granted patents during the
 assessment period or Publication of four books as an author or
 eight books as a co-author by a reputed publisher out of which
@@ -611,8 +611,8 @@ at 3.9 during the assessment period.
 (Academic Level 13A):
 i. Assistant Librarian in a University / College who has completed
 three years of service in Academic Level 12.
-19",0
-"ii. Completed any of the following: Seminar/workshop/training on
+19",0,1.000,+eligibility criteria;-academic;-university;-degree;-college;-course;-courses;-research
+3045759_Draft-Regulation-Minimum-Qualifications-for-Appointment-and-Promotion-of-Teachers-and-Academic-Staff-in-Universities-and-Colleges-and-Measures-for-the-Maintenance-of-Standards-in-HE-Regulations-2025.pdf,19,"ii. Completed any of the following: Seminar/workshop/training on
 automation and digitalization or short-term courses in online mode
 recognized by the regulatory bodies (UGC, AICTE, etc.) during the
 assessment period.
@@ -652,8 +652,8 @@ Faculty Development Programme in online mode recognized
 by the regulatory bodies (UGC, AICTE, etc.) during the
 assessment period.
 ii. Notable contributions in at least four areas out of the nine
-20",0
-"assessment.
+20",0,1.000,+eligibility criteria;-academic;-university;-degree;-faculty;-college;-course;-courses;-education;-research;-programme;-cadre
+3045759_Draft-Regulation-Minimum-Qualifications-for-Appointment-and-Promotion-of-Teachers-and-Academic-Staff-in-Universities-and-Colleges-and-Measures-for-the-Maintenance-of-Standards-in-HE-Regulations-2025.pdf,21,"assessment.
 2. When a candidate succeeds in an assessment, his/her promotion
 shall be effected as detailed below:
 3. If the assessment is between 1st January and 30th June of a year,
@@ -695,8 +695,8 @@ applicant and (b) if none of the members of the selection
 committee belong to these categories.
 Note: Five members, including at least two external subject experts,
 shall constitute the quorum.
-22",0
-"5.7. II. For Assistant Professor, Assistant Librarian, Assistant
+22",0,1.000,-promotion;-academic;-university;-faculty;-teacher;-colleges;-education
+3045759_Draft-Regulation-Minimum-Qualifications-for-Appointment-and-Promotion-of-Teachers-and-Academic-Staff-in-Universities-and-Colleges-and-Measures-for-the-Maintenance-of-Standards-in-HE-Regulations-2025.pdf,22,"5.7. II. For Assistant Professor, Assistant Librarian, Assistant
 Director of Physical Education and Sports (From Academic
 Level 10 to 11, Academic Level 11 to 12), Associate Professor,
 Deputy Librarian, Deputy Director of Physical Education and
@@ -738,8 +738,8 @@ provided that:
 (i) In the case of Indian HEIs or research organizations, the
 incumbent was appointed on the recommendation of a duly
 constituted Selection Committee as per UGC regulations. In
-23",0
-"the case of international HEIs or research organizations, the
+23",0,1.000,-recruitment;-promotion;-academic;-university;-teacher;-college;-colleges;-education;-research
+3045759_Draft-Regulation-Minimum-Qualifications-for-Appointment-and-Promotion-of-Teachers-and-Academic-Staff-in-Universities-and-Colleges-and-Measures-for-the-Maintenance-of-Standards-in-HE-Regulations-2025.pdf,23,"the case of international HEIs or research organizations, the
 incumbent was appointed as per the rules of the respective
 international HEIs or research organizations;
 (ii)The incumbent was drawing total gross emoluments, as per
@@ -782,8 +782,8 @@ book/book chapter is by a reputed publisher, and whether the
 contributions are notable, based on the recommendations of the
 three external experts of the selection committee constituted in
 accordance with these regulations.
-24",0
-"one academic session and may be renewed after review for
+24",0,1.000,-pay scale;-academic;-appointment;-degree;-college;-colleges;-research
+3045759_Draft-Regulation-Minimum-Qualifications-for-Appointment-and-Promotion-of-Teachers-and-Academic-Staff-in-Universities-and-Colleges-and-Measures-for-the-Maintenance-of-Standards-in-HE-Regulations-2025.pdf,25,"one academic session and may be renewed after review for
 another academic session.
 9.0. Professor of Practice:
 HEIs may engage experts/professionals/practitioners from
@@ -826,8 +826,8 @@ concerned or its colleges. If the Vice-Chancellor or any member
 of the EC/Syndicate/ BoM/Equivalent body is an applicant for the
 Vice-Chancellor’s post, they have to recuse themselves from the
 meeting during the discussion of the agenda item wherein the
-26",0
-"nominee of the EC/Syndicate/ BoM/Equivalent body is to be
+26",0,1.000,-academic;-appointment;-university;-colleges;-education;-higher education;-research
+3045759_Draft-Regulation-Minimum-Qualifications-for-Appointment-and-Promotion-of-Teachers-and-Academic-Staff-in-Universities-and-Colleges-and-Measures-for-the-Maintenance-of-Standards-in-HE-Regulations-2025.pdf,26,"nominee of the EC/Syndicate/ BoM/Equivalent body is to be
 decided. In case of violation, the applicant shall be disqualified as
 a candidate for the post of Vice-Chancellor.
 iv. The following shall be the constitution of the Search cum Selection
@@ -867,8 +867,8 @@ such an appointment shall be null and void.
 11.0 Consequences of Violation of UGC Regulations
 If any HEI violates the provisions of these regulations, the
 Commission shall constitute an enquiry committee to look into the
-27",0
-"4 THE GAZETTE OF INDIA : EXTRAORDINARY [PART I—SEC.1]
+27",0,0.675,-appointment;-university
+8thcpcnotification.pdf,3,"4 THE GAZETTE OF INDIA : EXTRAORDINARY [PART I—SEC.1]
 MINISTRY OF FINANCE
 (Department of Expenditure)
 RESOLUTION
@@ -915,8 +915,8 @@ thereon keeping in view Para f(iii) below.
 (f) To make recommendations on the above, keeping in view:
 (i) The economic conditions in the country and the need for fiscal prudence;
 (ii) The need to ensure that adequate resources are available for developmental expenditure and
-welfare measures;",0
-"[भाग I—खण् ड 1] भारत का रािपत्र : असाधारण 5
+welfare measures;",0,0.850,-welfare;-pension;-allowances
+8thcpcnotification.pdf,4,"[भाग I—खण् ड 1] भारत का रािपत्र : असाधारण 5
 (iii) The unfunded cost of non-contributory pension schemes;
 (iv) The likely impact of the recommendations on the finances of the State Governments which
 usually adopt the recommendations with some modifications; and
@@ -938,8 +938,8 @@ ORDERED also that a copy of the Resolution be communicated to the Ministries/Dep
 India, State Governments/ Administrations of Union Territories and all others concerned.
 V. VUALNAM, Secy.
 Uploaded by Dte. of Printing at Government of India Press, Ring Road, Mayapuri, New Delhi-110064
-and Published by the Controller of Publications, Delhi-110054.",0
-"F. No. FPEIT(4)/?017-Fin.
+and Published by the Controller of Publications, Delhi-110054.",0,0.625,-pension
+Department_of_Public_Enterprises_circular.pdf,0,"F. No. FPEIT(4)/?017-Fin.
 Government nf lndia
 Ministry of Finance
 Department of Fublic Enterprises
@@ -961,8 +961,8 @@ Tel : 2436-0258
 /'d
 U6Uto
 :- $hri Kanwalpreet, Director (Procurement Policy Division), Department of
-Expenditure, North Block, New Delhi.",1
-"No.F.1/112021-PPD
+Expenditure, North Block, New Delhi.",1,1.000,+procurement;+procurement policy
+Department_of_Public_Enterprises_circular.pdf,1,"No.F.1/112021-PPD
 Govemment of lndia
 Ministry of Finance
 Department of Expenditure
@@ -1001,8 +1001,8 @@ The National lnstitution for Transforming lndia (NlTl) Aayog also
 prepared in August, 2O2O a detailed paper entitled ""lndian Public
 Procurement Alternative Strategies and Way Forward"" with various
 proposals.
-Page I of22",1
-"3. A common theme arising in all these deliberations was a need to
+Page I of22",1,1.000,+procurement;+procurement policy;+central vigilance;+cvc;-examination;+procurement-policy
+Department_of_Public_Enterprises_circular.pdf,2,"3. A common theme arising in all these deliberations was a need to
 improve procurement and project management rules and procedures, to
 update them to present day needs, and empower those implementing projects
 to take better decisions, while adhering to probity and fairness. The fact that
@@ -1040,8 +1040,8 @@ generat. However, there may be circumstances where it may not
 be practical/ desirable to implement them. ln such cases, the
 concerned officer/ agency may deviate by recording reasons in
 writing for not implementing the same.
-Page 2 of 22",1
-"(iii)
+Page 2 of 22",1,1.000,+procurement;+procuring;+gfr;+cvc;+procurement-policy
+Department_of_Public_Enterprises_circular.pdf,3,"(iii)
 lnstructions containing 'shatl' are mandatory; any deviation shall
 require relaxation of rules from the DoE (for Ministries/
 Departments etc.) or from the Board of Directors (for Central
@@ -1081,8 +1081,8 @@ mitigation measures. ln the case of very large projects, such presentation may
 be made to the head of the public authority. The record of discussions during
 the presentation may become part of the Detailed Project Report (DPR) and
 tender file/ project record.
-Page 3 of 22",1
-"7,
+Page 3 of 22",1,1.000,+procurement;+procuring;+procuring entity;+tender;-university;-course
+Department_of_Public_Enterprises_circular.pdf,4,"7,
 Detailed Project Report (DPR):
 7.1
 As prescribed in Para 2.4 of the Manual, once the pQect is considered
@@ -1122,8 +1122,8 @@ award of contract; however, it may not always be possible to have the entire
 land due to prevailing circumstances. Also, it may not be prudent to put the
 entire process of award of contract on hold for want of the remaining portion
 of land, which in the assessment of public authority or the project executing
-Page 4of22",1
-"authority, could possibly be acquired in a targeted manner after award of the
+Page 4of22",1,1.000,+tender;+contract;+contractor
+Department_of_Public_Enterprises_circular.pdf,5,"authority, could possibly be acquired in a targeted manner after award of the
 contract, without affecting progress.
 8.2
 Minimum necessary encumbrance free land shoutd be available before
@@ -1163,8 +1163,8 @@ can attend.
 Empanelment of contractors: Public authorities may empanel/ register
 contractors of those specific goods and services which are required by them
 regularly. Performance of such empanelled contractors should be reviewed
-Page 5 of 22",1
-"periodically. The list of registered contractors shall be updated on a regular
+Page 5 of 22",1,1.000,+procurement;+procuring;+procuring entity;+tender;+contract;+suppliers
+Department_of_Public_Enterprises_circular.pdf,6,"periodically. The list of registered contractors shall be updated on a regular
 basis. The category/ class of contractors may be upgraded/ downgraded or
 contractors may be de-listed based on their performance. Empanelment of
 contractors shall be done in a fair and equitable manner, preferably online
@@ -1200,8 +1200,8 @@ enabling provisions.
 10.4 Payment terms prescribed in the tender document should be such that
 the payment made to contractors at every stage is commensurate to quantum
 of work done, subject to any requirements for initial mobilisation.
-Page 6 of 22",1
-"systems may be used for capturing progress and quality of work, site records/
+Page 6 of 22",1,1.000,+procurement;+procuring;+procuring entity;+tender;+tenders;+contract;+contractor;+bids;+procurement-policy
+Department_of_Public_Enterprises_circular.pdf,8,"systems may be used for capturing progress and quality of work, site records/
 photographs/ videos etc. including geo tagging.
 11.3 Wherever applicable, the role of the Project Management Consultant
 (PMC) should be clearly defined in the contracts. Deployment of the PMC
@@ -1238,8 +1238,8 @@ items of work, such as reinforced earth retaining walls, pre-stressing works,
 and so on. Procurement of material, hiring of equipment or engagement of
 labour will not mean sub-contracting. The total value of subcontracted work
 should not exceed the percentage of the contract price specified in the
-Page 8 of 22",1
-"contract (say 25%). Sub-contracting by the contractor without the approval of
+Page 8 of 22",1,1.000,+procurement;+procuring;+procuring entity;+contract;+contracts;+contractor;+bid
+Department_of_Public_Enterprises_circular.pdf,9,"contract (say 25%). Sub-contracting by the contractor without the approval of
 the Procuring Entity shall be a breach of contract, unless explicitly permitted in
 the contract.
 11.8 Rejection of Single Bid: lt has become a practice among some
@@ -1277,8 +1277,8 @@ be taken after addressing the change. Delay in decisions by the project
 executing authority can also lead to litigation due to inadequate utilizatior/
 idling of resources of the contractor. There is frequenfly a feeting among
 officials that indecision is safe while a decision may lead to adverse
-Page 9 of 22",1
-"consequences for the decision maker. Therefore, there is a need for project
+Page 9 of 22",1,1.000,+procurement;+procuring;+procuring entity;+tender;+tenders;+tendering;+bidders;+bidding;+breach of contract;+contract;+contractor;+bid;+bids
+Department_of_Public_Enterprises_circular.pdf,10,"consequences for the decision maker. Therefore, there is a need for project
 executing authorities to put in place a system of resolution of the issues
 coupted with timelines for various levels to take decisions.
 11.12 Project executing authorities may review the flow chart of decision
@@ -1314,8 +1314,8 @@ soon as possible, and after payment a written explanation for the delay shall
 be submitted to the next higher authority within three working days.
 12.2 Public authorities may put in place a provision for payment of interest in
 case of delayed payment of bills by more than 30 working days after
-Page tO of 22",1
-"submission of bill by the contractor. Where interest is to be paid, the rate of
+Page tO of 22",1,1.000,+procurement;+procuring;+tender;+tenders;+gfr;+contracts;+contractor
+Department_of_Public_Enterprises_circular.pdf,11,"submission of bill by the contractor. Where interest is to be paid, the rate of
 interest should be the rate of interest on General Provident Fund.
 12.3 ln case of unwaranted discretionary delays in payments, including
 failure to authorise / make ad hoc payments as prescribed in para 12.1above,
@@ -1350,8 +1350,8 @@ contractors and approval thereof by the competent authority should be ctearly
 prescribed in the tender document, wherein, damages for non-adherence of
 such timelines in this regard may arso be incorporated.
 ll
-Page of 22",1
-"13.4 EPC contracts shall specify broad technical specifications and key
+Page of 22",1,1.000,+procurement;+tender;+contracts;+contractor;+crore
+Department_of_Public_Enterprises_circular.pdf,12,"13.4 EPC contracts shall specify broad technical specifications and key
 output parameters. Over-specification of design may lead to increase in cost.
 Technica! specifications shall be framed in such a manner to allow sufficient
 freedom to the contractor to optimize design. Provisions on the following
@@ -1385,8 +1385,8 @@ contract:
 (i) Quality in consultancy contracts is largely dependent upon
 deployment and performance of key personnel, during execution
 of the contract.
-Page L2 of 22",1
-"(ii)
+Page L2 of 22",1,1.000,+procuring;+procuring entity;+liquidated damages;+contract;+contracts;+contractor
+Department_of_Public_Enterprises_circular.pdf,13,"(ii)
 The following conditions should be incorporated in Tender
 Documents for procurement of Consultancy Services:
 a)
@@ -1425,8 +1425,8 @@ based Selection (FBS) method is hereby also allowed for selection of
 eonsuhants- Under this method, cost of the consulting services shatt be
 specified as a fixed budget in the tender document itself. FBS may be used
 when:
-Page L? of 22",1
-"(i)
+Page L? of 22",1,1.000,+procurement;+procuring;+procuring entity;+tender;+contract
+Department_of_Public_Enterprises_circular.pdf,14,"(i)
 the type of consulting service required is simple and/or repetitive
 and can be precisely defined; and
 (ii) the budget can be reasonably estimated and set based on
@@ -1463,8 +1463,8 @@ Oriented Procurement (OOP) by the competent authority or
 for procurement of Non-Consulting Services, where estimated
 value of procurement (including all taxes and option clause)
 does not exceed Rs 10 crore.
-Page L4 of 22",1
-"(i)
+Page L4 of 22",1,1.000,+procurement;+procuring;+gfr;+contract;+crore
+Department_of_Public_Enterprises_circular.pdf,16,"(i)
 Two or more persons who have expert knowledge and/or long
 experience relevant to the procurement in question;
 (ii)
@@ -1504,8 +1504,8 @@ The specific quality/ technical parameters, their weights, their
 scoring methodology, the minimum qualification score etc. and
 other relevant criteria necessary for ensuring fair and
 transparent quality/ technical evaluation of the bids.
-Page 16 of 22",1
-"The recommendations of the STC shall be followed except where there
+Page 16 of 22",1,1.000,+procurement;+procuring;+procuring entity;+bidder;+bids
+Department_of_Public_Enterprises_circular.pdf,17,"The recommendations of the STC shall be followed except where there
 are special grounds in public interest for deviating from them. However, every
 case of deviation from the recommendations of the STC shall require approval
 of the Competent Authority specified in para 15.2.2(i) above who approved
@@ -1543,8 +1543,8 @@ The scoring should not be a variable that relies on the subjective
 opinion of the evaluating panel. The rnarking scheme should
 enable achievement of almost simitar scores irrespective of the
 persons/ experts being involved in the evaluation process. When
-Page L7 of 22",1
-"the outcomes are consistent for the available information, the
+Page L7 of 22",1,1.000,+procurement;+tender;+bidder;+bidders;+bid;+bids;+crore;+amount-threshold;+bid-process
+Department_of_Public_Enterprises_circular.pdf,18,"the outcomes are consistent for the available information, the
 QCBS parameters are more reliable. Unambiguous description
 and criteria help to avoid grey areas so as to ensure that there is
 only one possible s@re for the item. As far as possible, the
@@ -1579,8 +1579,8 @@ This results in lack of quality and accountability. JVs often end in
 one-sided participation, diluting the essence of the tender
 evaluation during its performance. Since quality is given
 weightage in the evaluation itsell in QCBS procurement, it is
-Page t8 of 22",1
-"even more important to guard against such tendencies.
+Page t8 of 22",1,1.000,+procurement;+tender;+tenders;+bidders;+contract;+bid;+bids
+Department_of_Public_Enterprises_circular.pdf,19,"even more important to guard against such tendencies.
 Therefore, Joint ventures may be avoided in ecBS
 procurements as far as possible. Joint ventures could, however,
 become necessary in high technology or innovative projects
@@ -1620,8 +1620,8 @@ against arloitration awards. There should be a clear delegation to empower
 officials to accept arbitration/ court orders. A special board/committee may be
 set up to review the case before an appeal is filed against an order.
 ArbitrationlCourt awards should not be routinely appealed without due
-Page L9 of 22",1
-"application of mind on all facts and circumstances including realistic
+Page L9 of 22",1,1.000,+procuring;+procuring entity;+contract;+contracts
+Department_of_Public_Enterprises_circular.pdf,20,"application of mind on all facts and circumstances including realistic
 probability of suocess. The Board/Committee or other authority deciding on
 the matter shall clarify that it has considered both legal merits and the
 practical chances of success and after considering the cost of, and arising
@@ -1658,8 +1658,8 @@ structure, which may include pecuniary as well as non-pecuniary aspects
 outcome/output, can help align the interests of stakeholders. An ethics-based
 regime, wherein integrity of all the stakeholders is nurtured, can help increase
 efficiency in all aspects of project management.
-Page 2O of 22",1
-"17.2 Public authorities may devise strategies to provide incentives to
+Page 2O of 22",1,1.000,+procurement;+procuring;+procuring entity;+contractor;+procurement-policy
+Department_of_Public_Enterprises_circular.pdf,21,"17.2 Public authorities may devise strategies to provide incentives to
 contractors/ concessionaires/ consultants/ architects/ other stakeholders by
 various means, including bonus, better rating and recognition for early/ timely
 and quality completion of projects. Similar strategies may be devised for
@@ -1693,8 +1693,8 @@ Copv to:
 Cabinet Secretary
 (ii)
 Secretary, Central Vigilance Commission.
-Page 2l of 22",1
-"THE SEXUAL HARASSMENT OF WOMEN AT WORKPLACE
+Page 2l of 22",1,1.000,+procurement;+procurement policy;+central vigilance;+contractor
+DoE_Prevention_sexual_harassment.pdf,0,"THE SEXUAL HARASSMENT OF WOMEN AT WORKPLACE
 (PREVENTION, PROHIBITION AND REDRESSAL) ACT, 2013
 ________________
 ARRANGEMENT OF SECTIONS
@@ -1728,8 +1728,8 @@ INQUIRY INTO COMPLAINT
 16. Prohibition of publication or making known contents of complaint and inquiry proceedings.
 17. Penalty for publication or making known contents of complaint and inquiry proceedings.
 18. Appeal.
-1",0
-"THE SEXUAL HARASSMENT OF WOMEN AT WORKPLACE
+1",0,0.725,+penalty;-workplace;-harassment;-complaint
+DoE_Prevention_sexual_harassment.pdf,2,"THE SEXUAL HARASSMENT OF WOMEN AT WORKPLACE
 (PREVENTION, PROHIBITION AND REDRESSAL) ACT, 2013
 ACT NO. 14 OF 2013
 [22nd April, 2013]
@@ -1768,8 +1768,8 @@ Government;
 (B) by the State Government, the State Government;
 1. 9th December, 2013, vide notification No. S.O. 3606(E), dated 9th December, 2013, see Gazette of India, Extraordinary, Part
 II, sec. 3(ii).
-3",0
-"(n) “sexual harassment” includes any one or more of the following unwelcome acts or behavior
+3",0,0.775,-workplace;-harassment
+DoE_Prevention_sexual_harassment.pdf,4,"(n) “sexual harassment” includes any one or more of the following unwelcome acts or behavior
 (whether directly or by implication) namely:—
 (i) physical contact and advances; or
 (ii) a demand or request for sexual favours; or
@@ -1809,8 +1809,8 @@ CHAPTER II
 CONSTITUTION OF INTERNAL COMPLAINTS COMMITTEE
 4. Constitution of Internal Complaints Committee.— (1) Every employer of a workplace shall, by
 an order in writing, constitute a Committee to be known as the “Internal Complaints Committee”:
-5",0
-"Provided that where the offices or administrative units of the workplace are located at different places
+5",0,0.950,-course;-educational;-workplace;-harassment
+DoE_Prevention_sexual_harassment.pdf,5,"Provided that where the offices or administrative units of the workplace are located at different places
 or divisional or sub-divisional level, the Internal Committee shall be constituted at all administrative units
 or offices.
 (2) The Internal Committees shall consist of the following members to be nominated by the
@@ -1851,8 +1851,8 @@ District to exercise powers or discharge functions under this Act.
 6. Constitution and jurisdiction of 1[Local Committee].—(1) Every District Officer shall constitute
 in the district concerned, a committee to be known as the “1[Local Committee]” to receive complaints of
 1. Subs. by Act 23 of 2016, s. 3 and the Second Schedule, for “Local Complaints Committee” (w.e.f. 6-5-2016).
-6",0
-"sexual harassment from establishments where the 1[Internal Committee] has not been constituted due to
+6",0,1.000,-vacancy;-allowances;-workplace;-harassment;-disciplinary
+DoE_Prevention_sexual_harassment.pdf,6,"sexual harassment from establishments where the 1[Internal Committee] has not been constituted due to
 having less than ten workers or if the complaint is against the employer himself.
 (2) The District Officer shall designate one nodal officer in every block, taluka and tehsil in rural or
 tribal area and ward or municipality in the urban area, to receive complaints and forward the same to the
@@ -1895,8 +1895,8 @@ proceedings of the Local Committee as may be prescribed.
 by law in this behalf, make to the State Government grants of such sums of money as the Central
 1. Subs. by Act 23 of 2016, s. 3 and the Second Schedule, for “Internal Complaints Committee” (w.e.f. 6-5-2016).
 2. Subs. by s. 3 and the Second Schedule, ibid., for “Local Complaints Committee” (w.e.f. 6-5-2016).
-7",0
-"Government my think fit, for being utilised for the payment of fees or allowances referred to in sub-
+7",0,1.000,-welfare;-appointment;-vacancy;-allowances;-harassment;-complaint;-disciplinary
+DoE_Prevention_sexual_harassment.pdf,7,"Government my think fit, for being utilised for the payment of fees or allowances referred to in sub-
 section (4) of section 7.
 (2) The State Government may set up an agency and transfer the grants made under sub-section (1) to
 that agency.
@@ -1940,8 +1940,8 @@ respondent and where no such rules exist, in such manner as may be prescribed or
 worker, the Local Committee shall, if prima facie case exist, forward the complaint to the police, within a
 period of seven days for registering the case under section 509 of the Indian Penal Code (45 of 1860), and
 any other relevant provisions of the said Code where applicable:
-8",0
-"Provided that where the aggrieved woman informs the Internal Committee or the Local Committee, as
+8",0,1.000,-transfer;-allowances;-workplace;-harassment;-complaint
+DoE_Prevention_sexual_harassment.pdf,8,"Provided that where the aggrieved woman informs the Internal Committee or the Local Committee, as
 the case may be, that any term or condition of the settlement arrived at under sub-section (2) of section 10
 has not been complied with by the respondent, the Internal Committee or the Local Committee shall
 proceed to make an inquiry into the complaint or, as the case may be, forward the complaint to the police:
@@ -1980,8 +1980,8 @@ and such report be made available to the concerned parties.
 (2) Where the Internal Committee or the Local Committee, as the case may be, arrives at the
 conclusion that the allegation against the respondent has not been proved, it shall recommend to the
 employer and the District Officer that no action is required to be taken in the matter.
-9",0
-"(3) Where the Internal Committee or the Local Committee, as the case may be, arrives at the
+9",0,1.000,-transfer;-attendance;-leave;-course;-workplace;-complaint
+DoE_Prevention_sexual_harassment.pdf,9,"(3) Where the Internal Committee or the Local Committee, as the case may be, arrives at the
 conclusion that the allegation against the respondent has been proved, it shall recommend to the employer
 or the District Officer, as the case may be—
 (i) to take action for sexual harassment as a misconduct in accordance with the provisions of the
@@ -2024,8 +2024,8 @@ Committee, as the case may be, shall have regard to—
 (c) medical expenses incurred by the victim for physical or psychiatric treatment;
 (d) the income and financial status of the respondent;
 (e) feasibility of such payment in lump sum or in instalments.
-10",0
-"16. Prohibition of publication or making known contents of complaint and inquiry
+10",0,0.800,-medical;-harassment;-complaint
+DoE_Prevention_sexual_harassment.pdf,10,"16. Prohibition of publication or making known contents of complaint and inquiry
 proceedings.—Notwithstanding anything contained in the Right to Information Act, 2005 (22 of 2005),
 the contents of the complaint made under section 9, the identity and addresses of the aggrieved woman,
 respondent and witnesses, any information relating to conciliation and inquiry proceedings,
@@ -2070,8 +2070,8 @@ under the Indian Penal Code (45 of 1860) or any other law for the time being in 
 (h) cause to initiate action, under the Indian Penal Code (45 of 1860) or any other law for the time
 being in force, against the perpetrator, or if the aggrieved woman so desires, where the perpetrator is
 not an employee, in the workplace at which the incident of sexual harassment took place;
-11",0
-"(i) treat sexual harassment as a misconduct under the service rules and initiate action for such
+11",0,0.875,+penalty;-attendance;-workplace;-harassment;-complaint
+DoE_Prevention_sexual_harassment.pdf,11,"(i) treat sexual harassment as a misconduct under the service rules and initiate action for such
 misconduct;
 (j) monitor the timely submission of reports by the Internal Committee.
 CHAPTER VII
@@ -2114,8 +2114,8 @@ matter of such inspection.
 26. Penalty for non-compliance with provisions of Act.—(1) Where the employer fails to—
 (a) constitute an Internal Committee under sub-section (1) of section 4;
 1. Subs. by Act 23 of 2016, s. 3 and the Second Schedule, for “Local Complaints Committee” (w.e.f. 6-5-2016).
-12",0
-"(b) take action under sections 13, 14 and 22; and
+12",0,0.725,+penalty;-education;-workplace;-harassment
+DoE_Prevention_sexual_harassment.pdf,12,"(b) take action under sections 13, 14 and 22; and
 (c) contravenes or attempts to contravene or abets contravention of other provisions of this Act or
 any rules made thereunder,
 he shall be punishable with fine which may extend to fifty thousand rupees.
@@ -2153,8 +2153,8 @@ section 7;
 (i) the manner of action to be taken under sub-sections (1) and (2) of section 14;
 (j) the manner of action to be taken under section 17;
 (k) the manner of appeal under sub-section (1) of section 18;
-13",0
-"Manual for Procurement
+13",0,0.675,-allowances;-complaint
+Draft_Works_Manual_2nd_Edition.pdf,0,"Manual for Procurement
 of
 Works
 Second Edition, 2025
@@ -2176,8 +2176,8 @@ Department of Expenditure
 
 Page Intentionally Left Blank
 
-Foreword",1
-"AAEC Appreciable Adverse Effect on EPC Engineering, Procurement and
+Foreword",1,0.750,+procurement
+Draft_Works_Manual_2nd_Edition.pdf,12,"AAEC Appreciable Adverse Effect on EPC Engineering, Procurement and
 Competition Construction
 AITB Appendix to Instructions to Bidders EPF Employee Provident Fund
 (ITB, also named as BDS, ESI Employee State Insurance
@@ -2231,8 +2231,8 @@ ECS Electronic Clearing System MB Measurement Book
 EIA Environmental impact assessment MES Military Engineering Service
 EMD Earnest Money Deposit MoF Ministry of Finance
 EOI Expression of Interest (Tender)
-xviii",1
-"Chapter 1: Introduction to Procurement of Works
+xviii",1,1.000,+procurement;+tender;+bidder;+bidders;+e-procurement;+earnest money;+limited tender;+gfr;+central vigilance;+emd;+cvc;+cppp;+expression of interest;+liquidated damages;+contract;+bid;+eoi;-curriculum;+eprocurement;+bid-process;+procurement-policy
+Draft_Works_Manual_2nd_Edition.pdf,25,"Chapter 1: Introduction to Procurement of Works
 and so on may be incidental to the supply of goods. The relationship of primacy
 between the goods element and the works/ services element may be examined,
 irrespective of the relative values. A possible alternative approach could be to have
@@ -2279,8 +2279,8 @@ with Financial Advisers
 decision to procure something along with the exact or approximate expenditure to be
 incurred. A Competent authority that is competent to incur expenditure may accord
 administrative sanction/ approval to incur expenditure on a specific procurement in
-6",1
-"Manual for Procurement of Works, Second Edition, 2025
+6",1,1.000,+procurement;+contracts;+purchase
+Draft_Works_Manual_2nd_Edition.pdf,38,"Manual for Procurement of Works, Second Edition, 2025
 2.5 Administrative Approval and Expenditure Sanction (A/A and
 E/S)
 1. Administrative approval and Expenditure Sanction (A/A and E/S) will be accorded to the
@@ -2324,8 +2324,8 @@ byelaws,suchaslocalauthorities.
 2. Endeavour may be made to enlarge the base of the ‘Schedule of Rates’ published by
 various organizations to bring a maximum number of items under its ambit. For non-
 24 DoE’s O.M. No. 24(35)/PF-II/2012 dated5thAugust, 2016
-19",1
-"Chapter 3: Bidding Design for Works
+19",1,1.000,+procurement;+procuring;+procuring entity;+tenders;+penalties;-examination;+office-memorandum
+Draft_Works_Manual_2nd_Edition.pdf,51,"Chapter 3: Bidding Design for Works
 17. General Instructions on Procurement and Project Management28 on EPC
 a) In EPC contracts, since primary responsibility to execute the work lies with the EPC
 contractor, success of the project also depends upon the quality of the tender
@@ -2369,8 +2369,8 @@ from these instructions shall require relaxation from Ministry of Finance (for M
 Departments etc.) or from the Board of Directors (for Central Public Sector
 Enterprises).
 28NO.F.1/1/2021-PPD dtd 29/10/2021
-32",1
-"Chapter 3: Bidding Design for Works
+32",1,1.000,+procurement;+procuring;+procuring entity;+tender;+bidding;+liquidated damages;+contract;+contracts;+contractor
+Draft_Works_Manual_2nd_Edition.pdf,64,"Chapter 3: Bidding Design for Works
 i) Single Tender Enquiry (STE) or selection by nomination
 e) Award of Work through Quotations/ Shopping Modes: Procurement in these
 modes of procurement is done without tendering or calling for formal bids for
@@ -2414,8 +2414,8 @@ address from which the tender documents can be downloaded. While it is no longer
 mandatory to issue advertisements in newspapers, there is no bar to issuing such
 advertisements if the procuring entity consider the necessary. To promote wider
 37Rule 161, GFR 2017
-46",1
-"Manual for Procurement of Works, Second Edition, 2025
+46",1,1.000,+procurement;+procuring;+procuring entity;+tender;+tendering;+bidders;+bidding;+e-procurement;+gem;+open tender;+gfr;+cppp;+contract;+contracts;+bids;+lakh;+crore;+gem-portal;+eprocurement;+procurement-policy
+Draft_Works_Manual_2nd_Edition.pdf,77,"Manual for Procurement of Works, Second Edition, 2025
 when limited numbers of tenderers are known to possess requisite skills, technology and
 resources, by reason of their high complex or specialized nature, or for works of a secret
 nature
@@ -2464,8 +2464,8 @@ Sufficient time should be allowed for the
 4. It could also be due to bid documents not
 submission of bids, say two weeks. A shorter or
 reaching the targeted bidders – intentionally
-59",1
-"Manual for Procurement of Works, Second Edition, 2025
+59",1,1.000,+procurement;+procuring;+procuring entity;+tender;+tenders;+tendering;+bidders;+e-procurement;+gem;+performance security;+limited tender;+emd;+cppp;+vendors;+contract;+bid;+bids;+gem-portal;+eprocurement;+bid-process;+procurement-policy
+Draft_Works_Manual_2nd_Edition.pdf,89,"Manual for Procurement of Works, Second Edition, 2025
 inviting bids or proposals in any form whether they are advertised, issued to limited
 number of parties or to a single party. These instructions would not apply to Works
 procurement through quotation.
@@ -2511,8 +2511,8 @@ equivalent can allow to call and open tenders on another day instead of specific
 in response to a clarification sought by a prospective bidder (directly or in pre-bid
 conference), amend tender documents by issuing a corrigendum. Copies of such
 51 Rule 173 (iii) of GFR 2017
-71",1
-"Chapter 5: Forms of Securities, Prices, Payment Terms and Price Variations
+71",1,1.000,+procurement;+procuring;+procuring entity;+tender;+tenders;+bidder;+gfr;+e-publishing;+contract;+quotation;+bid;+bids;+crore;-holiday;+amount-threshold;+eprocurement;+bid-process
+Draft_Works_Manual_2nd_Edition.pdf,102,"Chapter 5: Forms of Securities, Prices, Payment Terms and Price Variations
 by the Department for Promotion of Industry and Internal Trade (DPIIT) (please refer to
 para 1.11-4) are exempt from payment of EMD. In case the bidder falls into these
 categories, the bidder should furnish a certified copy of its valid registration details. This
@@ -2558,8 +2558,8 @@ regulating international securities71.
 70 A bank guarantee merely advised by a scheduled bank is not acceptable in lieu of being confirmed.
 71 A set of rules developed by the International Chamber of Commerce first adopted in 1992. The latest version
 URDG 758 provides a framework for harmonising international trading practices and establishes agreed-upon
-84",1
-"Manual for Procurement of Works, Second Edition, 2025
+84",1,1.000,+procuring;+procuring entity;+tender;+tenders;+tendering;+bidder;+bidders;+bid security;+performance security;+gfr;+emd;+contract;+bid;+crore;-promotion;+amount-threshold;+office-memorandum;+bid-process
+Draft_Works_Manual_2nd_Edition.pdf,115,"Manual for Procurement of Works, Second Edition, 2025
 5.6 Recovery of Public Money from Service Provider’s Bill
 Sometimes, requests are received from a different Ministry/ Department for withholding
 some payment of a service provider out of the payment or Securities due to it against a
@@ -2577,8 +2577,8 @@ be followed while dealing with time barred claims will be decided by the Procuri
 concerned in consultation with the paying authority. The paying authority is to ensure that no
 payment against such time barred claim is made till a decision has been taken in this regard
 by the CA.
-97",1
-"Chapter 6: Evaluation of Bids and Award of Work
+97",1,1.000,+procurement;+procuring;+procuring entity;+contract;-admission
+Draft_Works_Manual_2nd_Edition.pdf,128,"Chapter 6: Evaluation of Bids and Award of Work
 changed. It should review the TC’s evaluation of each proposal (on technical,
 contractual, and other aspects). The CA should decide how any acceptable deviation in
 each proposal should be handled during contract formulation, in case that proposal is
@@ -2625,8 +2625,8 @@ arithmetical errors. These corrections shall be done in accordance with the prov
 the bidding document. In cases other than e-Procurement, the quoted rates in the bids
 shall be protected with lamination by the committee, if not done by the bidders. In
 accordance with the corrections as approved by the TC, the amount stated in the bid will
-110",1
-"Manual for Procurement of Works, Second Edition, 2025
+110",1,1.000,+procurement;+tender;+tenders;+tendering;+bidder;+bidders;+bidding;+e-procurement;+technical bid;+bid evaluation;+contract;+contractor;+bid;+bids;+eprocurement;+bid-process
+Draft_Works_Manual_2nd_Edition.pdf,141,"Manual for Procurement of Works, Second Edition, 2025
 d) Copies of all contracts and agreements for purchases of the value of Rs. 50
 (Fifty) lakh and above, and of all rate and running contracts entered into by civil
 departments of the government should be sent to the Accountant General.
@@ -2670,8 +2670,8 @@ and its closure.
 6.6 Evaluation of Bids and Award of Contract – Risks and
 Mitigation
 Risk Mitigation
-123",1
-"Chapter 7: Execution and Monitoring of Works and Quality Assurance
+123",1,1.000,+procurement;+procuring;+procuring entity;+tender;+tendering;+bidder;+bidders;+e-procurement;+purchase order;+contract;+contracts;+purchase;+purchases;+bid;+bids;+lakh;-complaint;+eprocurement;+bid-process
+Draft_Works_Manual_2nd_Edition.pdf,154,"Chapter 7: Execution and Monitoring of Works and Quality Assurance
 firm/contractor for guidance in fabrication, these should be issued against an appropriate
 bank guarantee. In addition to the bank guarantee, appropriate insurance may be asked
 for if it is considered necessary. For low value items of less than Rs. 1,00,000 (Rupees
@@ -2718,8 +2718,8 @@ the vendor to undertake work or take risks which was not explicitly communicated
 tender document. At the same time the Contractor should not consider this as an opportunity
 to unduly charge the Procuring Entity due to lack of available options. Generally, the value of
 the change request should not be more than plus/minus 15 (Fifteen) per cent. The Tender
-136",1
-"Manual for Procurement of Works, Second Edition, 2025
+136",1,1.000,+procuring;+procuring entity;+tender;+vendor;+contract;+contracts;+contractor;+penalties;+lakh
+Draft_Works_Manual_2nd_Edition.pdf,167,"Manual for Procurement of Works, Second Edition, 2025
 2. If a compensation event occurs during the execution of the Contract, the Contractor must
 give an 'early warning' to the Contracting Entity, failing which no compensation would be
 granted. If the Contractor proves that a compensation event would delay the completion
@@ -2764,8 +2764,8 @@ set out in the contract wherein the amount of advance payment is specified, as a
 timing of the payment and the amount of advance payment security to be provided by
 the contractor (Please refer to para 5.3). The advance payment is set off by the
 Procuring Entity in equal instalments against monthly billing statements until it has been
-149",1
-"Manual for Procurement of Works, Second Edition, 2025
+149",1,1.000,+procurement;+procuring;+procuring entity;+contract;+contractor
+Draft_Works_Manual_2nd_Edition.pdf,179,"Manual for Procurement of Works, Second Edition, 2025
 h) General or case-specific modification in the application of the above guidelines may
 be authorised by the Secretary concerned (or an officer not below the level of Joint
 Secretary to whom the authority is delegated by him) in respect of Government
@@ -2811,8 +2811,8 @@ conduct of mediation are strictly confidential. These can neither be relied upon
 evidence in any subsequent court proceedings nor be asked to be disclosed by any
 court/ tribunal. No audio or video recording of the mediation proceedings shall be
 made or maintained by the parties or the participants, including the mediator and
-161",1
-"Chapter 7: Execution and Monitoring of Works and Quality Assurance
+161",1,1.000,+procurement;+procuring;+central vigilance;+cvc;+contracts;-appointment;-annexure
+Draft_Works_Manual_2nd_Edition.pdf,192,"Chapter 7: Execution and Monitoring of Works and Quality Assurance
 7.8.2 Termination of Contract for Default
 1. Without prejudice to any other remedy for breach of contract, such as removal from the
 list of enlistedcontractors, by written notice of default sent to the Contractor, the contract
@@ -2857,8 +2857,8 @@ Procuring Entity to terminate the contract, in whole or in part for its (the Pro
 Entity’s) convenience, by serving written ‘Notice for Determination of Contract’ on the
 contractor at any time during the currency of the contract. The notice shall indicate inter-
 alia, that the termination is for the convenience of the Procuring Entity or the frustration
-174",1
-"Manual for Procurement of Works, Second Edition, 2025
+174",1,1.000,+procuring;+procuring entity;+performance security;+breach of contract;+contract;+contracts;+contractor;+purchase;-programme
+Draft_Works_Manual_2nd_Edition.pdf,205,"Manual for Procurement of Works, Second Edition, 2025
 Limit
 Class-I (Super) Rs 650 crore Class-II Rs 15 crore
 Class-I (AAA) Rs 260crore Class-III Rs 4crore
@@ -2903,8 +2903,8 @@ not respond to at least three (3) tenders in a year on being invited to do so (i
 there were at least 6 invitations to them), they may be removed from the list of
 enlisted contractors.
 10. Eligibility
-187",1
-"Annexure 10: A Sample MOU
+187",1,1.000,+procurement;+procuring;+procuring entity;+tender;+tenders;+open tender;+expression of interest;+contract;+contractor;+penalty;+bids;+eoi;+crore;+procurement-policy
+Draft_Works_Manual_2nd_Edition.pdf,231,"Annexure 10: A Sample MOU
 these are required. ‘Project Management Consultant’ shall provide necessary support in this
 process.
 19. ‘Project Management Consultant’ shall ensure adequate availability of men & material by their
@@ -2956,8 +2956,8 @@ packages for better management. ‘Project Management Consultant’ shall be obl
 all the above said measures to successful completion of the works within Approved Cost and
 agreed Time period.
 27. ‘Project Management Consultant’ shall be responsible for managing the Project from concept
-214",1
-"Annexure 14: Integrity Pact Format
+214",1,1.000,+procuring;+procuring entity;+tenders;+gfr;+general financial rules;+contractor;-annexure;-programme
+Draft_Works_Manual_2nd_Edition.pdf,244,"Annexure 14: Integrity Pact Format
 (Refer para 8.3-2)
 INTEGRITY PACT
 Between
@@ -3000,8 +3000,8 @@ process or the execution of the contract or to any third person any material or 
 benefit which they are not legally entitled to, in order to obtain in exchange any
 advantage of any kind whatsoever during the tender process or the execution of the
 contract.
-227",1
-"1 ^
+227",1,1.000,+procuring;+tender;+bidder;+contract;+contractor;-annexure;-disciplinary
+FAQs.pdf,0,"1 ^
 UNIVERSiTY GRANTS COMMiSS10N
 FREQUENTLY ASKED QUEST:ONS(FA凶
 S.No. Questions pertain to Reply
@@ -3041,8 +3041,8 @@ degree and
 foreign determine by UGC.
 university / institutions
 9. Approval of Technical Approval of Technical courses comes under the purview
-courses of All lndia Council for Technical Education.",0
-"4pproval of courses comes under
+courses of All lndia Council for Technical Education.",0,1.000,-university;-degree;-degrees;-courses;-education;-higher education;-programme
+FAQs.pdf,1,"4pproval of courses comes under
 the purvievv of Medical Council of lndia / Council
 Medical/Paramedical
 Courses
@@ -3090,8 +3090,8 @@ of‖ 」彙 出
 ltthf燻 :霊 f瀧
 '悪 il:聞
 hミ anuary,2015.
-^stllPM ln」",0
-"21 What is the current status Bhartiya Shiksha Parishad, Lucknow, UP has never been
+^stllPM ln」",0,0.975,-medical;-university;-degrees;-teacher;-courses
+FAQs.pdf,2,"21 What is the current status Bhartiya Shiksha Parishad, Lucknow, UP has never been
 of Bhartiya Shiksha recognized by UGC. Thus the Degrees/Certificates
 Parishad, Lucknow, UP awarded by it at any point of time are not valid for Higher
 and degrees issued by Education and employment.
@@ -3140,8 +3140,8 @@ wJw硼
 31. 雨 命可 命
 赫 m
 奇 鎌冊 諭 可町 20
-…",0
-"縁妍浣雁耐 舎衡哺 帥 研 も呵劇￢怖可 11劇||
+…",0,1.000,-university;-degree;-degrees;-course;-courses;-education
+FAQs.pdf,3,"縁妍浣雁耐 舎衡哺 帥 研 も呵劇￢怖可 11劇||
 帥
 輌 /も呵劇」
 41ul?
@@ -3191,8 +3191,8 @@ in""r,,oing their affiliated constituent colleges and other
 institutes functioning within the State can follow the
 p""t.""nirg"" of reJervation as prescribed by the
 respective State Government.
-The ReseⅣatlon of SC/STノOBCS iS Called VettiCal",0
-"| ^
+The ReseⅣatlon of SC/STノOBCS iS Called VettiCal",0,1.000,-recruitment;-reservation;-colleges;-courses;-educational;-research;-cadre;-roster
+FAQs.pdf,4,"| ^
 “
 `′
 N
@@ -3252,8 +3252,8 @@ institutions were prepared by the UGC and approved by
 the Commission and thereafter the same were issued
 /sent to all Universities for strict implementation in
 Universities , Deemed to be Universities, Colleges and
-other qrant -in-aid institutions and centers vide letter No.",0
-"A
+other qrant -in-aid institutions and centers vide letter No.",0,1.000,-admission;-academic;-reservation;-university;-degree;-colleges;-education;-educational
+FAQs.pdf,5,"A
 F.1-5/2006 (SCT) dated 25.8.2006 ( may be seen on UGC
 website www.uoc.ac.in.)
 The Central Universities are receiving 100% grant from
@@ -3306,8 +3306,8 @@ them they reservation
 seat & scholarshiP (for (i) the officials/faculty members should desist from any
 eg: government job, act of discrimination against Dalit students on grounds of
 in
-admission school their social oriqin.",0
-"college etc) and what (ii) the University/lnstitute/College may develop a page
+admission school their social oriqin.",0,1.000,-admission;-scholarship;-appointment;-reservation;-university;-degrees;-faculty;-students;-colleges;-courses;-educational;-roster
+FAQs.pdf,6,"college etc) and what (ii) the University/lnstitute/College may develop a page
 action has been taken by on their web-site for lodging such complaints of caste
 the government of lndia discrimination by Dalit students and also place a
 to step this Mal practices complaint register in the Registrar/Principal Office for the
@@ -3356,8 +3356,8 @@ education for the welfare employment, of the Government of lndia pertaining to t
 of Person with Different person with disabilities. ln addition and the guidelines
 o Di f s abilities with support framed at the level of the Commission in thii regards
 your have also been notified to all universitiei for
-DepartmenVAssociated implementation. The Commission h?s also circulated the",0
-"A
+DepartmenVAssociated implementation. The Commission h?s also circulated the",0,1.000,-welfare;-reservation;-university;-faculty;-student;-students;-teacher;-teachers;-college;-colleges;-education;-educational;-higher education;-complaint
+FAQs.pdf,7,"A
 lnstltutlons disabilities equal opportunities protection ot rrgfrts ana tutt
 participation Act, 1995 to the universities.
 1.
@@ -3411,8 +3411,8 @@ of
 Librarian, College Librarian, Director Physical
 Education & Sports, Dy. Director of Physical Education
 Sports, Asstt. Director of Physical Education & Sports
-and Colleqe Director Phvsical Education & Sports vide",0
-".A
+and Colleqe Director Phvsical Education & Sports vide",0,1.000,-admission;-examination;-academic;-appointment;-reservation;-medical;-university;-student;-students;-college;-colleges;-courses;-education
+FAQs.pdf,8,".A
 office letter No. 3-112000 (PS/PH) dated 19-03-2000.
 8. The UGC has issued a letter to all universities
 regarding 5o/o relaxation in marks at master's level for
@@ -3474,8 +3474,8 @@ phys e ic d a u l c ly a tion a S-ygrele lourt judgment 26.03.2014, in Wp (Civit
 challenged 116 of 1998,-Justice Sunanda Bhandare Foundation V/s
 student at University level Union of lndia & Anr, opined that even after lapse of
 after attaining the age of lSyears since its inception, the pWD Act, 1995 is still to
-18 years under Person pittt,and directed the",0
-"A ・
+18 years under Person pittt,and directed the",0,1.000,-leave;-examination;-appointment;-reservation;-medical;-university;-faculty;-student;-colleges;-educational
+FAQs.pdf,9,"A ・
 wlh Disabilly(PWD)Act, Central Government, State Governments and Union
 1995. Territories to implement the provision of the Act positively
 by the end of 2014. The Judgment is available on the
@@ -3534,8 +3534,8 @@ and allowances of the teachers. The maintenance grants, including the salary of
 State UniversitY the teaching and non teaching staff of the state
 teachers? universities is paid by the State Government concerned'
 The UGC provides General Development Assistance to
-the State Universities which alqo include the compo",0
-"0 ^
+the State Universities which alqo include the compo",0,1.000,-recruitment;-examination;-university;-students;-teachers;-courses;-allowances
+FAQs.pdf,10,"0 ^
 @inted teaching staff subject to
 the undertaking furnished by the state government
 concerned to take over the liability of the post(s) after the
@@ -3585,8 +3585,8 @@ for substitute teachers possess the eligibility and qualifications prescribed by
 working under the UGC for Assistant Professor, salary is fixed in the
 scheme
 Faculty minimum pay scale prescribed for an Assistant Professor
-Development Programme",0
-"つ (with no increments).
+Development Programme",0,1.000,-pay scale;-appointment;-university;-faculty;-teacher;-teachers;-college;-colleges;-programme
+FAQs.pdf,11,"つ (with no increments).
 ・
 Other candidate those who did not pass NETiSLET will
 be eligible for Rs.1000/- per lecture as honorarium with a
@@ -3629,15 +3629,15 @@ AppointmentofTeachersandotherAcademicStaffin
 for
 Universities and Colleges and Measures the
 Maintenance of Standards in Higher Education) (4th
-Amendment), Regulations, 2016 for details'",0
-"earned
+Amendment), Regulations, 2016 for details'",0,1.000,-academic;-university;-degree;-faculty;-colleges;-education;-higher education;-research
+FAQs.pdf,12,"earned
 I am- substitute teacher νrebsite
 working under FIP leave FDP guide‖ne para 6 2 avaHable in UGC
 vacancy. Am I eligible for OG面
 Earned Leave? Please 甘i:〃赫 ucc ttn10df∝ Wダ￢ 側 鋤 ""FDR
 detail the Provisions of Ш )9iVe the detans Ofleave ruleS
-leave for substitute",0
-"S. Name of the Date of Date of Batch Year Date of
+leave for substitute",0,0.825,-leave;-teacher;-vacancy
+FinalCivilList01092026.pdf,0,"S. Name of the Date of Date of Batch Year Date of
 No Officer Birth Apptt. in Appointment to
 (S/Shri/Ms.) ICoAS present Grade Present place of posting & Date Photo
 CHIEF ADVISER (COST) (APEX SCALE: Level 17: Rs. 225,000 - Fixed)
@@ -3685,8 +3685,8 @@ Adviser Cost
 11 Sanjay Kumar 15.01.1972 17.08.1999 1998 31.01.2022 (A/N) D/o Fertilizers 31.01.2022
 D/o Consumer
 12 Shashi Bhushan 30.08.1973 17.08.1999 1998 01.02.2022 01.02.2022
-Affairs",0
-"13 P.K. Saha 01.03.1967 05.04.1999 1998 25.11.2022 DIPAM 15.01.2024
+Affairs",0,0.750,-posting;-appointment
+FinalCivilList01092026.pdf,1,"13 P.K. Saha 01.03.1967 05.04.1999 1998 25.11.2022 DIPAM 15.01.2024
 DGTR,
 14 K.K. Mahawar 10.07.1973 26.03.1999 1998 21.06.2022 Department of 28.02.2025
 Commerce
@@ -3746,8 +3746,8 @@ Delhi
 Rakesh Kakkar
 30 31.05.1975 19.03.2010 2010 01.01.2023 Development 03.10.2023
 *
-Authority",0
-"68 Mahesh Kumar 10.07.1986 19.12.2016 2016 01.01.2026 D/o Expenditure 17.12.2020
+Authority",0,0.625,-welfare
+FinalCivilList01092026.pdf,4,"68 Mahesh Kumar 10.07.1986 19.12.2016 2016 01.01.2026 D/o Expenditure 17.12.2020
 DGTR,
 Prakash
 69 01.02.1987 06.01.2017 2016 22.04.2026 Department of 22.04.2026
@@ -3802,8 +3802,8 @@ PF(States)
 Rahul
 84 01.09.1989 01.03.2017 2017 06.12.2021 Division, D/o 06.07.2023
 Chaurasia
-Expenditure",0
-"CGST Audit -
+Expenditure",0,0.600,-course
+FinalCivilList01092026.pdf,7,"CGST Audit -
 122 Arun P 26.02.1991 14.12.2023 2023 14.12.2023 14.12.2023
 Bengaluru
 CGST Audit -
@@ -3859,8 +3859,8 @@ D/o Economic
 Affairs
 CGST Audit -
 140 Gautam Bagaria 06.09.1996 27.06.2025 2025 27.06.2025 27.06.2025
-Kanpur",0
-"CGST Audit -
+Kanpur",0,0.700,-welfare;-education
+FinalCivilList01092026.pdf,9,"CGST Audit -
 160 Rohit Badaik 08.09.1993 17.07.2025 2025 17.07.2025 17.07.2026
 Ranchi
 161 Mayur Panwar 13.11.1998 15.07.2025 2025 15.07.2025 NPPA 15.07.2025
@@ -3870,8 +3870,8 @@ Jha Patna
 * Officers on deputation/ex-cadre.
 While all efforts have been made to make this database as authentic as possible, the O/o CAC or the National Informatics Centre will not be responsible for any loss to
 any person caused by any shortcoming, defect or inaccuracy in the information available on the Website. Any discrepancy found may be brought to the
-notice of the O/o CAC.",0
-"NO.31/11/2020-EO(MM-I)
+notice of the O/o CAC.",0,0.775,-deputation;-cadre
+GKRY.pdf,0,"NO.31/11/2020-EO(MM-I)
 Government of India
 Department of Personnel & Training
 (Office of the Establishment Officer)
@@ -3906,8 +3906,8 @@ subsequent communication.
 Establishment Officer and dltlonal Secretary
 To
 1. All Secretaries to Government of India (as per list attached)
-2. All Chief Secretaries of the State Governments (as per list attached)",0
-"List of JS Selected for Monitoring of Garib Kalyan Rojgar Abhiyaan(GKRA)
+2. All Chief Secretaries of the State Governments (as per list attached)",0,0.750,-appointment;-annexure;-establishment officer;+office-memorandum
+GKRY.pdf,1,"List of JS Selected for Monitoring of Garib Kalyan Rojgar Abhiyaan(GKRA)
 Sl.No. Name Designation Ministry Department Organisation State District
 1 Rajbir Singh Panwar Joint Secretary M/o Agriculture & Farmers Welfare D/o Agriculture, Cooperation & Bihar East Champaran
 Farmers Welfare
@@ -3991,8 +3991,8 @@ Enterprises Enterprises Pradesh
 51 Gettu Joshi Economic Adviser Ministry of Power Central Electricity Madhya MANDLA
 Regulatory Commission Pradesh
 52 Dinesh Kapila EA Ministry of Housing & Urban Affairs Madhya KHARGONE
-Pradesh",0
-"Sl.No. Name Designation Ministry Department Organisation State District
+Pradesh",0,0.950,-promotion;-welfare;-education;-higher education
+GKRY.pdf,2,"Sl.No. Name Designation Ministry Department Organisation State District
 53 Shyam Sunder Dubey Joint Secretary M/o Housing and Urban Affairs Madhya SHIVPURI
 Pradesh
 54 Neeta Prasad Joint Secretary M/o Human Resources Dev D/o Higher Education Madhya BARWANI
@@ -4075,8 +4075,8 @@ Rejuvenation
 96 Shyamal Misra Joint Secretary M/o Commerce & Industry D/o Commerce Uttar Varanasi
 Pradesh
 97 Puneet Kansal Joint Secretary M/o Steel Uttar Ghazipur
-Pradesh",0
-"Sl.No. Name Designation Ministry Department Organisation State District
+Pradesh",0,1.000,-promotion;-welfare;-pension;-education;-higher education
+GKRY.pdf,3,"Sl.No. Name Designation Ministry Department Organisation State District
 98 Maneesh Garg Joint Secretary M/o Human Resources Dev D/o School Edu & Literacy Uttar Pratapgarh
 Pradesh
 99 Kamini Chauhan Ratan Joint Secretary M/o Human Resources Dev D/o Higher Education Uttar Rae Bareli
@@ -4112,8 +4112,8 @@ Pradesh
 114 Surendra Singh Joint Secretary M/o Social Justice & D/o Social Justice & Jharkhand Giridih
 Empowerment Empowerment
 115 Satendra Singh Joint Secretary M/o Mines Jharkhand Hazaribagh
-116 Kunal Kumar Joint Secretary M/o Housing and Urban Affairs Jharkhand Godda",0
-"No. F.6/1812019.PPD
+116 Kunal Kumar Joint Secretary M/o Housing and Urban Affairs Jharkhand Godda",0,0.950,-promotion;-welfare;-education;-higher education
+GeM_through_PFMS_non_PFMS_Agencies_Entities_NPAE_reg_1_0.pdf,0,"No. F.6/1812019.PPD
 Government of lndia
 Ministry of Finance
 Department of Expenditure
@@ -4158,8 +4158,8 @@ emergency cases with some validations: Head of Department (HoD) of
 the organization on GeM can unblock certain % of blocked funds of a
 contract (may be upto 100%) with the approval of associated finance of
 the Ministry/Department or the CPSE in exceptional cases/ emergency
-cases after giving a clear undertaking that he wil! ensure timely",1
-"An Emblem Symbolising The Future
+cases after giving a clear undertaking that he wil! ensure timely",1,1.000,+procurement;+procurement policy;+gem;+liquidated damages;+vendors;+contract;+contracts;+gem-portal;+office-memorandum
+LogoReport.pdf,0,"An Emblem Symbolising The Future
 Background
 It was something that Prime Minister, Shri Atal BehariVajpayee, said during his speech on the occasion of theinitiation of the University Grants Commission (UGC) GoldenJubilee Year on 28 December 2002 that sparked off the ideaof revisiting the old UGC logo. In his speech, Shri Vajpayeespoke of the need to take a fresh look at the UGC Act, 1956in the light of the new challenges for the education sectoremerging in the twenty-first century. He also suggested thatthe Commission could consider changing its name to the`University Education Development Commission”. This nametruly captures the changed role of the UGC in recent years.
 Traditionally, UGC was entrusted with the task of coordination,formulation and maintenance of the standards of universityeducation. To this end, it engaged itself in, among otherthings, framing regulations on minimum standards ofeducation, determining standards of teaching, examinationand research in universities, monitoring developments in thefield of collegiate and university education, disbursing grantsto universities and colleges and setting up common facilities,services and programmes for a group of universities in theform of Inter-University Centres.
@@ -4169,8 +4169,8 @@ An Emblem Symbolising
 The Future
 1
 University Grants Commission
-New Delhi",0
-"An Emblem Symbolising The Future An Emblem Symbolising The Future
+New Delhi",0,0.950,-university;-colleges;-education;-higher education;-research
+LogoReport.pdf,1,"An Emblem Symbolising The Future An Emblem Symbolising The Future
 education. It is also working actively to leverage informationtechnology in a big way to help it in qthuias littays ek,d wucitaht ipolna.n Ks ntoolwinlekd aglel uisn liivkeer sbiotitehs l igehlet catnrodn sicoaulnlyd .iLnik ae lpighhats, eitd e mnlaignhnteenr.s and empowers the individual andsociety as a whole, enabling them to overcome limitationsimposed by nature. And like sound, which seeps in throughthe most impermeable of barriers, knowledge cannot bestopped or barred in any way.
 Acknowledging that education cannot remain isolated fromthe requirements of the job market, Tthhee U cGhaCk irsa aitnte tmhep tlionggoto staymkeb sotleispess t oth ien cIrnedaiasen tnhaet ieomn.p Ilotsytawbeinlittyy- foofu sr tsupdoeknetss raenpdreesnecnot uthrea gcionngt inuunoivuesr asnitdie usn tion temrrouvpete, dafslo twh eo fr eesdtu ocaf ttihoen , wwohrilcdhh aiss t rduolyn ae ,li ffer-olomn gth pero ccoerses .t Teahech liinnegs-bleealornwi nthge p crhoackersas p toor traakyn aonw loepdegne -blionokke,d t hleea urnltiimnga tper oscyemsbso. lOofn lee aorfn tihneg .a Tphper oraeclehveasnbceei nogf baodookpste hda iss ntoo tc doilmlapinsiseh tehde ebvaerrnieinr st hbise tpwaepeenr ldeisssc ieprlian eosf aen-lde aarlnloinwgin agn sdt uodnelinntes etod upcuarstiuoen .a T phreolfiensessi oanrael daelsgore sey amlobnogliwc itohf tah epiar ira coaf dheamnidcs ,o nbee.c aTuhsise wit ilils kgnivoew sletuddgeen ttsh aat bsauspicpgorrotus nadnindg liinft as dthisec ipnlainteio ann tdo ewqauridps tdheevme lowpitmh epnrto afensds ipornoaglrseksilsls. as well.
 The UGC is also engaged in the task of preparing the highereducation sector to meet the challengTesh oef gPlorboalcisaetisosn andthe imperatives of the World Trade Organisation regime andthe General Agreement on Trade in Services (GATS). GATSwould open India’s education sector to foreign universities.The role of the public education system will become all themore important in this scenario since the private and foreignuniversities will not cater to students from non-metro andless affluent backgrounds. Apart from addressing the needsof its own students, India can also take a proactive approachand export Indian education, targeting the South East Asian,West Asian and African countries.
@@ -4181,8 +4181,8 @@ The logo and the motto line, Gyan-Vigyan Vimukte(Knowledge Liberates), convey th
 Prof. Jeram Patel
 Dr Rajeev Lochan
 Mr Nand Katyal
-2 3",0
-"An Emblem Symbolising The Future An Emblem Symbolising The Future
+2 3",0,0.850,-annexure;-university;-students;-education
+LogoReport.pdf,2,"An Emblem Symbolising The Future An Emblem Symbolising The Future
 the technical specifications of the Logo Design Competition.The participating institutions werTe hreeq uWesintend itnog h oDldecsomigpneteitiorns among their students and send in the ten bestentries to the UGC. So enthusiastic was the response amongthe students that the UGC received a total of 370 entriesagainst the expected 260.
 The expert committee went through all the 370 entries andzeroed in on five (Annexure B). HowTewveenrt,y i-tt hferelte t hyaeta rth-oeldre Pwraiysa s Jcaoypaen faonrd f ujortinheedr itmhep rCovoellemgeen ot fiFni naell oAfr ttsh east eT.h Air uthvraenea-ndtahya pwuorrakmsh aofpte wr caosm thpelent inogrg haenri sperde -adte tghree eM i.nS .h Uisntoivreyr sfritoym,V athdeo dKarrias hinn at hMe elansotn w Geoevke ornf mSeepntteWmobmeern 2’s0 0C3o.l leTghee, fCivaensnhaonrtolirset.e Sd hdee shiagsn ebrese inn tienrtaecretesdte wd itinhp saeinntioinrg d seisnicgen esrhse. Twhaesd eas cighniledr,s hmaovdinifgie db etheeni rt daeusgihgtn sb yin h theerf aligthhet ro,f ath kee seung gpeasintitoenrs hreimceseivlfe, da nadn dh apdre dpeacreidde dv aornia ttrioaninsin ogfi nth teh es ealretsc taefdte dr efisniigsnhsin.Tg hSitratyn dearndt rXie.s finally emerged from the workshop.
 Meanwhile, the UGC had constituted another committeecomprising members of the Commission to decide on thelogo and motto line. The five members of the committeewere Prof. V.N. Rajasekharan Pillai, Prof. B.N. Tandon,Prof. B.H. Briz-Kishore, Prof. Vasant Gadre and Prof.(Mrs) Aruna Goel. This committee and the committee ofexperts then met to consider the thirty entries. They suggestedthat each of the shortlisted thirty entries, along with theconcept statement, be circulated to all members of theCommission for their comments and that a three-day exhibitionof these designs be held so that the UGC officers and otherstaff could air their opinions and provide further feedback.
@@ -4211,8 +4211,8 @@ Technology Mumbai
 15. CN College of Fine arts, Ahmedabad
 16. Ipcowala Santram College of Fine Arts,
 Balabvidyanagar, Gujarat
-4 5",0
-"An Emblem Symbolising The Future
+4 5",0,1.000,-annexure;-university;-faculty;-student;-students;-college;-colleges;-education;-higher education
+LogoReport.pdf,3,"An Emblem Symbolising The Future
 Annexure B
 The Shortlisted Five
 Mr. Shashank Jha Faculty of Fine Arts,M.S.University, Vadodara
@@ -4238,8 +4238,8 @@ yb
 dehsilbuP
 University Grants Commission
 Bahadur Shah Zafar Marg, New Delhi - 110 002
-www.ugc.ac.in",0
-"FOREWORD
+www.ugc.ac.in",0,0.900,-annexure;-university;-faculty;-college
+Manual_Goods_2024.pdf,0,"FOREWORD
 (Second Edition, 2024)
 As part of initiatives to improve transparency, fairness, competition, value for money, and
 good governance in public procurement, the Department of Expenditure, Ministry of Finance
@@ -4268,8 +4268,8 @@ actionable recommendations shared in these pages. As we publish this Goods Manua
 refining others, we remain open to your feedback.
 (Dr. T. V. Somanathan)
 Date: 22nd July, 2024 Finance Secretary & Secretary (Expenditure)
-iii",1
-"Chapter 1: Introduction –Principles and Policies Manual for Procurement of Goods, Second Edition, 2024
+iii",1,1.000,+procurement;+tender;+bidders;+contracts;+bids;+suppliers;+procurement-policy
+Manual_Goods_2024.pdf,18,"Chapter 1: Introduction –Principles and Policies Manual for Procurement of Goods, Second Edition, 2024
 1.2. Clarification, Amendments and Revision of this Manual The following illustration may be used as guidance:
 Financial limits in GFRs are to be calculated for the Indian Mission in
 The Procurement Policy Division, Department of Expenditure, Ministry of Finance would be
@@ -4346,8 +4346,8 @@ procurement procedures or IFA’s specific procurement procedures to be followed
 7 Such approved guidelines must retain fundamental provisions relating to the Constitution and Government
 instructions relating to Preferential Procurement Policies, GTE and Land Border restriction, General Instructions the borrowers.
 on Procurement and Project Management (NO.F.1/1/2021-PPD dtd 20.10.2021)
-2 3",1
-"Chapter 1: Introduction –Principles and Policies
+2 3",1,1.000,+procurement;+procuring;+procurement policy;+tender;+tenders;+bidders;+e-procurement;+eprocurement;+gem;+gfr;+general financial rules;+contracts;+inr;-examination;-academic;+gem-portal;+eprocurement;+procurement-policy
+Manual_Goods_2024.pdf,37,"Chapter 1: Introduction –Principles and Policies
 b) Notwithstanding above, if in any project, it is considered that it is not practically feasible
 to source such items from Class I local suppliers, it may take relaxation from such
 stipulation with the approval of Secretary of the administrative Ministry/ Department
@@ -4395,8 +4395,8 @@ following procedure:
 local supplier’, the contract will be awarded to L1.
 2) If L1 is not a ‘Class-I local supplier’, the lowest bidder among the ‘Class-I local
 suppliers’ will be invited to match the L1 price subject to the Class-I local
-22",1
-"Chapter 1: Introduction –Principles and Policies Manual for Procurement of Goods, Second Edition, 2024
+22",1,1.000,+procurement;+procuring;+procuring entity;+bidder;+contract;+purchase;+bid;+bids;+supplier;+suppliers;+procurement-policy
+Manual_Goods_2024.pdf,56,"Chapter 1: Introduction –Principles and Policies Manual for Procurement of Goods, Second Edition, 2024
 less than 50%, as may be divisible. The contract can be awarded to the eligible eligible to bid on behalf of the domestic manufacturers under the Policy. However, this
 domestic manufacturer for the entire quantity if the tendered capital goods are non- shall be subject to the following conditions:
 divisible. If none of the eligible manufacturers meets domestic value addition i) The bidder shall furnish the authorization certificate issued by the domestic
@@ -4444,8 +4444,8 @@ domestic value addition made for the product during the preceding 6 months are i
 accordance with the Policy. Indian suppliers shall mean those entities that meet any of these tests with respect to
 d) The bidders who are selling agents/ authorized distributors/ authorized dealers/ India. The term ‘entity’ of a country shall have the same meaning as under the FDI
 authorized supply houses of the domestic manufacturers of iron & steel products are (Foreign Direct Investment) Policy of DPIIT as amended from time to time.
-40 41",1
-"Chapter 3: Supplier Relationship Management
+40 41",1,1.000,+procurement;+procuring;+procuring entity;+tender;+tenders;+bidder;+bidders;+emd;+turnover;+contract;+contracts;+purchase;+penalties;+bid;+supplier;+suppliers;+procurement-policy
+Manual_Goods_2024.pdf,74,"Chapter 3: Supplier Relationship Management
 an application for its review within a period of Five (5) days from its date, to the designated
 officer named in the tender documents in this regard (or the Head of the Procuring Entity,
 if not so specified), specifying the ground(s) and the relevant clauses of the tender
@@ -4493,8 +4493,8 @@ sub-para 5) below.
 designated officer shall forward the application to the Competent Authority of the tender
 for his examination on merits and action as considered necessary. Such post award
 grievance must be redressed and closed within 30 days of receipt of the grievance. If the
-60",1
-"Chapter 4: Modes of Procurement and Tendering Systems
+60",1,1.000,+procurement;+procuring;+procuring entity;+tender;+tendering;+bidder;+bidders;+bidding;+technical bid;+financial bid;+vendor;+contract;+contractor;+purchase;+bid;+bids;+supplier;-examination
+Manual_Goods_2024.pdf,93,"Chapter 4: Modes of Procurement and Tendering Systems
 (DDP at named place) basis. All importing Government Departments/ PSEs can now make
 their own shipping arrangements without needing to route their requirements through the
 Chartering Wing of the Ministry of Shipping. As per the extant directive of the Government,
@@ -4539,8 +4539,8 @@ b) 'GTE portal', a user-friendly IT application under the e-Samiksha platform, w
 developed by Cabinet Secretariate60. For more details on this process, please refer to
 GTE Guidelines on the eSamiksha portal - GTE_Guidelines.pdf (esamiksha.gov.in)
 60 Issued by Cabinet Secretariat vide ID No. 213/2/1/2021-C.A.IV dated 02.05.2022.
-80",1
-"Chapter 4: Modes of Procurement and Tendering Systems Manual for Procurement of Goods, Second Edition, 2024
+80",1,1.000,+procurement;+procuring;+tender;+tenders;+tendering;+bidders;+contract;+contracts;+supplier;+crore;+amount-threshold
+Manual_Goods_2024.pdf,112,"Chapter 4: Modes of Procurement and Tendering Systems Manual for Procurement of Goods, Second Edition, 2024
 Working with approved vendors instils confidence in the quality of materials and
 Risk Mitigation
 components purchased and reduces the chances of defects. Downtime due to failures and
@@ -4604,8 +4604,8 @@ Approved vendors can easily form a cartel Regularly monitor and update the AVL a
 and indulge in Anti-competitive practices. para 4.6-6.
 overall efficiency in procurement for strategic, safety and security Goods. It ensures that
 vendors have undergone rigorous vetting and have demonstrated stability and reliability.
-98 99",1
-"Chapter 4: Modes of Procurement and Tendering Systems Manual for Procurement of Goods, Second Edition, 2024
+98 99",1,1.000,+procurement;+procuring;+procuring entity;+tender;+tendering;+limited tender;+eligibility criteria;+vendor;+vendors;+bids;+suppliers
+Manual_Goods_2024.pdf,130,"Chapter 4: Modes of Procurement and Tendering Systems Manual for Procurement of Goods, Second Edition, 2024
 project their Annual Procurement Plan of goods and services on GeM portal within 30 becoming the norm, the availability of market activities and the capability to analyse
 (thirty) days of Budget approval. them artificially have provided an opportunity to automate decision-making activities,
 g) It may be noted that it is the responsibility of the Procuring Entity to do due diligence such as the assessment of the reasonability of rates in such cases.
@@ -4671,8 +4671,8 @@ disproportionate. Additionally, with developments in technology and e-procuremen
 80Notified vide OM No. F.6.18.2019-PPD issued by Department of Expenditure dated 11th June 2021.
 81 Refer OM No F.6/15/2018-PPD issued by Department of Expenditure dated 05.02.2020. 83 Notified vide OM No. F.6/7/2022-PPD issued by Department of Expenditure dated 11.01.2023.
 82 Notified vide OM No. F.6/7/2022-PPD issued by Department of Expenditure dated 06.09.2022 84 https://assets-bg.gem.gov.in/resources/pdf/pbp-buyer_1662620846.pdf
-116 117",1
-"Chapter 6: Forms of Securities, Prices, Payment Terms and Price Variations Manual for Procurement of Goods, Second Edition, 2024
+116 117",1,1.000,+procurement;+procuring;+procuring entity;+tender;+tendering;+bidding;+e-procurement;+gem;+gfr;+contract;+purchase;+purchases;+quotation;+bid;+bids;+supplier;+lakh;-annexure;+gem-portal;+eprocurement;+office-memorandum;+procurement-policy
+Manual_Goods_2024.pdf,149,"Chapter 6: Forms of Securities, Prices, Payment Terms and Price Variations Manual for Procurement of Goods, Second Edition, 2024
 4. A bidder’s bid security shall be forfeited if the bidder withdraws or amends its bid or impairs 3. Procuring Entity may exempt the following entities (on their specific requests or otherwise)
 or derogates from the tender in any respect within the period of validity of the tender or if from submission of Performance Security:
 the successful bidder fails to furnish the required performance security or to sign the a) 103Govt. Ministries, Departments, Attached and Subordinate Offices, Autonomous
@@ -4749,8 +4749,8 @@ necessary documentation.
 URDG 758 provides a framework for harmonising international trading practices and establishes agreed-upon rules
 for independent guarantees and counter-guarantees among trading partners for securing payment and
 performance in worldwide commercial contracts. 103 There is no bar from taking Performance Security from CPSEs
-136 137",1
-"Manual for Procurement of Goods, Second Edition, 2024
+136 137",1,1.000,+procurement;+procuring;+procuring entity;+tender;+tenders;+tendering;+bidder;+bidders;+e-procurement;+bid security;+performance security;+gfr;+breach of contract;+contract;+contracts;+contractor;+bid;+supplier;+lakh;+crore;+amount-threshold;+eprocurement;+office-memorandum;+bid-process
+Manual_Goods_2024.pdf,168,"Manual for Procurement of Goods, Second Edition, 2024
 Chapter 7: Bid Evaluation and Award of Contract
 7.1. Bid Evaluation Process
 1. The evaluation of bids is one of the most significant processes of procurement and must
@@ -4795,8 +4795,8 @@ below which the evaluation of the Bids may be entrusted solely and directly to t
 individual competent authority, without the involvement of a Tender committee or any
 evaluation report. He would carry out all the steps in the evaluation described below
 instead of the TC and directly record reasons and decisions in the file itself (or online,
-157",1
-"Chapter 7: Bid Evaluation and Award of Contract
+157",1,1.000,+procurement;+procuring;+procuring entity;+tender;+tenders;+bidder;+bidders;+bid evaluation;+gfr;+vendor;+contract;+purchase;+bid;+bids;+bid-process
+Manual_Goods_2024.pdf,187,"Chapter 7: Bid Evaluation and Award of Contract
 during negotiations fails to reduce the costs to a reasonable level. If it is decided to re-
 invite the bids, the Specifications should be critically reviewed/modified so as to address
 the reasons for not receiving any acceptable bid in the earlier Invitation for bids. The
@@ -4842,8 +4842,8 @@ table and not through the circulation of notes.
 2. All members of the TC should resolve their differences through personal discussions
 instead of making to-and-fro references in writing. In cases where it is not possible to come
 113 Notified vide OM No. F.1/1/2021-PPD issued by Department of Expenditure dated 21.04.2022.
-176",1
-"Chapter 9: Contract Management Manual for Procurement of Goods, Second Edition, 2024
+176",1,1.000,+procurement;+procuring;+procuring entity;+tender;+tenders;+tendering;+bidder;+bidders;+performance security;+bid evaluation;+emd;+contract;+bid;+bids;+office-memorandum
+Manual_Goods_2024.pdf,205,"Chapter 9: Contract Management Manual for Procurement of Goods, Second Edition, 2024
 of the contract and the increased quantity. In case the recalculated value of the contract in such cases that there is a slight deviation from such monthly rate of supply. It should be
 goes beyond the delegation of powers of the original CA, approval of the CA for the clarified in such cases that the variation in the periodic rate of supply within +/- 10 (ten) per
 enhanced value may be taken. cent in any calendar month or +/- seven per cent cumulative in any calendar quarter, or
@@ -4915,8 +4915,8 @@ supplier,
 2. In the case of items such as raw material, in which consignments are delivered throughout
 iii) Cases where the purchaser controls the entire production schedule of supplier.
 the year, a delivery schedule of the monthly rate of supply should be specified. It is usual
-194 195",1
-"Chapter 9: Contract Management
+194 195",1,1.000,+procurement;+procuring;+procuring entity;+tender;+tenders;+purchase order;+liquidated damages;+breach of contract;+contract;+contracts;+contractor;+purchase;+penalty;+supplier;+suppliers
+Manual_Goods_2024.pdf,224,"Chapter 9: Contract Management
 9.6.6 Goods Receipt and Inspection Report
 1. If the received material successfully passes the quantity and quality checks, accounting of
 the material received shall be based on the Goods Receipt and Inspection Report (GRIR
@@ -4961,8 +4961,8 @@ they are protected against unauthorised removal and deterioration.
 9.7.1 Performance Security
 1. The Contractor must maintain the Performance Security of the required amount in a
 specified format during the currency of the Contract. In the event of any amendment issued
-214",1
-"Chapter 9: Contract Management Manual for Procurement of Goods, Second Edition, 2024
+214",1,1.000,+procuring;+procuring entity;+tender;+performance security;+consignee;+contract;+contractor;+supplier;+suppliers;-annexure
+Manual_Goods_2024.pdf,243,"Chapter 9: Contract Management Manual for Procurement of Goods, Second Edition, 2024
 9. Award within 12 (twelve) months: The arbitral tribunal is statutorily bound to deliver an item-wise the sum and reasons upon which it is based. The analysis and reasons shall be
 award within 12 (twelve) months from the date when the arbitral tribunal enters reference. detailed enough so that the award can be inferred from it. It shall be further a term of this
 The award can be delayed by a maximum of six months only under exceptional arbitration agreement that where the arbitral award is for the payment of money, no interest
@@ -5043,8 +5043,8 @@ an award shall be made by a majority of members of the Tribunal. In the absence 
 125New rule 227A of GFR, 2017 notified vide OM No. F.1/9/2021-PPD issued by Department of Expenditure dated
 a majority, the views of the Presiding Arbitrator shall prevail. The arbitral award shall state
 29.10.2021.
-232 233",1
-"Manual for Procurement of Goods, Second Edition, 2024 Manual for Procurement of Goods, Second Edition, 2024
+232 233",1,1.000,+procurement;+procuring;+procuring entity;+gfr;+contract;+contractor;+office-memorandum
+Manual_Goods_2024.pdf,261,"Manual for Procurement of Goods, Second Edition, 2024 Manual for Procurement of Goods, Second Edition, 2024
 Annexure 2: Delegation of Financial Powers – Indents, Contracts and Annexure 3: Powers for Incurring Contingent Expenditure
 Purchases for Public Service (Excerpts from DFPR Rule 13 (3), Schedule V, Refer Para 1.5-1)
 (Excerpts from DFPR, 1978, Refer 1.5-1; 7.5.10-2) Authority Extent of power&&
@@ -5105,8 +5105,8 @@ authenticated by the officers authorised to do so under Article 77 of the Consti
 The Under Secretaries in the Departments of the Central Government who are declared as Heads of
 Offices under Rule 14 of DFPR may sanction contingent expenditure up to the extent indicated in the
 Table above without issuing formal sanctions in the name of the President.
-252 253",1
-"Manual for Procurement of Goods, Second Edition, 2024
+252 253",1,1.000,+procurement;+tender;+limited tender;+open tender;+contract;+contracts;+purchase;+purchases;-annexure
+Manual_Goods_2024.pdf,280,"Manual for Procurement of Goods, Second Edition, 2024
 Annexure 17: Letter (Notification) of Award (LoA) of Contract
 (Refer Para 7.7.1-1)
 Name of the procuring entity___________________________________________________
@@ -5139,8 +5139,8 @@ issue of a formal contract.
 Yours truly,
 [Authorised Officer]
 Enclosure: Agreement Form along with the delivery schedule
-272",1
-"Manual for Procurement of Goods, Second Edition, 2024 Annexure 30: Integrity Pact Format
+272",1,1.000,+procurement;+procuring;+procuring entity;+tender;+bidder;+performance security;+financial bid;+emd;+contract;+purchase;+bid;+bids;-annexure
+Manual_Goods_2024.pdf,299,"Manual for Procurement of Goods, Second Edition, 2024 Annexure 30: Integrity Pact Format
 e. The Bidder(s)/ Contractor(s) shall, when presenting their bid, disclose any and all payments
 made, is committed to, or intends to make to agents, brokers, or any other intermediaries in
 Annexure 30: Integrity Pact Format connection with the award of the contract.
@@ -5214,8 +5214,8 @@ the Bidder(s)/Contractor(s). Further, as mentioned in the Guidelines, all the pa
 to the Indian agent/representative must be in Indian Rupees only. Copy of the “Guidelines on ‘Non-Disclosure of Confidential Information’ and ‘Absence of Conflict of Interest.’ In case of any
 Indian Agents of Foreign Suppliers” is placed on Annex hereto. conflict of interest arising later, the IEM shall inform the Management of the Principal and recuse
 themselves from that case.
-290 291",1
-"Annexure 31: Consolidated List of Medical Devices/Equipment and Drugs that Can be Procured through Manual for Procurement of Goods, Second Edition, 2024
+290 291",1,1.000,+procurement;+procuring;+tender;+bidder;+bidders;+bid security;+central vigilance;+liquidated damages;+contract;+contracts;+contractor;+bid;+bids;+suppliers;-annexure;-disciplinary;+bid-process
+Manual_Goods_2024.pdf,317,"Annexure 31: Consolidated List of Medical Devices/Equipment and Drugs that Can be Procured through Manual for Procurement of Goods, Second Edition, 2024
 GTE
 11.25 mg
 119. Peri toneal Dialysis Solution With 1.5% Dextrose
@@ -5271,8 +5271,8 @@ Enterprise and such MSE shall be allowed to supply up to 25 per cent of total te
 (ii) In case of more than one such Micro and Small Enterprise, the supply shall be shared proportionately
 (to tendered quantity).
 142 https://www.dcmsme.gov.in/FAQs-PPP_25032022.pdf
-308 309",1
-"Annexure 36: Payment and Receipt Procedures of GeM
+308 309",1,1.000,+procurement;+procurement policy;+tender;+tenders;+quotation;-reservation;-annexure;-medical;+procurement-policy
+Manual_Goods_2024.pdf,336,"Annexure 36: Payment and Receipt Procedures of GeM
 and an email, and an SMS Alert will be sent to Consignee informing that consignee has to
 mandatorily acknowledge receipt of stores/ milestone achievement/ service delivery through
 generation of PRC on GeM. The Buyer/ Consignee should receive the Goods/Services and issues
@@ -5324,8 +5324,8 @@ days (unless otherwise specified in a particular contract) of date of receipt in
 date of receipt as indicated in Deemed PRC. The CRAC would clearly indicate the Order quantity/
 milestone achievement/ service delivery, rejected quantity/ unacceptable milestone achievement
 /unacceptable service delivery (if any, with reasons for rejection including
-328",1
-"Appendix 2: Legal Aspects of Public Procurement
+328",1,1.000,+gem;+consignee;+contract;-annexure;+gem-portal
+Manual_Goods_2024.pdf,355,"Appendix 2: Legal Aspects of Public Procurement
 process and to ensure that every final arbitral award is enforced in the same manner as if it was a
 decree of the court. It covers both international and domestic arbitration and conciliation.
 4.1. Arbitration
@@ -5372,8 +5372,8 @@ the institution and adherence to its rules.
 5. Traditionally, India has favoured ad-hoc arbitration over institutional arbitration due to several
 factors. However, in recent years, there has been a shift towards institutional arbitration as India
 seeks to improve its arbitration regime and attract more foreign investment.
-348",1
-"FOREWORD
+348",1,1.000,+procurement;+procuring;+procuring entity;+contract;+contracts;+amount-threshold;+procurement-policy
+Manual_for_Procurement_of_Works_Updated June_ 2022.pdf,0,"FOREWORD
 1. Government organizations procure a wide variety of goods and services and undertake
 execution of works in pursuance of their duties and responsibilities. With a view to
 improving transparency in decision making in public procurement and reducing the
@@ -5410,8 +5410,8 @@ predictability in government procedures and help in improving the ease of doing 
 with the Government.
 (G. C. Murmu)
 Date : 06.06.2019 Secretary (Expenditure)
-v",1
-"Procurement Glossary
+v",1,1.000,+procurement;+procuring;+bidding;+gfr;+general financial rules;+cppp;+eprocurement;+procurement-policy
+Manual_for_Procurement_of_Works_Updated June_ 2022.pdf,10,"Procurement Glossary
 In this Manual and in the ‘Procurement Guidelines’, unless the context otherwise requires:
 i) ""Bid"" (including the term ‘tender’, ‘offer’, ‘quotation’ or ‘proposal’ in certain contexts)
 means an offer to supply goods, services or execution of works made in accordance with
@@ -5451,8 +5451,8 @@ ix) “Class-II local supplier” means a supplier or service provider, whose go
 works offered for procurement, meets the minimum local content as prescribed for ‘Class-
 1Notified vide Order No. P-45021/2/2017-PP (BE-II) issued by Department of Promotion of Industry and
 Internal Trade dated 16.09.2020
-xvii",1
-"on the website(s) in the such a manner that ongoing procurements are not
+xvii",1,1.000,+procurement;+procuring;+procuring entity;+tender;+bidder;+bidding;+earnest money;+bid security;+request for proposal;+emd;+rfp;+contract;+contracts;+purchase;+quotation;+bid;+supplier;+tenderer;-promotion;+bid-process;+procurement-policy
+Manual_for_Procurement_of_Works_Updated June_ 2022.pdf,20,"on the website(s) in the such a manner that ongoing procurements are not
 disrupted.
 (viii) Specifications in Tenders and other procurement solicitations:
 a) Every procuring entity shall ensure that the eligibility conditions in respect of previous
@@ -5497,8 +5497,8 @@ having been designated such power by the Secretary of the Department concerned.
 f) “All administrative Ministries/Departments whose procurement exceeds Rs. 1000
 Crore per annum shall notify/ update their procurement projections every year,
 including those of the PSEs/PSUs, for the next 5 years on their respective website.”
-6",1
-"v) Administrative Approval and Expenditure Sanction (A/A&E/S) or ‘Go ahead’ Approval;
+6",1,1.000,+procurement;+procuring;+procuring entity;+tender;+tenders;+gem;+turnover;+purchases;+bid;+supplier;+suppliers;+crore;+gem-portal;+bid-process
+Manual_for_Procurement_of_Works_Updated June_ 2022.pdf,30,"v) Administrative Approval and Expenditure Sanction (A/A&E/S) or ‘Go ahead’ Approval;
 vi) Detailed Design, Estimate and Technical Sanction;
 vii) Appropriation/ re-appropriation of funds;
 viii) Preparation of Bid documents, Publication, Receipt and Opening of Bids;
@@ -5527,8 +5527,8 @@ budget for civil works.
 14Rule 131, GFR, 2017
 15Rule 132, GFR, 2017
 16Rule 134, GFR, 2017
-16",1
-"i) The Engineering, Procurement and Construction (EPC) (also called ‘Design & Build’
+16",1,1.000,+procurement;+gfr;+bid;+bids;+lakh;-annexure
+Manual_for_Procurement_of_Works_Updated June_ 2022.pdf,40,"i) The Engineering, Procurement and Construction (EPC) (also called ‘Design & Build’
 Contracts) approach relies on assigning the responsibility for investigations, design
 and construction to the contractor for a lump sum price determined through competitive
 bidding. The objective is to ensure implementation of the project to specified standards
@@ -5572,8 +5572,8 @@ specified date of completion, subject to the total amount of Damages not exceedi
 extension arising out of delays on account of change of scope and force majeure or
 delays caused by or attributable to the Procuring Entity. If so provided in the Bid
 19Niti Aayog OM No. N-14070/14/2016-PPPAU dated September 05, 2016
-26",1
-"JV members are “jointly and severally responsible and liable” in a contract. For pre-
+26",1,1.000,+procurement;+procuring;+procuring entity;+bidder;+bidders;+bidding;+liquidated damages;+contract;+contracts;+contractor;+bid;-degree;+office-memorandum
+Manual_for_Procurement_of_Works_Updated June_ 2022.pdf,50,"JV members are “jointly and severally responsible and liable” in a contract. For pre-
 qualification, the JV should fulfil the criteria specified in the pre-qualification document.
 The attributes to be evaluated will be the same as for individual contractors; however,
 certain parameters up to the specified limits have to be essentially met by them
@@ -5615,8 +5615,8 @@ PQBs. In the case of urgency, duly approved by CA, the time limit may be reduced
 days. The PQB documents should also indicate
 a) Scope of work (in physical as well monetary terms);
 b) Pre-qualification criteria for single contractors and joint ventures;
-36",1
-"tenderers are known to possess requisite skills, technology and resources, by reason
+36",1,1.000,+tender;+eligibility criteria;+turnover;+contract;+contracts;+contractor;+bid;+bid-process
+Manual_for_Procurement_of_Works_Updated June_ 2022.pdf,60,"tenderers are known to possess requisite skills, technology and resources, by reason
 of their high complex or specialized nature, or for works of a secret nature
 ii) Terms and Conditions
 a) Copies of the bidding documents should be sent free of cost (except in case
@@ -5659,8 +5659,8 @@ It could also be due to bidders not getting limited tenders, with suitable clari
 adequate time for submission of bids. On the that unsolicited bids shall not be considered.
 other hand, unsolicited bidders may also Further a limited or open tender which
 results in only one effective offer shall be
-46",1
-"Qualification of bidders is done on Pre-qualification Bidding basis (refer Para 3.3.6, PQB) or
+46",1,1.000,+procurement;+procuring;+procuring entity;+tender;+tenders;+tendering;+bidder;+bidders;+bidding;+e-procurement;+limited tender;+open tender;+cppp;+vendors;+bid;+bids;+suppliers;+eprocurement;+bid-process;+procurement-policy
+Manual_for_Procurement_of_Works_Updated June_ 2022.pdf,71,"Qualification of bidders is done on Pre-qualification Bidding basis (refer Para 3.3.6, PQB) or
 on post-qualification basis (refer Para 3.3.4, single stage multiple envelope system). In both
 cases Qualification criteria needs to be laid down in the Bid Document (refer para 3.3.6 iii).It
 is of utmost importance to develop new contractors and also to provide avenues to Sub-
@@ -5706,8 +5706,8 @@ prepared and approved by the competent authority. In order to bring clarity to r
 questions/ answers and needed amendments should be merged in the sequence of clauses
 in the bidding document. It is a good practice to consolidate all queries received either as part
 of pre-bid meeting or just after issuing bidding documents and deal with in a comprehensive
-57",1
-"should also state the name and designation of the next Higher Authority of the Officials who
+57",1,1.000,+procurement;+procuring;+procuring entity;+tender;+tenders;+bidder;+bidders;+bidding;+cppp;+contract;+contracts;+bid;+bids;+lakh;+amount-threshold;+bid-process
+Manual_for_Procurement_of_Works_Updated June_ 2022.pdf,81,"should also state the name and designation of the next Higher Authority of the Officials who
 have issued the Bank Guarantee.
 Bank guarantees submitted by the tenderers/ contractors as EMD/ performance securities
 need to be immediately verified from the issuing bank before acceptance. There may not be
@@ -5749,8 +5749,8 @@ computerised with automatic alerts about lapse of validity etc. For release of B
 shall be forwarded by the executing agency with its recommendations in accordance with the
 contract conditions, for approval by the CA with the concurrence of the Finance Division.
 4.16 Goods and Services Tax (GST)
-67",1
-"should try to shorten the procurement decision period to 60 days from the date of
+67",1,1.000,+procurement;+bidders;+performance security;+emd;+contract;+contracts;+contractor
+Manual_for_Procurement_of_Works_Updated June_ 2022.pdf,91,"should try to shorten the procurement decision period to 60 days from the date of
 opening of the tenders in most of the cases. Only in exceptional cases, like two packet/
 two stage bidding the period may be extended. However, in no case this time period
 should exceed 75 days. The Ministries/ Departments may draw guidance from the
@@ -5794,8 +5794,8 @@ Department/ CPSU within three working days.
 The entire process of scrutiny and evaluation of tenders, preparation of ranking statement and
 notification of award must be done expeditiously and within the original tender validity period.
 The validity period should not be unreasonably long as keeping the tender unconditionally
-77",1
-"5.8 Evaluation of Bids and Award of Contract - Risks and Mitigations
+77",1,1.000,+procurement;+procuring;+tender;+tenders;+bidding;+e-procurement;+cppp;+contract;+bid;+crore;-leave;+eprocurement;+procurement-policy
+Manual_for_Procurement_of_Works_Updated June_ 2022.pdf,101,"5.8 Evaluation of Bids and Award of Contract - Risks and Mitigations
 Risk Mitigation
 prices being high, change of specifications, may be taken. Please also see the complaint
 budget not being available, and so on. mechanism.
@@ -5822,8 +5822,8 @@ other. Although there is a standard contract should be strictly as per the bid c
 form in the bid documents, the contract may and accepted offer.
 be drafted in a fashion to favour or
 discourage the successful bidder.
-87",1
-"days of submission of bill by the contractor. In case the payment has not
+87",1,1.000,+procurement;+tender;+tendering;+bidder;+contract;+contracts;+bid;+bids;-complaint
+Manual_for_Procurement_of_Works_Updated June_ 2022.pdf,111,"days of submission of bill by the contractor. In case the payment has not
 been released within 10 working days as prescribed above, it shall be made
 as soon as possible, and after payment a written explanation for the delay
 shall be submitted to the next higher authority within three working days.
@@ -5865,8 +5865,8 @@ of a BG by the contractor for this part of the advance. Mobilisation expenditure
 mentioned herein shall not include the margin money and bank commission, and so
 on, paid by the contractor for procurement of BGs against performance security and
 mobilisation advance.
-97",1
-"iv) If the contract is terminated in whole or in part, recourse may be taken to any one or more
+97",1,1.000,+procurement;+performance security;+contract;+contracts;+contractor;+crore
+Manual_for_Procurement_of_Works_Updated June_ 2022.pdf,121,"iv) If the contract is terminated in whole or in part, recourse may be taken to any one or more
 of the following actions:
 a) Forfeiture of the performance security;
 b) Upon such terms and in such manner as it deems appropriate, taking over the site and
@@ -5910,8 +5910,8 @@ On the lines of provisions in Ministry of Finance (DoE)’s instructions vide OM
 II/2012 dated 05/08/2016 regarding appraisal and approval of Public Funded projects/
 schemes, any increase in costs due to statutory levies, exchange rate variation, price
 escalation within the approved time cycle and/ or increase in costs upto 20 percent due to any
-107",1
-"of enlisted contractors, besides any other penalty or more severe action as deemed fit;
+107",1,1.000,+procuring;+procuring entity;+tender;+performance security;+gfr;+contract;+contracts;+contractor;+purchase;+crore;+office-memorandum
+Manual_for_Procurement_of_Works_Updated June_ 2022.pdf,131,"of enlisted contractors, besides any other penalty or more severe action as deemed fit;
 and
 v) Along with the new/ renewal application for enlistment, the contractors should also be
 asked to declare that, if awarded a contract in any LTE in which they participate, they
@@ -5953,8 +5953,8 @@ only after the firm has satisfactorily executed one contract of the relevant cat
 value from Procuring Entity. The extension of validity of enlistment is not a matter of
 right and Procuring Entity reserves the right not to extend such enlistment without
 assigning any reason;
-117",1
-"immediately interferes and suggests ways to resolve the dispute. DRB mechanism may
+117",1,1.000,+procuring;+procuring entity;+contract;+contractor;+penalty
+Manual_for_Procurement_of_Works_Updated June_ 2022.pdf,142,"immediately interferes and suggests ways to resolve the dispute. DRB mechanism may
 be embedded in contracts.
 vi) Encourage institutional arbitration: Settlement of disputes through Institutional
 arbitration is better than ad-hoc arbitration. Institutional arbitration provides an
@@ -5987,8 +5987,8 @@ project within specified time, cost and quality, the interest of all the stakeho
 to be aligned. Coordinated efforts of all stakeholders such as contractors, consultants,
 public authority and project executing authority and public representatives will bring
 about the best possible outcome.
-128",1
-"Execution by ‘Project Management Consultant’ along with A & E Consultants
+128",1,1.000,+procurement;+contracts;+contractor;+procurement-policy
+Manual_for_Procurement_of_Works_Updated June_ 2022.pdf,152,"Execution by ‘Project Management Consultant’ along with A & E Consultants
 2. ‘Project Management Consultant’ shall appoint, if any, competent Architectural and
 Engineering (A & E) Consultant commensurate with size and nature of the work after
 following due process.
@@ -6030,8 +6030,8 @@ carrying out the assigned Deposit Work.
 7. ‘Procuring Entity’ shall release Initial Deposit of 10% of the approved preliminary
 55 Applicable to framework MoUs or MoUs for collection of projects
 56 Replace by any other relevant Schedule of Rates for the concerned location/ project
-139",1
-"Annexure 11: Format for seeking the approval of the Competent
+139",1,0.950,+procuring;+procuring entity;-programme
+Manual_for_Procurement_of_Works_Updated June_ 2022.pdf,162,"Annexure 11: Format for seeking the approval of the Competent
 Authority for inviting Global Tender Enquiry for procurements less
 than Rs. 200 crores
 (Refer Para 3.5.4)
@@ -6076,8 +6076,8 @@ proposed item under GTE?
 development of local suppliers/ phased indigenization/
 promotion of alternative technology having sufficient
 local suppliers. (If so, details thereof)
-149",1
-"Appendix 1: Advanced Concepts of Value for Money and
+149",1,1.000,+procurement;+tender;+tenders;+vendors;+suppliers;-promotion;-annexure
+Manual_for_Procurement_of_Works_Updated June_ 2022.pdf,172,"Appendix 1: Advanced Concepts of Value for Money and
 Fundamental Principles of Public Procurement
 1.0 The Concept of Value
 Value is a management and economics concept. It represents the extent of satiation of a
@@ -6118,8 +6118,8 @@ in the procurement price. In the case of capital equipment, all costs associated
 operating the equipment through its life. Examples of usage costs are inventory,
 conversion, wastage, lost productivity, lost sales, warranty, installation, training,
 downtime, and so on; and
-159",1
-"Procuring authorities are accountable for all the above principles to several statutory and
+159",1,1.000,+procurement;+vendor;+contractor;+procurement-policy
+Manual_for_Procurement_of_Works_Updated June_ 2022.pdf,182,"Procuring authorities are accountable for all the above principles to several statutory and
 official bodies in the Country – the Legislature and its Committees, Central Vigilance
 Commission, Comptroller and Auditor General of India, Central Bureau of Investigations and
 so on– in addition to administrative accountability. As a result, each individual public
@@ -6147,8 +6147,8 @@ during pre-bid conferences;
 g) Bids evaluated, and documents relating to their evaluation;
 h) Contracts and Contract Amendment; and Complaint handling, correspondences
 with Procuring Entities, consultants, banks.
-169",1
-"Preface
+169",1,1.000,+procurement;+procuring;+procuring entity;+bidders;+bidding;+central vigilance;+contract;+contracts;+bid;+bids;-complaint;+bid-process;+procurement-policy
+MfPoCS_2025.pdf,0,"Preface
 1. Compliance: This Manual adheres to the relevant laws, GFR, and clarifications/ OMs
 issued by the Procurement Policy Division, Department of Expenditure, Ministry of Finance
 (‘the Ministry’) up to April 2025. In case of inconsistencies between this Manual and prevailing
@@ -6190,8 +6190,8 @@ undergo frequent revision, it would be easier to update the annexures than the b
 Manual.
 6. An attempt has been made in this edition of Manuals to illustrate some topics with
 relevant examples.
-v",1
-"Manual for Procurement of Consultancy Services, Second Edition, 2025
+v",1,1.000,+procurement;+procuring;+procurement policy;+tender;+gfr;-course
+MfPoCS_2025.pdf,13,"Manual for Procurement of Consultancy Services, Second Edition, 2025
 Chapter 1: Introduction to Procurement of
 Consultancy Services
 1.1 Procurement Rules and Regulations; and this Manual
@@ -6232,8 +6232,8 @@ GFR 2017) etc.
 6. Without purporting to be a comprehensive compendium of all such ‘Procurement
 Guidelines’, this Manual is intended to serve as a portal to enter this vast area and draw
 attention to basic norms and practices governing public procurement.
-1",1
-"Chapter 1: Introduction to Procurement of Consultancy Services
+1",1,1.000,+procurement;+procuring;+government e-marketplace;+gem;+gfr;+contract;+contracts;+purchase;-annexure;+gem-portal;+procurement-policy
+MfPoCS_2025.pdf,26,"Chapter 1: Introduction to Procurement of Consultancy Services
 1. If the procuring entity negotiates with the L1 bidder, who is not a Class-
 I Local Supplier, the margin of purchase preference (L1+20%) should be
 calculated based on the original L1 price, not the lower negotiated price,
@@ -6280,8 +6280,8 @@ d) “Class-II local supplier” will not get a preference for any procurement u
 procuring entities.
 4A Applicability in tenders where the contract is to be awarded to multiple bidders:
 In tenders where the contract is awarded to multiple bidders subject to matching of L1 rates
-14",1
-"Chapter 1: Introduction to Procurement of Consultancy Services
+14",1,1.000,+procurement;+procuring;+procuring entity;+tenders;+bidder;+bidders;+contract;+purchase;+bid;+bids;+supplier;+suppliers;+procurement-policy
+MfPoCS_2025.pdf,40,"Chapter 1: Introduction to Procurement of Consultancy Services
 SN Scenario Applicability of Rule 144 (xi)
 c) By entering into a MOU/ lease In this case, the actual supplier of
 agreement with the company (say ‘X’ services, prima facie, shall be ‘X.’
@@ -6328,8 +6328,8 @@ supplies goods manufactured at premises established in a country that shares a
 land border with India. In such a case, registration is required for Party B (and
 not necessarily for Party A, who is only an agent and not from a country sharing
 a land border with India).
-28",1
-"Manual for Procurement of Consultancy Services, Second Edition, 2025
+28",1,1.000,+procurement;+procuring;+gfr;+vendor;+vendors;+supplier
+MfPoCS_2025.pdf,53,"Manual for Procurement of Consultancy Services, Second Edition, 2025
 on costly machinery to be used may reduce competition and encourage cartel
 formation.
 b) Processes, e.g., pre-bid conferences (where a considerable number of competing
@@ -6347,8 +6347,8 @@ or bypass the pre-qualification stage and vice versa.
 ii) Change the packaging/slicing by clubbing/ slicing services/ activities in a tender.
 iii) Change the pre-qualification criteria, especially in the case of slicing/ packaging,
 to broaden the target bidders.
-41",1
-"Chapter 3: Participation of Bidders and Governance Issues
+41",1,1.000,+procurement;+tender;+tendering;+bidders;+contract;+bid;+bid-process
+MfPoCS_2025.pdf,67,"Chapter 3: Participation of Bidders and Governance Issues
 (Rule 150 of GFR 2017)
 3.8 Debarment of Suppliers
 3.8.1 GFR Provisions
@@ -6394,8 +6394,8 @@ _______________________
 35
 Now two years is applicable as mentioned below in para 8.7.2-3-a) below.
 36Notified vide OM No. F.1/20/2018-PPD issued by Department of Expenditure dated 02.11.2021.
-56",1
-"Chapter 4: Bidding Design for Consultancy Services
+56",1,1.000,+procurement;+procuring;+procuring entity;+bidder;+bidders;+bidding;+gfr;+general financial rules;+contract;+contracts;+suppliers;+office-memorandum;+procurement-policy
+MfPoCS_2025.pdf,80,"Chapter 4: Bidding Design for Consultancy Services
 4.2.2 Quality and Cost Based Selection (QCBS)
 1. In QCBS system of selection, both the quality of the proposal and the cost of the
 services are considered as deciding factors. This approach is employed when the quality of
@@ -6442,8 +6442,8 @@ follow this range
 Assignments of a standard or routine Use of LCS is appropriate 60-50/40-50
 nature such as auditors/procurement
 agents handling the procurement
-70",1
-"Manual for Procurement of Consultancy Services, Second Edition, 2025
+70",1,1.000,+procurement;+procuring;+procuring entity;+bidding;+gfr;+rfp;+contract
+MfPoCS_2025.pdf,93,"Manual for Procurement of Consultancy Services, Second Edition, 2025
 redressal, and declaration of results. It also contains introduction/ overview of its contents.
 Other important provisions in a REoI are:
 2. Eligibility Criteria: Provisions relating to Eligibility Criteria, Conflict of Interest and
@@ -6489,8 +6489,8 @@ _______________________
 51
 Accessible from
 https://eprocure.gov.in/cppp/sites/default/files/standard_biddingdocs/Procurement_Consultancy_Services.pdf
-83",1
-"Manual for Procurement of Consultancy Services, Second Edition, 2025
+83",1,1.000,+procurement;+procuring;+procuring entity;+tender;+bidders;+bidding;+request for proposal;+gfr;+cppp;+eligibility criteria;+rfp;+eoi;+eprocurement;+procurement-policy
+MfPoCS_2025.pdf,107,"Manual for Procurement of Consultancy Services, Second Edition, 2025
 d) After opening, every tender shall be numbered serially (say 3/14 – if it is the third bid
 out of 14 total), initialled, and dated on the first page by the BOC. Each page of the
 price schedule or letter attached to it shall also be similarly initialled, particularly the
@@ -6537,8 +6537,8 @@ purpose of transparency, comparative summary of Technical (compliance details) a
 Financials bids (including QCBS calculations, wherever applicable) should also be accessible
 to them, but not necessarily to public at large, unless sought and is permissible under the RTI
 act.
-97",1
-"Manual for Procurement of Consultancy Services, Second Edition, 2025
+97",1,1.000,+procurement;+procuring;+procuring entity;+tender;+tenders;+bidder;+bidders;+bidding;+eprocurement;+financial bid;+emd;+contract;+purchase;+bid;+bids;-annexure;+eprocurement;+bid-process
+MfPoCS_2025.pdf,120,"Manual for Procurement of Consultancy Services, Second Edition, 2025
 Chapter 7: Shortlisting of Consultants, Expression of
 Interest (EoI)
 7.1 Basic Considerations
@@ -6581,8 +6581,8 @@ Please see further details of GTE and also restriction on GTE for tenders below 
 in para 4.3 of ‘Manual for Procurement of Goods, 2024’.
 3. Limited Tender Enquiry (LTE): (Rule 183 (i) of GFR 2017, please refer to para 4.4 of
 the Manual for Procurement of Goods, 2024 for details) In procurements of consultancy
-111",1
-"Manual for Procurement of Consultancy Services, Second Edition, 2025
+111",1,1.000,+procurement;+procuring;+procuring entity;+tender;+tenders;+bidder;+bidders;+bidding;+e-procurement;+government e-marketplace;+gem;+limited tender;+open tender;+gfr;+cppp;+expression of interest;+rfp;+bids;+eoi;+crore;+gem-portal;+eprocurement;+procurement-policy
+MfPoCS_2025.pdf,134,"Manual for Procurement of Consultancy Services, Second Edition, 2025
 accordingly. Any substantive discrepancy shall be construed as a violation of the Code of
 Integrity, and the bid shall be liable to be rejected as nonresponsive in addition to other punitive
 actions under the Tender Document for violation of the Code of Conduct.
@@ -6628,8 +6628,8 @@ The request for clarification shall be given in writing by registered/ speed pos
 eProcurement portal (CPPP/ GeM), asking the bidder to respond by a specified date,
 mentioning therein that, if the bidder does not comply or respond by the date, his tender will
 be liable to be rejected. Depending on the outcome, such tenders are to be ignored or
-125",1
-"Chapter 8: RfP Evaluation and Award of Contract
+125",1,1.000,+procurement;+procuring;+procuring entity;+tender;+tenders;+bidder;+bidders;+eprocurement;+gem;+cppp;+contract;+bid;+bids;-examination;-reservation;+gem-portal;+eprocurement
+MfPoCS_2025.pdf,147,"Chapter 8: RfP Evaluation and Award of Contract
 6. It shall be mandatory for the successful bidder to get registered on GeM and obtain a
 unique GeM Seller ID. before the placement of LoA or the contract. This ID shall be
 incorporated in the contract.
@@ -6676,8 +6676,8 @@ and 28 (twenty-eight) days in case of GTE. Such acknowledgements may not be requ
 low value contracts, below Rupees Five (5) Lakh or when the bidders offer has been accepted
 in entirety, without any modifications. While acknowledging the contract, the consultant may
 raise issues and/ or ask for modifications against some entries in the contract; such aspects
-138",1
-"Chapter 9: Special Types of Engagements
+138",1,1.000,+procurement;+procuring;+tender;+bidder;+bidders;+eprocurement;+gem;+bid security;+performance security;+gfr;+emd;+cppp;+rfp;+contract;+contracts;+contractor;+bid;+lakh;+gem-portal;+eprocurement;+bid-process
+MfPoCS_2025.pdf,160,"Chapter 9: Special Types of Engagements
 7. Composite IT System Integration Services: Composite IT system integration
 involves connecting disparate systems, applications, and data sources to create a cohesive
 ecosystem. Here's how to approach procurement:
@@ -6722,8 +6722,8 @@ _______________________
 77 Detailed in IPHW Division of MeitY’ s No.W-43/6/2020-IPHW dtd 24.02.2024
 78 https://www.meity.gov.in/writereaddata/files/model_rfp_for_selection_of_implementation_agencies-2018.pdf
 79 F.N. N-22018/33/2022-NeGD dated 17.05.2024
-152",1
-"Manual for Procurement of Consultancy Services, Second Edition, 2025
+152",1,1.000,+procurement;+procuring;+tenders;+vendors;+rfp
+MfPoCS_2025.pdf,174,"Manual for Procurement of Consultancy Services, Second Edition, 2025
 performance notice and further action thereof should also be processed in the same manner
 as mentioned above. The text of the performance notice will be on similar lines to the Annexure
 22.
@@ -6769,8 +6769,8 @@ a different extent, procuring entity with the approval of CA and concurrence of 
 a lower quantum of LD, and consider waiver of denial clause on the merit of the case.
 5. LDs accrue only in case of delayed services. Where or as far as no services have been
 rendered under a contract, upon cancellation, recovery of only the loss occasioned by breach
-167",1
-"Chapter 10: Monitoring Consultancy services Contract
+167",1,1.000,+procurement;+procuring;+procuring entity;+liquidated damages;+contract;+contracts;+contractor;+penalty;+supplier;-annexure
+MfPoCS_2025.pdf,187,"Chapter 10: Monitoring Consultancy services Contract
 1996 [Amended 201586 and 202187]. For this purpose, when the contract is with a domestic
 contractor, a standard arbitration clause (hereinafter called the ‘Agreement’) may be included
 in the Tender Document (Please refer to the Model Tender Document) indicating the
@@ -6817,8 +6817,8 @@ _______________________
 86 https://lawmin.gov.in/sites/default/files/ArbitrationandConciliation.pdf
 87 https://egazette.nic.in/WriteReadData/2021/225832.pdf
 88 OM issued by PPD, DoE, MoF: No. F. 11212024-PPD dtd 03.06.2024
-180",1
-"Manual for Procurement of Consultancy Services, Second Edition, 2025
+180",1,1.000,+procurement;+tender;+tenders;+contract;+contracts;+contractor;+bid
+MfPoCS_2025.pdf,201,"Manual for Procurement of Consultancy Services, Second Edition, 2025
 Annexure 1: Financial Powers to Sanction
 Expenditure for Purchases and Execution of
 Contracts
@@ -6864,8 +6864,8 @@ requirement to consult the Financial Adviser in individual cases while exercisin
 re-delegated power. All orders of re-delegation of powers require consultation of the
 Financial Adviser on both these points, viz. the extent of re-delegation and whether
 or not consultation of the Financial Adviser in individual cases will be required.
-197",1
-"Manual for Procurement of Consultancy Services, Second Edition, 2025
+197",1,1.000,+procurement;+tender;+limited tender;+general financial rules;+contracts;+purchases;-annexure
+MfPoCS_2025.pdf,214,"Manual for Procurement of Consultancy Services, Second Edition, 2025
 Annexure 8: Format for Simplified Evaluation of
 Quality (LCS/ EoI)
 (Refer to Annexure 6)
@@ -6889,8 +6889,8 @@ the responsibility assigned to them and the support staff together is
 adequate for performing the entire scope of work indicated in the ToR?
 Note: If the answer is yes, in all the cases, the consultancy firm is considered technically
 qualified for the assignment.
-210",1
-"Manual for Procurement of Consultancy Services, Second Edition, 2025
+210",1,0.800,+procurement;+bid;+eoi;-annexure;-educational
+MfPoCS_2025.pdf,227,"Manual for Procurement of Consultancy Services, Second Edition, 2025
 Annexure 18: Integrity Pact Format
 (Refer para 3.4-2)
 INTEGRITY PACT
@@ -6936,8 +6936,8 @@ contract.
 b. The Bidder(s)/ Contractor(s) shall not enter with other Bidders into any undisclosed
 agreement or understanding, whether formal or informal, in violation of the
 Competition Act, 2002 (as amended from time to time). This applies in particular to
-225",1
-"Manual for Procurement of Consultancy Services, Second Edition, 2025
+225",1,1.000,+procurement;+procuring;+tender;+bidder;+bidders;+contract;+contractor;-annexure;-disciplinary
+MfPoCS_2025.pdf,241,"Manual for Procurement of Consultancy Services, Second Edition, 2025
 Q.No.48: Can Consortiums with Foreign Company takes the benefits of the Public
 Procurement Policy for MSEs Order, 2012?
 Ans. No, Under Udyam Registration (and earlier under UAM), there is no provision of
@@ -6948,8 +6948,8 @@ Q.No.49: Can trader benefits from Public Procurement Policy, for MSEs Order, 201
 Ans. No, as mentioned in O.M. No. 5/2(2)/2021-E/P & G/Policy dated 02.07.2021, Retail and
 Wholesale traders can register on Udyam Registration Portal for the purpose of Priority Sector
 Lending (PSL) only.
-239",1
-"Manual for Procurement of Consultancy Services, Second Edition, 2025
+239",1,1.000,+procurement;+procurement policy;+office-memorandum;+procurement-policy
+MfPoCS_2025.pdf,254,"Manual for Procurement of Consultancy Services, Second Edition, 2025
 B. Distribution-2 (D-2)/ Distribution-3 (D-3)
 1) The bidder C does not agree to match the L1 price, then the next Class-I bidder
 i.e., Bidder E is invited to match the L1 price.
@@ -6994,8 +6994,8 @@ D L4 s not 25 13 (MSE) not not not
 Not Not Not Not Does Not Does
 5. E 118 L5 NM-C1 Eligible Eligible Eligible Eligible not Eligible not
 accept accept
-252",1
-"Preface
+252",1,1.000,+procurement;+bidder;+bids;+supplier;+suppliers;+inr;-annexure
+MfPoNCS_2025.pdf,0,"Preface
 1. Compliance: This Manual adheres to the relevant laws, GFR, and clarifications/ OMs
 issued by the Procurement Policy Division, Department of Expenditure, Ministry of Finance
 (‘the Ministry’) up to April 2025. In case of inconsistencies between this Manual and
@@ -7037,8 +7037,8 @@ frequent revision, updating the annexures would be easier than updating the body
 Manual.
 6. An attempt has been made in this edition of Manuals to illustrate some topics with relevant
 examples.
-v",1
-"Manual for Procurement of Non-Consultancy Services, 2025
+v",1,1.000,+procurement;+procuring;+procurement policy;+tender;+gfr;-course
+MfPoNCS_2025.pdf,13,"Manual for Procurement of Non-Consultancy Services, 2025
 Chapter 1: Introduction to Procurement of Non-consultancy
 Services
 1.1. Procurement Rules and Regulations; and this Manual
@@ -7081,8 +7081,8 @@ Enterprises and Start-ups, Restrictions on Entities from a Class of Countries (R
 6. Without purporting to be a comprehensive compendium of all such ‘Procurement
 Guidelines’, this Manual is intended to serve as a portal to enter this vast area and draw
 attention to basic norms and practices governing public procurement.
-1",1
-"Manual for Procurement of Non-Consultancy Services, 2025
+1",1,1.000,+procurement;+procuring;+government e-marketplace;+gem;+gfr;+contract;+contracts;+purchase;-annexure;+gem-portal;+procurement-policy
+MfPoNCS_2025.pdf,27,"Manual for Procurement of Non-Consultancy Services, 2025
 suppliers’ within the margin of purchase preference matches the L1 price, the
 contract may be awarded to the L1 bidder.
 d) “Class-II local supplier” will not get a preference for any procurement undertaken by
@@ -7130,8 +7130,8 @@ procurement is not split for the purpose of avoiding the provisions of this Orde
 Procurement of spare parts, consumables for closed systems and Maintenance/ Service
 contracts with Original Equipment Manufacturer/ Original Equipment Supplier/ Original Part
 Manufacturer shall be exempted from this Order.
-15",1
-"Chapter 1: Introduction to Procurement of Non-Consultancy Services
+15",1,1.000,+procurement;+procuring;+tender;+tenders;+bidder;+bidders;+bid evaluation;+contract;+contracts;+purchase;+purchases;+bid;+supplier;+suppliers;+procurement-policy
+MfPoNCS_2025.pdf,40,"Chapter 1: Introduction to Procurement of Non-Consultancy Services
 a land border with India. Party B has its production facility in a country sharing land
 border with India. The manufactured item will be procured by Party A from its sister
 concern, i.e., Party B from the above-mentioned production facility. The production unit
@@ -7178,8 +7178,8 @@ registration as per the provisions of Rule 144 (xi) are not applicable.
 a) As defined by DPIIT, an entity shall be considered as a 'Start-up':
 i) Upto a period of ten years from the date of incorporation/ registration, if it is
 incorporated as a private limited company (as defined in the Companies Act,
-28",1
-"Manual for Procurement of Non-Consultancy Services, 2025
+28",1,1.000,+procurement;+procuring;+gfr;+vendors;+contractor
+MfPoNCS_2025.pdf,67,"Manual for Procurement of Non-Consultancy Services, 2025
 ii) False declaration of local content by Class I/ Class II local suppliers under Public
 Procurement (Preference to Make in India, Order 2017, dated 19/07/2024 or later,
 i.e., the Make in India Order) shall also be treated as a breach of the code of
@@ -7226,8 +7226,8 @@ public procurement contract; employs a government servant who has been dismissed
 corruption; employs a non-official convicted for an offence involving corruption or abetment of such an offence in
 a position where he could corrupt government servants, or employs a government officer within one year of his
 retirement who has had business dealings with him in an official capacity before retirement.)
-57",1
-"Chapter 4: Bidding Design for Non-Consultancy Services
+57",1,1.000,+procurement;+procuring;+procuring entity;+contract;+bid;+supplier;+suppliers;-annexure;+procurement-policy
+MfPoNCS_2025.pdf,81,"Chapter 4: Bidding Design for Non-Consultancy Services
 Financial Proposals are also given cost-score based on the relative ranking of prices, with
 100 (hundred) marks for the lowest and pro-rated lower marks for higher priced offers.
 The total score shall be obtained by weighting the quality and cost scores and adding
@@ -7272,8 +7272,8 @@ a) For declaring a procurement as QOP:
 38
 General Instructions on Procurement and Project Management - DoE’s OM NO.F.1/1/2021-PPD dtd 29th
 October 2021
-72",1
-"Manual for Procurement of Non-Consultancy Services, 2025
+72",1,1.000,+procurement;+procuring;+tenders;+tendering;+bidding;+gfr;+rfp;+contract;+crore;+office-memorandum
+MfPoNCS_2025.pdf,94,"Manual for Procurement of Non-Consultancy Services, 2025
 Chapter 5: Bid Invitation Process
 5.1. Preparation and Uploading/ Floating of Tender Documents
 5.1.1. Model Tender Documents
@@ -7319,8 +7319,8 @@ Services.pdf
 48
 https://eprocure.gov.in/cppp/sites/default/files/standard_biddingdocs/Procurement_Consultancy_Services.pdf
 49 Notified under para 12 vide OM No.F.1/1/2021-PPD issued by Department of Expenditure dated 29.10.2021
-85",1
-"Manual for Procurement of Non-Consultancy Services, 2025
+85",1,1.000,+procurement;+procuring;+tender;+bidder;+bidders;+gfr;+cppp;+eligibility criteria;+contract;+contractor;+bid;+bids;+eprocurement;+office-memorandum;+procurement-policy
+MfPoNCS_2025.pdf,108,"Manual for Procurement of Non-Consultancy Services, 2025
 d) For bulky/ oversized bids which cannot be dropped into tender boxes, the officials
 authorised to receive such bids shall maintain proper records and provide a signed
 receipt with date and time to the bearer of the bid. He will also sign on the cover, duly
@@ -7366,8 +7366,8 @@ appropriate endorsement should be put into the appropriate box or sent to the Te
 Committee (TC) concerned if the date of opening is over. The bids for different tenders
 opening on the day (including oversized bids, which were submitted to designated
 officers) should be sorted, and a count for each tender should be announced and
-99",1
-"Chapter 6: Forms of Securities, Prices, Payment Terms and Price Variations
+99",1,1.000,+procurement;+procuring;+procuring entity;+tender;+tenders;+bidder;+bidders;+e-procurement;+bid security;+bid;+bids;-holiday;-attendance;-annexure;+eprocurement;+bid-process
+MfPoNCS_2025.pdf,121,"Chapter 6: Forms of Securities, Prices, Payment Terms and Price Variations
 6.6. Statutory Taxes/ Duties/ Levies
 6.6.1. Goods and Services Tax (GST)
 1. GST Registration Status and GSTIN (15-digit registration number):
@@ -7414,8 +7414,8 @@ services they offer.
 b) As per the GST Act, the bid and contract must show the GST Tax Rates (and GST
 Cess if applicable) and GST Amount explicitly and separately from the bid/ contract
 price (exclusive of GST). So, if a Bidder asks for GST (and GST Cess if applicable) to
-112",1
-"Chapter 7: Bid Evaluation, and Award of Contract
+112",1,1.000,+procuring;+procuring entity;+tender;+bidder;+bidders;+bidding;+purchase order;+turnover;+contract;+purchase;+bid;+bids
+MfPoNCS_2025.pdf,135,"Chapter 7: Bid Evaluation, and Award of Contract
 acceptability. This committee shall record in detail the reasons for acceptance or
 rejection of the bids analysed and evaluated by it. The CA may ask the TC to explain
 the report but should not request that scores be changed. It should review the TC’s
@@ -7460,8 +7460,8 @@ Techno-commercially suitable bids are evaluated and ranked to determine the lowe
 priced bidder.
 5. Unless otherwise stipulated, if the Schedule of Requirements contains more than one
 schedule, the financial ranking of bids shall be done based on all schedules put together.
-126",1
-"Manual for Procurement of Non-Consultancy Services, 2025
+126",1,1.000,+procurement;+procuring;+procuring entity;+tender;+tenders;+tendering;+bidder;+bidders;+e-procurement;+bid evaluation;+contract;+contractor;+bid;+bids;-annexure;+eprocurement;+bid-process
+MfPoNCS_2025.pdf,148,"Manual for Procurement of Non-Consultancy Services, 2025
 a) Recovery of liquidated damages (LD) for delay in performance of the contract on the
 part of the contractor;
 b) A warranty clause/defect liability clause should be incorporated in contracts for Non-
@@ -7508,8 +7508,8 @@ stage;
 f) Requests for clarifications and any reply thereof including the clarifications given during
 pre-bid conferences;
 g) Bids evaluated, and documents relating to their evaluation; and
-139",1
-"Manual for Procurement of Non-Consultancy Services, 2025
+139",1,1.000,+procurement;+procuring;+procuring entity;+tender;+tendering;+bidder;+bidders;+eprocurement;+performance security;+gfr;+purchase order;+liquidated damages;+contract;+contracts;+contractor;+purchase;+purchases;+bid;+bids;+lakh;+eprocurement;+bid-process
+MfPoNCS_2025.pdf,162,"Manual for Procurement of Non-Consultancy Services, 2025
 h) Cybersecurity Standards: Specify the required cybersecurity measures and standards
 that the service provider must adhere to (e.g., ISO/IEC 27001 certification).
 i) Audit Rights: Include clauses allowing the procuring authority to audit the service
@@ -7556,8 +7556,8 @@ a) Technical Qualification:
 i) Experience and Expertise: Bidders must have prior experience in providing IT
 Hardware as a Service (HaaS) to government departments or large
 enterprises. Minimum of 3 to 5 years’ experience in managing similar contracts.
-153",1
-"Chapter 9: Monitoring Non-consultancy Services Contract
+153",1,1.000,+procurement;+procuring;+tenders;+bidder;+bidders;+contract;+contracts;+penalties
+MfPoNCS_2025.pdf,175,"Chapter 9: Monitoring Non-consultancy Services Contract
 officer in writing. He should mention its likely duration and make a request for extension of
 the schedule accordingly. On receiving the contractor’s communication, the procuring
 entity shall examine whether the delay is attributable to the contractor or not (Please refer
@@ -7605,8 +7605,8 @@ delivery period or towards the end of it, which has the legal effect of condonin
 breach of contract. When it is necessary to obtain certain information regarding past
 services, it should be made clear that calling for such information is not intended to keep
 the contract alive and that it does not waive the breach and that it is without prejudice to
-166",1
-"Chapter 9: Monitoring Non-consultancy Services Contract
+166",1,1.000,+procuring;+procuring entity;+tender;+breach of contract;+contract;+contractor;-annexure
+MfPoNCS_2025.pdf,189,"Chapter 9: Monitoring Non-consultancy Services Contract
 An MSA is a written agreement settling some or all disputes and may extend beyond
 the disputes referred to mediation. It must be valid under the Indian Contract Act,
 signed by both parties and duly authenticated by the Mediator for the parties or the
@@ -7651,8 +7651,8 @@ over this Agreement.
 https://lawmin.gov.in/sites/default/files/ArbitrationandConciliation.pdf
 92
 https://egazette.nic.in/WriteReadData/2021/225832.pdf
-180",1
-"Manual for Procurement of Non-Consultancy Services, 2025
+180",1,0.875,+tender;+contract
+MfPoNCS_2025.pdf,202,"Manual for Procurement of Non-Consultancy Services, 2025
 Risks Mitigation
 made by the firm citing reasons of non- “of equivalent or better qualification and
 availability, health, and so on. experience” should receive utmost scrutiny
@@ -7700,8 +7700,8 @@ what it contracted and paid for or may pay selection of the contractor. It shoul
 for what it has not received. On the other undue or unintended benefits to the contractor.
 hand, the contractor may not get timely or However, for any changes caused by the
 procuring entity, the contractor should be
-193",1
-"Manual for Procurement of Non-Consultancy Services, 2025
+193",1,1.000,+procurement;+procuring;+procuring entity;+tender;+contract;+contracts;+contractor;+procurement-policy
+MfPoNCS_2025.pdf,216,"Manual for Procurement of Non-Consultancy Services, 2025
 iv) Deliberations should be in the sequence of financial/ combined scores etc. Indicate:
 any issues faced during the evaluation, such as difficulty in obtaining the exchange
 rates to convert the prices into the common currency used for evaluation purposes;
@@ -7735,8 +7735,8 @@ Remarks by the Accepting Authority:
 _____________________________________________
 Signature:______________________________ Date:__________________
 Name & Designation of Accepting Authority___________________________
-209",1
-"Manual for Procurement of Non-Consultancy Services, 2025
+209",1,1.000,+procurement;+contract;+bid;+bids
+MfPoNCS_2025.pdf,229,"Manual for Procurement of Non-Consultancy Services, 2025
 In the case of Sub-contracting, the Principal Contractor shall take responsibility for adopting
 the Integrity Pact by the Sub-contractor.
 a. The Principal shall enter into agreements with identical conditions as this one with
@@ -7784,8 +7784,8 @@ occasion arise, submit proposals for correcting problematic situations.
 8) If the Monitor has reported to the Management of the Principal a substantiated suspicion
 of an offence under the relevant BNS/ PC Act, and the Management of the Principal has
 not, within the reasonable time, taken visible action to proceed against such offence or
-222",1
-"Manual for Procurement of Non-Consultancy Services, 2025
+222",1,1.000,+procurement;+tender;+bidder;+bidders;+central vigilance;+contract;+contractor
+MfPoNCS_2025.pdf,243,"Manual for Procurement of Non-Consultancy Services, 2025
 Annexure 15: Format of Revised Offer in Negotiations
 (Refer Para 7.4.10-7-d)
 Revised Offer in Negotiations
@@ -7815,8 +7815,8 @@ Yours faithfully,
 Signatures of bidder or
 officer authorised to sign the bid
 documents on behalf of the bidder
-236",1
-"Manual for Procurement of Non-Consultancy Services, 2025
+236",1,1.000,+procurement;+tender;+bidder;+bidders;+earnest money;+contract;+bid;-annexure
+MfPoNCS_2025.pdf,256,"Manual for Procurement of Non-Consultancy Services, 2025
 B. Distribution-2 (D-2)/ Distribution-3 (D-3)
 1) The bidder C does not agree to match the L1 price, then the next Class-I bidder
 i.e., Bidder E is invited to match the L1 price.
@@ -7861,8 +7861,8 @@ D L4 s not 25 13 (MSE) not not not
 Not Not Not Not Does Not Does
 5. E 118 L5 NM-C1 Eligible Eligible Eligible Eligible not Eligible not
 accept accept
-249",1
-"No.F .61712022-PPD
+249",1,1.000,+procurement;+bidder;+bids;+supplier;+suppliers;+inr;-annexure
+Push_Button_Procurement_0.pdf,0,"No.F .61712022-PPD
 Government of lndia
 Ministry of Finance
 Department of ExPenditure
@@ -7894,8 +7894,8 @@ Tel. No.2309381 1
 Email : kanwal.irss@nic. in
 To
 (i) Secretaries of all Central Government Ministries/ Departments.
-(ii) Financial Advisers of Central Government Ministries/ Departments.",1
-".a
+(ii) Financial Advisers of Central Government Ministries/ Departments.",1,1.000,+procurement;+procurement policy;+tender;+gem;+bids;+lakh;+gem-portal
+Push_Button_Procurement_0.pdf,1,".a
 No, F.6/7 12022-?PD
 Government of lndia
 MinistrY of Finance
@@ -7931,8 +7931,8 @@ One lakh, inclusive of all taxes'
 free to use or not to use this additional method of procurement'
 (d) This method can be used only in case of at least five bids are received' ln
 case of less than five bids are received, the procurement is to restart using
-usual Procurement methods'",1
-"Ai
+usual Procurement methods'",1,1.000,+procurement;+procuring;+procurement policy;+bidding;+e-procurement;+government e-marketplace;+gem;+purchase;+bid;+bids;+lakh;+gem-portal;+eprocurement
+Push_Button_Procurement_0.pdf,2,"Ai
 (e) No splitting of requirement is to be done so as to bring procurement under
 this method.
 (0 once bid is invited on GeM, contract will be placed direcfly by GeM without
@@ -7949,8 +7949,8 @@ Emair:
 secretaries of ail centrar Government Ministries/ Departments.
 Financial Advisers of centrar Government Ministries/ Departments
 copy to cEo/ GeM with m a a r v e . q i. u o e st to start PBp immediately under intimation to this
-:fl:i;,X,:lir|Reports be seni io u',ir orrice inoicitins prosress, probrems",1
-"F64Cfllfi 3iI gCf d 'CflT Cflill k111 OFFICE OF THE DEVELOPMENT COMMISSIONER
+:fl:i;,X,:lir|Reports be seni io u',ir orrice inoicitins prosress, probrems",1,1.000,+procurement;+gem;+contract;+bid;+gem-portal
+RelaxNorms_StarupMedEnterprise25072016.pdf,0,"F64Cfllfi 3iI gCf d 'CflT Cflill k111 OFFICE OF THE DEVELOPMENT COMMISSIONER
 (~~, ~ 3fu: (MICRO,SMALL& MEDIUMENTERPRISES)
 11~ ~)
 ~~~am~~~
@@ -7982,8 +7982,8 @@ Tele: 23063363
 1. Shri Harish Anand, Director (Pub), % DC(MSME)
 2. Shri S V Sharma, Director (SENET) with a request to up load in - office
 website.
-3. Information Officer, PIB, Room No 704A Shastri Bhawan, New Delhi.",1
-"Government of India
+3. Information Officer, PIB, Room No 704A Shastri Bhawan, New Delhi.",1,1.000,+procurement;+turnover;+procurement-policy
+RelaxNorms_StarupMedEnterprise25072016.pdf,1,"Government of India
 Ministry of Micro, Small & Medium Enterprises
 0/0 the Development Commissioner (MSME)
 7'h
@@ -8020,8 +8020,8 @@ Enterprises.
 ~/\0)0~1b
 (Surendra Nath Tripathi)
 Additional Secretary & Development Commissioner-MSME
-Ministry of Micro, Small & Medium Enterprises.",1
-"Startup India: Action Plan
+Ministry of Micro, Small & Medium Enterprises.",1,1.000,+procurement;+procurement policy;+turnover;+procurement-policy
+RelaxNorms_StarupMedEnterprise25072016.pdf,9,"Startup India: Action Plan
 5
 Relaxed Norms of Public Procurement for Startups
 Objective
@@ -8037,8 +8037,8 @@ In order to promote Startups, Government shall exempt Startups (in the manufactu
 the criteria of “prior experience/ turnover” without any relaxation in quality standards or technical
 parameters. The Startups will also have to demonstrate requisite capability to execute the project as
 per the requirements and should have their own manufacturing facility in India.
-10",1
-"Startup India: Action Plan
+10",1,1.000,+procurement;+tender;+tenders;+turnover;+procurement-policy
+RelaxNorms_StarupMedEnterprise25072016.pdf,12,"Startup India: Action Plan
 8
 Credit Guarantee Fund for Startups
 Objective
@@ -8051,8 +8051,8 @@ Debt funding to Startups is also perceived as high risk area and to encourage Ba
 to provide Venture Debts to Startups, Credit guarantee mechanism through National Credit
 Guarantee Trust Company (NCGTC)/ SIDBI is being envisaged with a budgetary Corpus of INR 500
 crore per year for the next four years.
-14",1
-"Startup India: Action Plan
+14",1,0.650,+crore;+inr
+RelaxNorms_StarupMedEnterprise25072016.pdf,24,"Startup India: Action Plan
 Part A: Definition of Startup (only for the purpose of Government schemes)
 Startup means an entity, incorporated or registered in India not prior to five years, with annual
 turnover not exceeding INR 25 crore in any preceding financial year, working towards innovation,
@@ -8095,8 +8095,8 @@ innovation; or
 • be supported by a recommendation (with regard to innovative
 nature of business), in a format specified by DIPP, from an
 Incubator recognized by GoI; or
-28",1
-"No. T-13017/4/2026-LTDP
+28",1,0.900,+turnover;+crore;+inr;-college;+amount-threshold
+Signed Circular of 19th PPM Course at MDI GurugramMMdh6.pdf,0,"No. T-13017/4/2026-LTDP
 Government of India
 Ministry of Personnel, Public Grievances and Pensions
 Department of Personnel and Training
@@ -8135,8 +8135,8 @@ the programme are available on the DoP&T, Training Division's website
 https://trgdiv.dopt.gov.in/-+Domestic Training Pro grammes* Long Term Domestic Programme
 MDI-Gurugram and also on the website of MDI- Gurugram i.e. www.mdi.ac.in.
 4. The nominated Officers will be required to develop a Policy Paper on the issue to be
-Page lof 16",0
-"identified in consultation with the Ministries/Departments/State Governments etc. where they are
+Page lof 16",0,0.900,-courses;-programme;-cadre;-workplace
+Signed Circular of 19th PPM Course at MDI GurugramMMdh6.pdf,1,"identified in consultation with the Ministries/Departments/State Governments etc. where they are
 presently working. This policy paper will have to be submitted by the officer to their respective
 Ministries/Departments/State Governments etc. at the end of the programme. The
 Ministries/Departments/States will also nominate a Nodal Officer of the rank of JS or above to the
@@ -8167,8 +8167,8 @@ End: Terms and conditions
 (Uma Magesh)
 Under Secretary to the Government of India
 Telephone: 011- 26706382
-Page 2 of 16",0
-"Copy to:
+Page 2 of 16",0,0.675,-programme;-cadre
+Signed Circular of 19th PPM Course at MDI GurugramMMdh6.pdf,2,"Copy to:
 1. Comptroller & Auditor General of India, New Delhi
 2. Secretary, Union Public Service Commission, New Delhi
 3. Election Commission of India, New Delhi
@@ -8190,8 +8190,8 @@ before 1 July, 2026.
 (https.//dopt.qov.in/) and Training Division's Website (http://dopttrg.nic.in/).
 (Uma Magesh)
 Under Secretary to the Government of India
-Page 3 of 16",0
-"Terms and conditions
+Page 3 of 16",0,0.725,-research;-establishment officer
+Signed Circular of 19th PPM Course at MDI GurugramMMdh6.pdf,3,"Terms and conditions
 19th 12-Months Hybrid Proqramme on ""Public Policy and Management"" (PPM)
 at
 Management Development Institute, Guruqram
@@ -8223,8 +8223,8 @@ commencement of this Programme. Further, the officer should not have
 undergone a Programme of training abroad of more than 2-weeks in preceding
 2-years, more than one month in preceding 3-years or more than six months in
 the preceding 5-years.
-Page 4 of 16",0
-"3. Course Fees:
+Page 4 of 16",0,1.000,-posting;-faculty;-course;-courses;-programme
+Signed Circular of 19th PPM Course at MDI GurugramMMdh6.pdf,4,"3. Course Fees:
 (a) The Fee for the programme is Rs. 10,04,459/- (Rupees Ten Lakh Four Thousand Four
 Hundred Fifty Nine only) plus expenses towards Rural/NGO attachment subject to maximum of
 Rs. 30,000/- (Rupees Thirty Thousand only) [Total Course fee will be Rs. 10,34,459/-].
@@ -8254,8 +8254,8 @@ And 24 weeks in the online mode.
 modules, to be taught during a 22-week program at MDI Gurgaon.
 2 (b): The participants shall then undertake 24 weeks of online elective courses at
 their workplace.
-Page 5 of 16",0
-"2 (C): Residency-2: The Residency- 2 shall be held at MDI Gurgaon, at the end of
+Page 5 of 16",0,1.000,+lakh;-posting;-course;-courses;-programme;-hostel;-cadre;-allowance;-allowances;-workplace
+Signed Circular of 19th PPM Course at MDI GurugramMMdh6.pdf,5,"2 (C): Residency-2: The Residency- 2 shall be held at MDI Gurgaon, at the end of
 the program, during the 47th and 48th weeks. In Residency-2, the participants will
 finalise and present their Policy Paper.
 (ii). The redesigned PPM is for a duration of 12 months (of which a total of 24 weeks
@@ -8285,8 +8285,8 @@ programme, the following conditions will apply:
 deputation of the officers;
 (iii) For the grant of special pay! Central deputation (Tenure allowance) (CDTA), the participants
 will be regulated as under:-
-Page 6 of 16",0
-"(a) The officers who proceed for training programme during their tenure of central deputation will
+Page 6 of 16",0,1.000,-deputation;-academic;-courses;-research;-programme;-vacancy;-allowance
+Signed Circular of 19th PPM Course at MDI GurugramMMdh6.pdf,6,"(a) The officers who proceed for training programme during their tenure of central deputation will
 continue to receive CDTA for the period of their entitlement against Central deputation tenure.
 If any period of training programme falls beyond the tenure of Central deputation or the officers
 proceed for training programme at the end of their tenure at the Centre, CDTA will not be
@@ -8318,8 +8318,8 @@ free calls allowed by the Telecommunication Department as stipulated in Ministry
 time to time.
 (vii) The salary and other claims of the officers will be paid by the Ministry/Department/Office where
 they were last working before joining this programme.
-Page 7 of 16",0
-"7. Selection procedure and forwardinq of nominations
+Page 7 of 16",0,1.000,-transfer;-posting;-deputation;-leave;-programme;-cadre;-allowance;-allowances;+office-memorandum
+Signed Circular of 19th PPM Course at MDI GurugramMMdh6.pdf,7,"7. Selection procedure and forwardinq of nominations
 (i)(cid:9) The Cadre Controlling Authority (CCA) should recommend names of only those Groups 'A'
 officers who are likely to stay with the CCA for some more time.
 (ii) Officers on deputation to Government of India under the Central Staffing Scheme must
@@ -8354,8 +8354,8 @@ advance applications. However, final selection will be subject to receipt of his
 application, duly recommended by their Cadre Controlling Authorities; therefore, it is in the
 interest of the officers to get their applications routed through their Cadre Controlling Authority
 as early as possible.
-Page 8 of 16",0
-"(vi) Any relaxations in the terms & conditions will be subject to recommendations of the concerned
+Page 8 of 16",0,0.950,-deputation;-faculty;-programme;-cadre
+Signed Circular of 19th PPM Course at MDI GurugramMMdh6.pdf,8,"(vi) Any relaxations in the terms & conditions will be subject to recommendations of the concerned
 Cadre Controlling Authority/Sponsoring Authority and approval of competent authority in
 Do P&T.
 9. Bond to be executed by the officer:
@@ -8372,8 +8372,8 @@ thereon from the date of demand at Government rates for the time being in force 
 loans or if payment is made in a country other than India, the equivalent of the said amount in
 currency of that country converted at the official rate of exchange between that country and India and
 together with all costs between the attorney and the client.
-Page 9 of 16",0
-"MDI School of
+Page 9 of 16",0,0.900,-leave;-programme;-cadre;-allowances
+Signed Circular of 19th PPM Course at MDI GurugramMMdh6.pdf,9,"MDI School of
 Public Policy and Governance
 \_ GUPGAON
 ti tA .j (C i.E / IC (EL C It I t' •i i-i
@@ -8426,8 +8426,8 @@ with Py Band
 Name of the Ministry!
 Department
 Designation
-Page 10 of 16",0
-"Office Address
+Page 10 of 16",0,0.700,-admission;-programme
+Signed Circular of 19th PPM Course at MDI GurugramMMdh6.pdf,10,"Office Address
 State PIN
 Telephone No. Fax
 Service cadre with year of
@@ -8464,8 +8464,8 @@ Division!CGPA Course
 4
 5
 6
-Page 11 of 16",0
-"5. DETAILS OF WORK EXPERIENCE
+Page 11 of 16",0,1.000,-deputation;-examination;-academic;-university;-degree;-course;-cadre
+Signed Circular of 19th PPM Course at MDI GurugramMMdh6.pdf,11,"5. DETAILS OF WORK EXPERIENCE
 Department! Tenure
 Sr. Nature of
 Post held Pay Scale
@@ -8496,8 +8496,8 @@ iii. What are your career goals and how does this program fit in with your plans
 iv. Briefly describe your publications, leadership roles, community work or any
 other work you consider significant for your proposed study.
 v. Is there any other information that you would like to provide about yourself?
-Page 12 of 16",0
-"8. DECLARATION
+Page 12 of 16",0,0.825,-pay scale;-course;-programme
+Signed Circular of 19th PPM Course at MDI GurugramMMdh6.pdf,12,"8. DECLARATION
 I certify that the information given in this application form is correct and true to the best of my
 knowledge. I agree to abide by the decision of the authorities regarding my selection to the
 programme.
@@ -8517,8 +8517,8 @@ Authority so as to reach DoPT (Training Division) latest by I i July, 2026.
 The application envelop should be superscripted as ""Application for admission
 19th
 in PPM (2026-27) at MDI, Gurugram""
-Page 13 of 16",0
-"PART-B
+Page 13 of 16",0,0.825,-admission;-programme;-cadre
+Signed Circular of 19th PPM Course at MDI GurugramMMdh6.pdf,13,"PART-B
 (For the use of the Cadre Controlling Authority only)
 Name of Applicant:
 • Is there any vigilance case pending or contemplated No
@@ -8544,8 +8544,8 @@ No
 Programme? 5
 5. Topic for Policy paper to be selected by the officer with the approval of the Ministry!
 Department! State Government etc. where the officer is currently working.
-Page 14 of 16",0
-"6. Details of Nodal Officer (of the rank of JS or above to the Government of India) nominated
+Page 14 of 16",0,0.825,-deputation;-programme;-cadre
+Signed Circular of 19th PPM Course at MDI GurugramMMdh6.pdf,14,"6. Details of Nodal Officer (of the rank of JS or above to the Government of India) nominated
 by the Ministry/Department/State Government etc. where the officer is currently working for
 mentoring and guidance to the Sponsored Officer for developing the policy documents.
 Name:
@@ -8569,8 +8569,8 @@ Cadre Controlling Authority)
 Date:
 File No.
 Office Seal (Compulsory)
-Page 15 of 16",0
-"Format of Bond To be executed by a Government Servant Before Proceeding for the 19th
+Page 15 of 16",0,0.625,-cadre
+Signed Circular of 19th PPM Course at MDI GurugramMMdh6.pdf,15,"Format of Bond To be executed by a Government Servant Before Proceeding for the 19th
 12-Months Hybrid Programme on ""Public Policy and Management"" (PPM) of Management
 Development Institute (MDI), Gurugram
 KNOW ALL MEN BY THESE PRESENTS THAT I, , resident of
@@ -8611,8 +8611,8 @@ Witnesses: 1.
 ACCEPTED
 on behalf of the President of India by the Cadre Controlling Authority
 (Authorized S ig natory)[Off/ce Seal Compulsory]
-Page 16 of 16",0
-"F. No. 9/1/2026-EO(SM-I)(Pt.l)
+Page 16 of 16",0,0.900,-leave;-programme;-cadre;-allowances
+VCORDNWM66atvzv.pdf,0,"F. No. 9/1/2026-EO(SM-I)(Pt.l)
 Government of India
 Secretariat of the
 Appointment Committee of the Cabinet
@@ -8645,8 +8645,8 @@ Varma, Secretary), New Delhi.
 2. Technical Director, NIC, Computer Cell, DOPT, New Delhi for uploading this vacancy
 circular on the official website of this Department.
 PA to Dir(SM), DOPT. New Delhi with a request to arrange to upload this vacancy circular
-through bulk e-mailing system of officers.",0
-"F.No. 9/1/2026-EO(SM-l)
+through bulk e-mailing system of officers.",0,0.700,-appointment;-vacancy
+VCORDNWM66atvzv.pdf,1,"F.No. 9/1/2026-EO(SM-l)
 Government of India
 Ministry of Personnel, Public Grievances and Pensions
 Department of Personnel and Training
@@ -8684,8 +8684,8 @@ Cooy to:-
 1. Department of Water Resources, River Development & Ganga Rejuvenation.
 2. Technical Director, NIC, Computer Cell, DOPT, New Delhi for uploading this vacancy circular
 on the official website of this Department.
-3. PA to Director (SM), DOPT, New Delhi.",0
-"F. No. 9/1/2026-EO(SM-l)(Pt.l)
+3. PA to Director (SM), DOPT, New Delhi.",0,1.000,-deputation;-cadre;-vacancy;-establishment officer
+VCORDNWM66atvzv.pdf,2,"F. No. 9/1/2026-EO(SM-l)(Pt.l)
 Government of India
 Secretariat of the
 Appointment Committee of the Cabinet
@@ -8718,8 +8718,8 @@ Kantha Rao, Secretary), New Delhi.
 2. Technical Director, NIC, Computer Cell, DOPT, New Delhi for uploading this vacancy
 circular on the official website of this Department.
 3. PA to Dir(SM), DOPT, New Delhi with a request to arrange to upload this vacancy circular
-through bulk e-mailing system of officers.",0
-"F. Nc. 911 12026-EO(SM-l)(PtJ)
+through bulk e-mailing system of officers.",0,0.700,-appointment;-vacancy
+VCORDNWM66atvzv.pdf,3,"F. Nc. 911 12026-EO(SM-l)(PtJ)
 Government of India
 Secretanat of the
 Appcntment Committee of the Cabinet
@@ -8752,8 +8752,8 @@ Kantha Rae, Secretary), New Delhi.
 2. Technical Director, NIC, Computer Cell, DOPT, New Delhi for uploading this vacancy
 circular on the official website of this Department
 3. PA to Dir(SM), DOPT, New Delhi with a request to arrange to upload this vacancy circular
-through bulk e-mailirg system of officers.",0
-"F. No. 9/112026-EO(SM-l)(Pt.I)
+through bulk e-mailirg system of officers.",0,0.600,-vacancy
+VCORDNWM66atvzv.pdf,4,"F. No. 9/112026-EO(SM-l)(Pt.I)
 Government of India
 Secretariat of the
 Appointment Committee of the Cabinet
@@ -8786,8 +8786,8 @@ Kantha Rao, Secretary), New Delhi.
 2. Technical Director, NIC, Computer Cell, DOPT, New Delhi for uploading this vacancy
 circular on the official website of this Department.
 3. PA to Dir(SM). DOPT, New Delhi with a request to arrange to upload this vacancy circular
-through bulk e-mnailing system of officers.",0
-"F. No. 9/1l2026-EOSM-l)(Pt.l)
+through bulk e-mnailing system of officers.",0,0.700,-appointment;-vacancy
+VCORDNWM66atvzv.pdf,5,"F. No. 9/1l2026-EOSM-l)(Pt.l)
 Government of India
 Secretariat of the
 Appointment Committee of the Cabinet
@@ -8821,8 +8821,8 @@ Kantha Rao, Secretary). New Delhi.
 2. Technical Director, NIC, Computer Cell, DOPT, New Delhi for uploading this vacancy
 circular on the official website of this Department.
 3. PA to Dir(SM). DOPT, New Delhi with a request to arrange to upload this vacancy circular
-through bulk e-maiiing system of officers.",0
-"F. No. 911/2026-EO(SM-I)(Pt.I)
+through bulk e-maiiing system of officers.",0,0.700,-appointment;-vacancy
+VCORDNWM66atvzv.pdf,6,"F. No. 911/2026-EO(SM-I)(Pt.I)
 Government of India
 Secretariat of the
 Appointment Committee of the Cabinet
@@ -8855,8 +8855,8 @@ Kantha Rao, Secretary), New Delhi.
 2. Technical Director, NIC, Computer Cell, DOPT, New Delhi for uploading this vacancy
 circular on the official website of this Department.
 3. PA to Dir(SM), DOPT, New Delhi with a request to arrange to upload this vacancy circular
-through bulk e-mailing system of officers.",0
-"F. No. 9/1/2026-EO(SM-l)(PtJ)
+through bulk e-mailing system of officers.",0,0.700,-appointment;-vacancy
+VCORDNWM66atvzv.pdf,7,"F. No. 9/1/2026-EO(SM-l)(PtJ)
 Government of India
 Secretariat of the
 Appointment Committee of the Cabinet
@@ -8889,8 +8889,8 @@ Varrna, Secretary), New Delhi.
 2. Technical Director, NIC. Computer Cell, DOPT, New Delhi for uploading this vacancy
 circular on the official website of this Department.
 3. PA to Dir(SM), DOPT, New Delhi with a request to arrange to upload this vacancy circular
-through bulk e-rnaiiing system of officers.",0
-"err.
+through bulk e-rnaiiing system of officers.",0,0.700,-appointment;-vacancy
+Works_Manual_SE_2025.pdf,0,"err.
 ���Mill �-�-�­ 1fm=f tfi(cfji'{
 fcm
 +l?ilcl�
@@ -8929,8 +8929,8 @@ u,.
 Date: 23.12.2025
 � �- 16102, 6cJT �, � �-1, � �-110001
 th
-Room No. 16102, 6 Floor, Kartavya Bhavan-1, New Delhi-110001, Tel.: 24012000, 24012001, E-mail: secyexp@nic.in",1
-"Procurement Glossary
+Room No. 16102, 6 Floor, Kartavya Bhavan-1, New Delhi-110001, Tel.: 24012000, 24012001, E-mail: secyexp@nic.in",1,1.000,+procurement;+gfr;+lakh;+procurement-policy
+Works_Manual_SE_2025.pdf,14,"Procurement Glossary
 9. “Class-I local supplier” means a supplier or service provider, whose goods, services or
 works offered for procurement, meet the minimum local content as prescribed for ‘Class-I
 local supplier’ under the Public Procurement (Preference to Make in India), Order 20172;
@@ -8977,8 +8977,8 @@ the internet) by the procuring entity in conducting its procurement processes wi
 and Internal Trade dated 19.07.2024
 3Notified vide Order No. P-45021/2/2017-PP (BE-II)-Part(4)Vol.II issued by Department of Promotion of Industry
 and Internal Trade dated 19.07.2024
-xx",1
-"Chapter 1: Introduction to Procurement of Works
+xx",1,1.000,+procurement;+procuring;+procuring entity;+bidder;+bidders;+e-procurement;+rate contract;+gfr;+general financial rules;+purchase order;+supply order;+vendor;+contract;+contractor;+purchase;+bid;+supplier;-promotion;+eprocurement;+procurement-policy
+Works_Manual_SE_2025.pdf,28,"Chapter 1: Introduction to Procurement of Works
 a) ‘L1’ means the lowest tender or lowest bid, or the lowest quotation received in a tender,
 bidding process or other procurement solicitation as adjudged in the evaluation
 process as per the tender or other procurement solicitation.
@@ -9025,8 +9025,8 @@ by a “Class-I local supplier” may be above the L1 for the purpose of purchas
 preference. It has been fixed as 20 (twenty) percent.
 g) ‘Nodal Ministry’ means the Ministry or Department identified pursuant to this order in
 respect of a particular item of goods or services or works.
-10",1
-"Chapter 1: Introduction to Procurement of Works
+10",1,1.000,+procurement;+procuring;+tender;+bidder;+bidders;+bidding;+contracts;+purchase;+quotation;+bid;+supplier;+procurement-policy
+Works_Manual_SE_2025.pdf,42,"Chapter 1: Introduction to Procurement of Works
 f) The decision of the Competent Authority to register such bidder may be for all kinds
 of tenders or for a specified type(s) of goods or services and may be for a specified
 or unspecified duration of time, as deemed fit. The decision of the Competent
@@ -9074,8 +9074,8 @@ S. No Scenario Applicability of Rule 144 (xi)
 a) The equipment/ goods have been The bidder has procured certain goods to
 purchased or will be purchased offer the requisite services to a procuring
 from a company (manufacturer) entity. In such case, the bidder does not
-24",1
-"Chapter 2: Need Assessment and Procurement Planning
+24",1,1.000,+procurement;+procuring;+procuring entity;+tenders;+bidder;+gfr;+vendor;+vendors;+contract;+contracts;+contractor;+purchases;+bid
+Works_Manual_SE_2025.pdf,56,"Chapter 2: Need Assessment and Procurement Planning
 f) Reference to Concept Plans/ Preliminary Drawings, if any and their acceptance - This
 shall indicate the details of Concept Plans/ Preliminary Drawings prepared and their
 approval by the requisitioning authority;
@@ -9119,8 +9119,8 @@ wherever applicable, giving reference to the documents mentioned below. The DPR
 should provide a level playing field to the bidders and should ensure as far as feasible, the
 widest possible competition:
 25 OM No.F.1/1/2021-PPD dated 29.10.2021
-38",1
-"Chapter 3: Bidding Design for Works
+38",1,1.000,+procurement;+procuring;+procuring entity;+tender;+bidders;+office-memorandum
+Works_Manual_SE_2025.pdf,71,"Chapter 3: Bidding Design for Works
 supervision, quality audits, etc. Periodic audits of the Procuring Entity’s Engineer
 functioning are desirable in ensuring that the Procuring Entity’s Engineer carries out his
 tasks professionally.
@@ -9166,8 +9166,8 @@ may also be incorporated.
 d) EPC contracts shall specify broad technical specification and key output parameters.
 Over-specification of design may lead to increase in cost. Technical specifications
 29 OM No.F.1/1/2021-PPD dated 29.10.2021
-54",1
-"Chapter 3: Bidding Design for Works
+54",1,1.000,+procurement;+procuring;+procuring entity;+tender;+bidding;+contract;+contracts;+contractor;+bid;+office-memorandum
+Works_Manual_SE_2025.pdf,85,"Chapter 3: Bidding Design for Works
 Risk Mitigation
 incurring extra cost of open tendering. alone. Due diligence should be done to locate
 This could be due to: likely bidders. All registered contractors
@@ -9211,8 +9211,8 @@ and cost/ complexity of procedure is further aggravated as compared to OTE. The
 development of local industry also needs to be kept in mind. Hence, it may be viable only in
 following situations:
 41Rule 161, GFR 2017
-68",1
-"Chapter 3: Bidding Design for Works
+68",1,1.000,+procurement;+tender;+tenders;+tendering;+bidders;+bidding;+open tender;+gfr;+emd;+bid;+bids
+Works_Manual_SE_2025.pdf,99,"Chapter 3: Bidding Design for Works
 3.12.2 STE - Risks and Mitigations
 Risk Mitigation
 Risks as applicable in both LTE and All mitigation strategies of LTE and OTE would
@@ -9256,8 +9256,8 @@ tenders in such cases, at least 20% of work should have been billed by the contr
 has abandoned the work. Procurement approval of such limited/single tender should be at
 the next higher level, or such level as may be prescribed.
 .
-82",1
-"Chapter 4: Bid Invitation Process
+82",1,1.000,+procurement;+procuring;+procuring entity;+tender;+tenders;+tendering;+bidding;+gfr;+contracts;+contractor;+quotation;+lakh
+Works_Manual_SE_2025.pdf,113,"Chapter 4: Bid Invitation Process
 d) Bids must be uploaded by the submission deadline mentioned in the Tender
 Document. If the office happens to be closed on the deadline to submit the bids as
 specified above, this deadline shall not be extended.
@@ -9304,8 +9304,8 @@ k) No manual Bids shall be made available or accepted for submission in e-Procur
 2. Receipt and custody of Bids in offline Tender Process: In offline tenders, receipt and
 custody of bids shall be done in a transparent manner to maintain the credibility of the
 process. The following guidelines should be adhered to for receipt and custody of bids:
-96",1
-"Chapter 5: Forms of Securities, Prices, Payment Terms and Price Variations
+96",1,1.000,+procurement;+procuring;+procuring entity;+tender;+tenders;+bidder;+bidders;+e-procurement;+bid;+bids;-complaint;+eprocurement;+bid-process
+Works_Manual_SE_2025.pdf,127,"Chapter 5: Forms of Securities, Prices, Payment Terms and Price Variations
 appropriate for their purpose and shall relate to the contractor’s proposed source of supply
 of inputs on the basis of which his contract price shall have been computed.
 6. Where it is decided to conclude the contract with a variable price, an appropriate clause
@@ -9352,8 +9352,8 @@ of the delivery period;
 g) Price variation may be allowed beyond the original scheduled delivery date, by
 specific alteration of that date through an amendment to the contract in cases of force
 majeure or defaults by Government;
-110",1
-"Chapter 6: Evaluation of Bids and Award of Work
+110",1,1.000,+tender;+bidders;+liquidated damages;+contract;+contractor;+bids;+supplier
+Works_Manual_SE_2025.pdf,142,"Chapter 6: Evaluation of Bids and Award of Work
 b) As per paras 1.11-4, 3.9.1-6 and 4.2.6-4, Procuring Entity reserves its right to relax
 the condition of prior turnover and prior experience for start-up enterprises78 (MSME
 or otherwise) recognized by the Department for Industry & Internal Trade (DPIIT),
@@ -9400,8 +9400,8 @@ proposal is ranked first. The technical evaluation report is a confidential docu
 contents shall not be disclosed. All records relating to the evaluation shall be retained until
 completion of the project and its audit. In such cases, after the approval of CA, the results
 78 Notified vide OM No.F.20/2/2014-PPD (Pt.) issued by Department of Expenditure dated 20.09.2016.
-126",1
-"Chapter 6: Evaluation of Bids and Award of Work
+126",1,1.000,+procurement;+procuring;+procuring entity;+tender;+bidder;+bidders;+turnover;+contract;+contractor;+bid;+bids;-annexure;+office-memorandum
+Works_Manual_SE_2025.pdf,156,"Chapter 6: Evaluation of Bids and Award of Work
 i) Complaint handling, correspondences with clients, consultants, banks.
 3. In organisations where physical files are maintained, the Procurement file should start with
 the indent and related documents. All subsequent documents relating to procurement
@@ -9450,8 +9450,8 @@ of award. Some organisations vary quantity splitting may be specified in the bid
 even without such provisions beforehand.
 e) Unwarranted negotiations: negotiations are Normally, there should be no post-tender
 called without justification. Sometimes a negotiations. In certain exceptional situations,
-140",1
-"Manual for Procurement of Works, Second Edition, 2025
+140",1,1.000,+procurement;+procuring;+procuring entity;+tender;+bidder;+contract;+contracts;+bid;+bids;-complaint;+bid-process
+Works_Manual_SE_2025.pdf,170,"Manual for Procurement of Works, Second Edition, 2025
 4. Besides protecting the public from noise and environmental pollution, they must be
 safeguarded from falls in dug-up areas, electrocution, flooding, falling objects, bridge-span
 dropping/failures, crane falling/overturning, and damage to building from vibrations/cave-
@@ -9497,8 +9497,8 @@ implement e- MBs and same should be integrated with IT based project monitoring
 system.
 5. Quality Assurance: In order to control the quality of work, a Quality Assurance Cell shall
 be formed in every work centre comprising of multi- disciplinary professionals/ engineers
-155",1
-"Manual for Procurement of Works, Second Edition, 2025
+155",1,1.000,+procurement;+procuring;+procuring entity;+tender;+contract;+contracts;+contractor;+quotation;-disciplinary
+Works_Manual_SE_2025.pdf,184,"Manual for Procurement of Works, Second Edition, 2025
 7. Notwithstanding the above formalities, it should be appreciated that it is in the interest of
 the purchaser to be vigilant about downward variation, and it is, therefore, the basic
 responsibility of the purchase officers to make sure that the benefits of downward variation,
@@ -9544,8 +9544,8 @@ e) Liquidated damages (refer to para 7.4.7 above for its quantum) or any other r
 (Price Variation or Exchange Rate variation, etc.) should be shown as deductions on
 the invoice and GST shall be applicable only on the net balance payment due.
 Similarly, any increase due to any variation should be shown as added to the invoice
-169",1
-"Manual for Procurement of Works, Second Edition, 2025
+169",1,1.000,+procurement;+procuring;+procuring entity;+bidders;+liquidated damages;+consignee;+contract;+contractor;+purchase
+Works_Manual_SE_2025.pdf,198,"Manual for Procurement of Works, Second Edition, 2025
 of Officers, which may also include the name(s) of retired Officer(s) empanelled
 to work as Arbitrator, to the Contractor within 60 days from the day when a written
 and valid demand for arbitration is received by the Appointing Authority. The
@@ -9593,8 +9593,8 @@ refer sub-para 2 above) within 30 days from the date of dispatch of the request 
 Appointing Authority. The Appointing Authority shall appoint at least one out of them as
 the Contractor’s nominee and shall also simultaneously appoint his nominee arbitrator
 either from the panel or from outside the panel. The Appointing Authority shall complete
-183",1
-"Manual for Procurement of Works, Second Edition, 2025
+183",1,0.850,+procurement;+contractor;+lakh;-appointment
+Works_Manual_SE_2025.pdf,213,"Manual for Procurement of Works, Second Edition, 2025
 considered necessary. An interim reply may be sent that the application will be kept in
 view in the tender evaluation, and a final response shall be given only after the declaration
 of the award of the contract. The Tender Committee shall place the application on record,
@@ -9650,8 +9650,8 @@ relation to offers of hospitality from firms (say
 the firm, even if other arrangements are
 participating in current or imminent tenders or
 available at the location.
-199",1
-"Annexure 1: Financial Powers to Sanction Expenditure for Purchases and Execution of
+199",1,1.000,+procurement;+tender;+tenders;+bidder;+bidders;+contract;+contractor;+supplier;+suppliers;-examination;-complaint;-disciplinary;+procurement-policy
+Works_Manual_SE_2025.pdf,227,"Annexure 1: Financial Powers to Sanction Expenditure for Purchases and Execution of
 Contracts
 been considered and allowed by Public Investment Board (PIB) or Expenditure Finance
 Committee (EFC) or Cabinet, as the case may be, such cases will be processed as per
@@ -9673,8 +9673,8 @@ d) the Department of Telecommunications;
 e) the Government of India’s representatives abroad whose powers shall be determined
 in accordance with the rules or orders issued separately in consultation with the
 Finance Ministry.
-216",1
-"Manual for Procurement of Works, Second Edition, 2025
+216",1,0.900,+contract;+contracts;+purchase;+purchases;-annexure
+Works_Manual_SE_2025.pdf,241,"Manual for Procurement of Works, Second Edition, 2025
 be submitted in Monthly Expenditure Statement (MES) in a form similar to CPWD Form
 – 65 (Account of Deposit works). While submitting MES, and placing demand for release
 of fund in the form of recoupment of the monthly expenditure already incurred on the
@@ -9722,8 +9722,8 @@ Boards, Stale/ Central Environmental Authorities, Forrest and Wild-life authorit
 e.g. removal of trees, re-locating utilities; conversion of railway level crossings, laying of
 railway sidings needed by the work; rehabilitation and resettlement of persons affected
 by the work; traffic control; mining of earth and stone; interfering protected monuments;
-230",1
-"Manual for Procurement of Works, Second Edition, 2025
+230",1,1.000,+procurement;+procuring;+procuring entity;+contract;+lakh
+Works_Manual_SE_2025.pdf,255,"Manual for Procurement of Works, Second Edition, 2025
 Annexure 14: Integrity Pact Format
 (Refer para 8.3-2)
 INTEGRITY PACT
@@ -9768,8 +9768,8 @@ advantage of any kind whatsoever during the tender process or the execution of t
 contract.
 b. The Bidder(s)/ Contractor(s) shall not enter with other Bidders into any undisclosed
 agreement or understanding, whether formal or informal, in violation of the
-244",1
-"Manual for Procurement of Works, Second Edition, 2025
+244",1,1.000,+procurement;+procuring;+tender;+bidder;+bidders;+contract;+contractor;-annexure;-disciplinary
+Works_Manual_SE_2025.pdf,269,"Manual for Procurement of Works, Second Edition, 2025
 Annexure 18: FAQs About PPP-MII Order, 2017
 (Refer para 1.11.2-20)
 Question 1. How to calculate Local Content?
@@ -9815,8 +9815,8 @@ Nodal Ministries/ Departments are authorized to notify a higher minimum local co
 requirement for any item, i.e., higher than 50/20%, if they deem fit
 Question 5. Details of product categories for which nodal Ministry have been notified by DPIIT
 for PPP-MII, Order 2017 may be provided?
-258",1
-"University Grants Commission
+258",1,1.000,+procurement;+bidder;+bidders;+purchase;+purchases;+bid;+bids;+supplier;+suppliers;+crore;-annexure;+procurement-policy
+faq sct.pdf,0,"University Grants Commission
 SCT Section
 SC/ST
 Question Reply
@@ -9866,8 +9866,8 @@ posts as well as in admissions to all level
 courses accept in Minority Institutions under
 Article 30(1) of the Constitution. However,
 State Universities including their affiliated
-constituent colleges and other institutes",0
-"functioning within the State can follow the
+constituent colleges and other institutes",0,1.000,-recruitment;-reservation;-university;-faculty;-colleges;-courses;-educational;-research;-cadre;-roster
+faq sct.pdf,1,"functioning within the State can follow the
 percentage of reservation as prescribed by
 the respective State Government.
 iv. The Reservation of SC/ST/OBCs is called
@@ -9918,8 +9918,8 @@ affiliated/constituent colleges and other
 institutes functioning within the State can
 follow the percentage of reservation for SC/ST
 as prescribed by the State Government.
-Out of annual permitted strength in each branch",0
-"of study or faculty,15% seats are to be
+Out of annual permitted strength in each branch",0,1.000,-admission;-academic;-appointment;-reservation;-university;-degree;-degrees;-colleges;-courses;-education;-educational;-higher education
+faq sct.pdf,2,"of study or faculty,15% seats are to be
 reserved for Scheduled Castes, 7.5% for
 Scheduled Tribes and 27% for Other Backward
 Classes.
@@ -9964,8 +9964,8 @@ creamy layer) & Minority Community Students
 III. Coaching Classes for entry in services for
 SC/ST/OBC (non-creamy layer) & Minority
 Community Students.
-IV. Equal Opportunity Cells in Universities/Colleges.",0
-"Persons with Disabilities
+IV. Equal Opportunity Cells in Universities/Colleges.",0,1.000,-admission;-scholarship;-appointment;-reservation;-university;-faculty;-student;-students;-college;-colleges;-educational;-roster;-complaint
+faq sct.pdf,3,"Persons with Disabilities
 S.No Question Reply
 1. What are the different schemes at 1. Higher Education for Persons with Special Needs.
 Department of Higher Education for 2. Teacher Preparation in Special Education.
@@ -10014,8 +10014,8 @@ courses in sign language interpretation thereafter .
 7. The UGC has issued a letter to all universities regarding
 to consider giving the relaxation of 5% (i.e from 55% to
 50%) of marks at Master’s and 5% relaxation at graduate
-level under the term of ‘Good Academic Record par with",0
-"SC/ST candidates to the physically6 and visually
+level under the term of ‘Good Academic Record par with",0,1.000,-admission;-examination;-welfare;-academic;-reservation;-medical;-university;-student;-students;-teacher;-teachers;-colleges;-courses;-education;-higher education
+faq sct.pdf,4,"SC/ST candidates to the physically6 and visually
 handicapped candidates for appointment as Principal,
 Professor, Reader, Lecturer, Registrar, Dy. Registrar,
 Assistant Registrar, Librarian, Dy. Librarian, Asstt.
@@ -10074,8 +10074,8 @@ communication, including information and communication
 technologies and systems, etc.
 8. Please refer to the OM issued by DoPT The UGC has issued a letter to the Universities regarding
 for the filling up the backlog for the special recruitment drive to fill up the vacancies for persons
-Person with disabilities in May,2015 in with disabilities .",0
-"the compliance o the order of the Apex
+Person with disabilities in May,2015 in with disabilities .",0,1.000,-recruitment;-admission;-leave;-examination;-appointment;-reservation;-medical;-university;-faculty;-student;-college;-colleges;-courses;-education;-educational
+faq sct.pdf,5,"the compliance o the order of the Apex
 Court of India and Please provide me the
 no of the Existing vacancies for each
 kind of job posts like group A,B& C for
@@ -10090,4 +10090,4 @@ Apex Court Order
 visually challenged students pursuing for guidelines for conducting written examination for persons
 the above said courses while they are with disabilities .
 appearing for the theory and practical
-examination",0
+examination",0,0.825,-examination;-students;-courses

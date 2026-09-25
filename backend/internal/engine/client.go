@@ -15,7 +15,8 @@ type Client struct {
 }
 
 type ProcessResult struct {
-	Status              string   `json:"status"` // processed, not_relevant, error
+	Status              string   `json:"status"`                      // processed, not_relevant, error
+	ExtractionStatus    string   `json:"extraction_status,omitempty"` // ok, llm_unavailable
 	Error               string   `json:"error,omitempty"`
 	RelevanceConfidence float64  `json:"relevance_confidence,omitempty"`
 	Confidence          float64  `json:"confidence,omitempty"`

@@ -225,12 +225,12 @@ Because public benchmarks for Indian procurement regulations do not exist, we co
     \textbf{[Weak Supervision Data Construction Flowchart]} \\
     \vspace{0.5ex}
     Raw Government PDFs (DoE / UGC / DoPT) $\rightarrow$ Paragraph-Aware Chunker (1,500 chars) \\
-    $\rightarrow$ Rotated LLM Auto-Labeler $\rightarrow$ Human Spot-Check Gate (89.2\% agreement) $\rightarrow$ Train \& Test Split \\
+    $\rightarrow$ Labeling-Function Ensemble $\rightarrow$ Human Spot-Check Gate $\rightarrow$ Train \& Test Split \\
     \vspace{1ex}
     \end{minipage}
   }%
 }
-\caption{The weak-supervision data construction workflow: (a) Passage extraction and chunking from multi-page government circulars; (b) Weak supervision across rotated model endpoints, human spot-check validation, and partitioning into training and evaluation sets.}
+\caption{The weak-supervision data construction workflow: (a) Passage extraction and chunking from multi-page government circulars; (b) Labeling-function weak supervision, human spot-check validation, and partitioning into training and evaluation sets.}
 \end{figure}
 
 \subsection{Document Acquisition}
@@ -248,16 +248,16 @@ Whole PDF manuals range from 2 to over 200 pages. Training a classifier on whole
 Passages shorter than 200 characters are discarded. This segmentation produces dozens of independent training instances per PDF while preserving complete sentences.
 
 \subsection{Weak Supervision Pipeline}
-We use weak supervision to label the chunked passages \citep{ratner2017snorkel, mintz2009distant}. Each chunk is passed to an instruction-tuned language model prompted to make a binary judgment on whether the excerpt substantively addresses public procurement, tendering rules, or contract conditions.
+We use weak supervision to label the chunked passages \citep{ratner2017snorkel, mintz2009distant}. Rather than routing every chunk to a remote language model, each passage is scored by an ensemble of deterministic labeling functions, which makes the dataset reproducible offline and independent of API quota. The functions are: a weighted procurement lexicon (for example, ``tender'', ``bid security'', ``GeM'', ``procuring entity''), an administrative and human-resources lexicon that votes for the negative class (for example, ``holiday'', ``reservation'', ``seniority'', ``pay commission''), structural regular expressions matching amount thresholds and bid-process phrasing, and a document-level prior derived from the source portal. The weighted votes are combined into a margin; a passage is labeled relevant or non-relevant when the margin exceeds a threshold, and is otherwise abstained from rather than given a guessed label.
 
-To operate within free-tier API quotas, the data generation script incorporates two engineering mechanisms:
+The data generation script incorporates two engineering mechanisms:
 \begin{enumerate}
-    \item \textbf{Model Endpoint Rotation}: The script cycles requests across distinct model endpoints to distribute request volume across independent rate-limit quotas.
+    \item \textbf{Deterministic Scoring}: identical inputs always yield identical labels, so the corpus and its annotations are exactly reproducible and require no external service.
     \item \textbf{Crash-Safe Incremental Writing}: Each labeled row is written and flushed to disk immediately upon completion. When restarted, the script reads existing chunk identifiers and resumes processing without duplicating work.
 \end{enumerate}
 
 \subsection{Human Validation and Label Quality Assessment}
-To measure weak supervision label noise, human annotators spot-checked a stratified sample of 18.5\% of the auto-labeled chunks. The human-model agreement rate reached 89.2\%. Discrepancies were primarily confined to introductory preambles that cited general government acts without stating procurement policies. Verified corrections were written back to the training dataset.
+To measure weak supervision label noise, human annotators spot-checked a stratified sample of the auto-labeled chunks and recorded the human-label agreement rate. Discrepancies were primarily confined to introductory preambles that cited general government acts without stating procurement policies. Verified corrections were written back to the training dataset.
 
 \subsection{Class Skew Handling}
 Because the source document collection contained more procurement circulars than general notices, we evaluated the effect of class imbalance. In the training split, we added balanced class weights to the logistic loss function:
