@@ -50,6 +50,11 @@ _FALLBACK_MODEL = "deepseek-v4-flash-free"  # tried once if _MODEL exhausts all 
 _CHUNK_SIZE_CHARS = 1500
 _MIN_CHUNK_CHARS = 200
 
+# Cap API calls per PDF. A large manual (200+ chunks) gives no more training
+# signal than its first 25 chunks — the procurement vocabulary is stable by then.
+# This prevents one large PDF from burning the entire daily API quota.
+_MAX_CHUNKS_PER_PDF = 25
+
 # Pause between calls to remain well within provider rate limits.
 _SLEEP_BETWEEN_CALLS = 1.0
 
@@ -320,7 +325,16 @@ def process_pdf(
         return 0, 0
 
     chunks = chunk_text(text)
-    logger.info("%s: %d chunks total", pdf_path.name, len(chunks))
+    total_chunks = len(chunks)
+    if total_chunks > _MAX_CHUNKS_PER_PDF:
+        logger.info(
+            "%s: %d chunks total, capping at %d to save API quota.",
+            pdf_path.name, total_chunks, _MAX_CHUNKS_PER_PDF,
+        )
+        chunks = chunks[:_MAX_CHUNKS_PER_PDF]
+    else:
+        logger.info("%s: %d chunks total", pdf_path.name, total_chunks)
+
 
     n_relevant = 0
     n_total = 0

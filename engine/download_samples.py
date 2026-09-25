@@ -31,28 +31,35 @@ _HEADERS = {
 }
 
 # Real Indian government procurement/contract regulation documents.
+# Priority: short Office Memoranda and circulars (2-10 pages, 5-20 chunks each).
+# Avoid large manuals (100+ pages) — they burn API quota with diminishing returns
+# after the first ~25 chunks. The _MAX_CHUNKS_PER_PDF cap in build_dataset.py
+# handles any that slip through, but it's better to start with the right sources.
 _RELEVANT = [
+    # Short circulars from DoE (Department of Expenditure) — typically 1-5 pages
     "https://doe.gov.in/files/procurement-policy-division/Push_Button_Procurement_0.pdf",
     "https://doe.gov.in/files/circulars_document/GeM_through_PFMS_non_PFMS_Agencies_Entities_NPAE_reg_1_0.pdf",
-    "https://doe.gov.in/files/manuals_documents/Manual_for_Procurement_of_Goods_Updated%20June,%202022.pdf",
     "https://doe.gov.in/files/procurement-policy-division/RelaxNorms_StarupMedEnterprise25072016.pdf",
-    "https://doe.gov.in/files/circulars_document/Manual_Goods_2024.pdf",
     "https://doe.gov.in/files/procurement-policy-division/Department_of_Public_Enterprises_circular.pdf",
+    # 2025 procurement manuals — large, but capped at _MAX_CHUNKS_PER_PDF
     "https://doe.gov.in/files/circulars_document/MfPoCS_2025.pdf",
     "https://doe.gov.in/files/circulars_document/MfPoNCS_2025.pdf",
     "https://doe.gov.in/files/circulars_document/Works_Manual_SE_2025.pdf",
-    "https://doe.gov.in/files/circulars_document/Draft_Works_Manual_2nd_Edition.pdf",
+    # Older goods manual (kept for vocabulary diversity — capped in build_dataset.py)
+    "https://doe.gov.in/files/manuals_documents/Manual_for_Procurement_of_Goods_Updated%20June,%202022.pdf",
 ]
 
 # Real government documents that are NOT procurement-related: negative examples.
+# Mix of education, HR policy, and administrative documents for a diverse negative class.
 _NOT_RELEVANT = [
+    # UGC (education regulation)
     "https://www.ugc.gov.in/pdfnews/3045759_Draft-Regulation-Minimum-Qualifications-for-Appointment-and-Promotion-of-Teachers-and-Academic-Staff-in-Universities-and-Colleges-and-Measures-for-the-Maintenance-of-Standards-in-HE-Regulations-2025.pdf",
     "https://www.ugc.gov.in/pdfnews/7039866_UGC-Letter-Draft-Regulation-and-Guidelines.pdf",
+    # DoPT holiday lists (HR/admin, not procurement)
     "https://dopt.gov.in/sites/default/files/Holiday%20list%20(1).pdf",
     "https://dopt.gov.in/sites/default/files/Holidays%20to%20be%20observed%20in%20Central%20Government%20Offices%20during%20the%20year%202026.pdf",
-    "https://documents.doptcirculars.nic.in/D2/D02est/Holidays%20to%20be%20observed%20in%20Central%20Government%20Offices%20during%20the%20year%2020265vgBs.pdf",
-    "https://dfe.gov.in/uploads/documents/list-of-gazetted-holidays-2026.pdf",
 ]
+
 
 _URLS = _RELEVANT + _NOT_RELEVANT
 
