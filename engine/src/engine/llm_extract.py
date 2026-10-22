@@ -1,12 +1,16 @@
-"""LLM-based structured metadata extraction via an OpenAI- or Anthropic-compatible API.
+"""LLM-based structured metadata extraction with multi-provider failover.
 
-Endpoint, model and protocol are read from the environment at call time:
-    APMIX_BASE_URL            OpenAI-compatible base URL (default https://api.apmix.ai/v1)
-    APMIX_ANTHROPIC_BASE_URL  Anthropic base URL (default https://api.apmix.ai)
-    APMIX_MODEL               model id (default deepseek-v4-flash-free)
-    APMIX_MODE                "" for /chat/completions, "anthropic" for /v1/messages
+Documents are read in two passes:
+  1. Header pass  - the leading context, for title/date/authority/OM number/
+                    document type/categories/summary.
+  2. Coverage pass - evenly sampled chunks from the remainder, looking only for
+                    supersession references and an effective date. Trailing
+                    annexures are where supersession clauses live, and they are
+                    exactly what "proper compliance" depends on.
 
-One retry on JSON/validation failure before raising LLMExtractionError.
+Providers come from LLM_PROVIDERS (see engine.providers); the first configured
+provider that answers is used, and failures fall through to the next. The provider
+that produced the result is returned as provenance.
 """
 
 import json
@@ -17,7 +21,10 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 import httpx
-from pydantic import BaseModel, ValidationError, field_validator
+from pydantic import BaseModel, Field, ValidationError, field_validator
+
+from engine.chunking import chunk_text, sample_evenly
+from engine.providers import Provider, load_providers
 
 logger = logging.getLogger(__name__)
 
@@ -25,38 +32,7 @@ logger = logging.getLogger(__name__)
 _ENV_PATH = Path(__file__).parent.parent.parent / ".env"
 load_dotenv(_ENV_PATH)
 
-# Defaults used when the corresponding environment variable is unset.
-_DEFAULT_BASE_URL = "https://api.apmix.ai/v1"
-_DEFAULT_ANTHROPIC_BASE_URL = "https://api.apmix.ai"
-_DEFAULT_MODEL = "deepseek-v4-flash-free"
-
-
-def _base_url() -> str:
-    """OpenAI-compatible base URL, resolved from the environment at call time."""
-    return os.environ.get("APMIX_BASE_URL", _DEFAULT_BASE_URL).rstrip("/")
-
-
-def _anthropic_base_url() -> str:
-    """Anthropic-compatible base URL, resolved from the environment at call time."""
-    return os.environ.get("APMIX_ANTHROPIC_BASE_URL", _DEFAULT_ANTHROPIC_BASE_URL).rstrip("/")
-
-
-def _model() -> str:
-    """Model id, resolved from the environment at call time."""
-    return os.environ.get("APMIX_MODEL") or os.environ.get("LLM_MODEL") or _DEFAULT_MODEL
-
-
-def _mode() -> str:
-    """Wire protocol selector: '' (OpenAI-compatible) or 'anthropic'."""
-    return os.environ.get("APMIX_MODE", "").lower().strip()
-
-
-# Characters sent to the LLM are capped here to avoid context limit errors.
-# The key verbatim fields (title, OM number, date, issuing authority) reliably
-# appear in the header/lead section, so truncating the tail is an acceptable simplification.
-_MAX_INPUT_CHARS = 10_000
-
-# Closed vocabulary for categories: LLM must choose from this list only.
+# Closed vocabulary for topic categories: the model must choose from this list only.
 ALLOWED_CATEGORIES = [
     "e-procurement",
     "tendering",
@@ -67,7 +43,36 @@ ALLOWED_CATEGORIES = [
     "other",
 ]
 
-_SYSTEM_PROMPT = f"""You are a structured data extractor for Indian government procurement documents.
+# Closed vocabulary for the regulatory document kind.
+ALLOWED_DOC_TYPES = [
+    "Office Memorandum",
+    "Circular",
+    "Notification",
+    "Order",
+    "Policy",
+    "Guidelines",
+    "Manual",
+    "Report",
+    "Other",
+]
+
+
+def _lead_chars() -> int:
+    """Characters of leading context sent in the header pass."""
+    return int(os.environ.get("LLM_LEAD_CHARS", "10000"))
+
+
+def _coverage_chunks() -> int:
+    """Maximum chunks sampled from the remainder for the coverage pass."""
+    return int(os.environ.get("LLM_COVERAGE_CHUNKS", "8"))
+
+
+def _max_provider_passes() -> int:
+    """How many times the full provider list may be cycled before giving up."""
+    return int(os.environ.get("LLM_MAX_PASSES", "2"))
+
+
+_HEADER_PROMPT = f"""You are a structured data extractor for Indian government procurement documents.
 
 Extract the following fields from the document text and respond with ONLY valid JSON: no prose, no markdown fences, no explanation.
 
@@ -76,57 +81,90 @@ Fields:
 - date (string or null): date of the document, verbatim from the text
 - issuing_authority (string or null): exact issuing authority name, verbatim from the text
 - om_number (string or null): Office Memorandum number or reference number, verbatim from the text
+- doc_type (string): the kind of document, one of exactly: {json.dumps(ALLOWED_DOC_TYPES)}
 - categories (array of strings): one or more categories from this fixed list only: {json.dumps(ALLOWED_CATEGORIES)}
 - supersedes (string or null): any document this supersedes, verbatim from the text, or null
 - summary (string): one sentence summarising the document, based only on the given text
 
 Rules:
 - For title, date, issuing_authority, om_number, supersedes: use the EXACT text as it appears in the document, or null if not present. Do NOT infer or guess.
+- For om_number and supersedes, copy the reference character for character, keeping every dot, slash and hyphen, and keep the prefix where it stands ("No.F.1/112021-PPD" must not become "F. No. 1/11/2021-PPD"). If you cannot copy it exactly, return null.
+- For doc_type: pick only from the allowed list above. Use "Other" if nothing fits.
 - For categories: pick only from the allowed list above. Use "other" if nothing fits.
 - For summary: one sentence, no more, derived only from the provided text.
 - Output ONLY the JSON object. Nothing else."""
 
+_COVERAGE_PROMPT = f"""You are scanning excerpts from the middle and end of an Indian government procurement document.
+
+These excerpts are where supersession clauses and effective dates usually appear, far from the document header. Respond with ONLY valid JSON, no prose, no markdown fences.
+
+Fields:
+- superseded_documents (array of strings): identifiers of any earlier documents, orders, circulars or clauses that this excerpt says are superseded, cancelled, replaced or no longer in force. Copy the identifier VERBATIM as it appears. Empty array if none.
+- date (string or null): an effective/issue date if one is stated verbatim in these excerpts, else null.
+
+Rules:
+- Do NOT summarise. Do NOT invent identifiers. Only report what is literally present.
+- Output ONLY the JSON object. Nothing else."""
+
 
 class ExtractedDocument(BaseModel):
-    """Schema for LLM-extracted compliance metadata."""
+    """Schema for the header pass."""
 
-    title: str | None
-    date: str | None
-    issuing_authority: str | None
-    om_number: str | None
-    categories: list[str]
-    supersedes: str | None
-    summary: str
+    title: str | None = None
+    date: str | None = None
+    issuing_authority: str | None = None
+    om_number: str | None = None
+    doc_type: str = "Other"
+    categories: list[str] = Field(default_factory=list)
+    supersedes: str | None = None
+    summary: str = ""
+
+    @field_validator("doc_type", mode="before")
+    @classmethod
+    def enforce_allowed_doc_type(cls, value: object) -> str:
+        """Coerce any out-of-vocabulary document type to 'Other'."""
+        return value if value in ALLOWED_DOC_TYPES else "Other"
 
     @field_validator("categories", mode="before")
     @classmethod
-    def enforce_allowed_categories(cls, values: list) -> list[str]:
+    def enforce_allowed_categories(cls, values: object) -> list[str]:
         """Filter out any category not in ALLOWED_CATEGORIES.
 
-        Enforces the closed vocabulary in code so that LLM hallucinations
+        Enforces the closed vocabulary in code so that model hallucinations
         (arbitrary strings outside the allowed list) are silently dropped
         rather than stored. Falls back to ['other'] if every value is invalid.
         """
+        if not isinstance(values, list):
+            return ["other"]
         filtered = [v for v in values if v in ALLOWED_CATEGORIES]
         return filtered if filtered else ["other"]
 
 
+class _CoverageResult(BaseModel):
+    """Schema for the coverage pass."""
+
+    superseded_documents: list[str] = Field(default_factory=list)
+    date: str | None = None
+
+    @field_validator("superseded_documents", mode="before")
+    @classmethod
+    def clean_superseded(cls, values: object) -> list[str]:
+        """Keep only non-empty string identifiers, de-duplicated."""
+        if not isinstance(values, list):
+            return []
+        seen: list[str] = []
+        for item in values:
+            if isinstance(item, str) and item.strip() and item.strip() not in seen:
+                seen.append(item.strip())
+        return seen
+
+
 class LLMExtractionError(Exception):
-    """Raised when the LLM fails to return valid structured output after retries."""
+    """Raised when every configured provider fails to return valid structured output."""
 
 
-def _get_api_key() -> str:
-    """Retrieve API key from environment variables."""
-    api_key = (
-        os.environ.get("APMIX_API_KEY")
-        or os.environ.get("ANTHROPIC_API_KEY")
-        or os.environ.get("OPENAI_API_KEY")
-    )
-    if not api_key:
-        raise LLMExtractionError(
-            "APMIX_API_KEY is not set. Add it to engine/.env and do not commit it."
-        )
-    return api_key
+class _ProviderUnavailable(Exception):
+    """Raised when a provider is unusable (no key) or returned an error."""
 
 
 def _clean_json_str(raw: str) -> str:
@@ -158,145 +196,178 @@ def _extract_text_from_response(data: dict) -> str:
     raise ValueError(f"Unrecognized response structure from LLM API: {list(data.keys())}")
 
 
-def _call_openai(client: httpx.Client, text: str) -> str:
-    """POST to an OpenAI-compatible chat completions endpoint.
+def _call_provider(client: httpx.Client, provider: Provider, system: str, user: str) -> str:
+    """Issue one request to a single provider.
 
     Args:
         client: httpx.Client (connection-pooled, caller-managed).
-        text: Document text to extract from.
+        provider: Provider to call.
+        system: System prompt.
+        user: User content.
 
     Returns:
-        Raw string content of the LLM's response.
+        Raw response text.
+
+    Raises:
+        _ProviderUnavailable: If the provider has no key or returned an error.
     """
-    api_key = _get_api_key()
-    resp = client.post(
-        f"{_base_url()}/chat/completions",
-        headers={
-            "Authorization": f"Bearer {api_key}",
-            "Content-Type": "application/json",
-        },
-        json={
-            "model": _model(),
-            "messages": [
-                {"role": "system", "content": _SYSTEM_PROMPT},
-                {"role": "user", "content": text},
-            ],
-            "temperature": 0.0,
-        },
-        timeout=60.0,
-    )
-    resp.raise_for_status()
-    return _extract_text_from_response(resp.json())
+    api_key = provider.api_key()
+    if not api_key:
+        raise _ProviderUnavailable(f"{provider.name}: {provider.api_key_env} is not set")
 
-
-def _call_anthropic(client: httpx.Client, text: str) -> str:
-    """POST to an Anthropic-compatible messages endpoint.
-
-    Args:
-        client: httpx.Client (connection-pooled, caller-managed).
-        text: Document text to extract from.
-
-    Returns:
-        Raw string content of the LLM's response.
-    """
-    api_key = _get_api_key()
-    resp = client.post(
-        f"{_anthropic_base_url()}/v1/messages",
-        headers={
+    if provider.mode == "anthropic":
+        url = f"{provider.base_url}/v1/messages"
+        headers = {
             "x-api-key": api_key,
             "anthropic-version": "2023-06-01",
             "Content-Type": "application/json",
-        },
-        json={
-            "model": _model(),
-            "system": _SYSTEM_PROMPT,
-            "messages": [{"role": "user", "content": text}],
+        }
+        payload = {
+            "model": provider.model,
+            "system": system,
+            "messages": [{"role": "user", "content": user}],
             "max_tokens": 1500,
             "temperature": 0.0,
-        },
-        timeout=60.0,
-    )
-    resp.raise_for_status()
-    return _extract_text_from_response(resp.json())
+        }
+    else:
+        url = f"{provider.base_url}/chat/completions"
+        headers = {
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json",
+        }
+        payload = {
+            "model": provider.model,
+            "messages": [
+                {"role": "system", "content": system},
+                {"role": "user", "content": user},
+            ],
+            "temperature": 0.0,
+        }
+
+    try:
+        resp = client.post(url, headers=headers, json=payload, timeout=60.0)
+        resp.raise_for_status()
+    except httpx.HTTPError as exc:
+        raise _ProviderUnavailable(f"{provider.name}: {exc}") from exc
+
+    try:
+        return _extract_text_from_response(resp.json())
+    except (ValueError, json.JSONDecodeError) as exc:
+        raise _ProviderUnavailable(f"{provider.name}: unusable response body: {exc}") from exc
 
 
-def _call_apmix(client: httpx.Client, text: str) -> str:
-    """Route the extraction call to the configured protocol.
+def _extract_with_failover(
+    client: httpx.Client,
+    system: str,
+    user: str,
+    model_cls: type[BaseModel],
+) -> tuple[BaseModel, Provider, int]:
+    """Try every configured provider until one returns parseable structured output.
+
+    Transport errors, missing keys, HTTP failures and unparseable output all move
+    on to the next provider. The full list is cycled at most LLM_MAX_PASSES times.
 
     Args:
         client: httpx.Client (connection-pooled, caller-managed).
-        text: Document text to extract from.
+        system: System prompt.
+        user: User content.
+        model_cls: Pydantic model class to validate the response against.
 
     Returns:
-        Raw string content of the LLM's response.
-    """
-    if _mode() == "anthropic":
-        return _call_anthropic(client, text)
-    return _call_openai(client, text)
-
-
-
-def _parse_and_validate(raw: str) -> ExtractedDocument:
-    """Parse JSON string and validate against ExtractedDocument schema.
-
-    Args:
-        raw: Raw JSON string from the LLM.
-
-    Returns:
-        Validated ExtractedDocument instance.
+        Tuple of (validated model instance, provider that answered, attempt count).
 
     Raises:
-        json.JSONDecodeError: If the string is not valid JSON.
-        ValidationError: If the JSON does not match the schema.
+        LLMExtractionError: If no provider produced valid output.
     """
-    cleaned = _clean_json_str(raw)
-    data = json.loads(cleaned)
-    return ExtractedDocument.model_validate(data)
+    providers = load_providers()
+    last_error: Exception | None = None
+    attempts = 0
+
+    for pass_index in range(1, _max_provider_passes() + 1):
+        for provider in providers:
+            attempts += 1
+            try:
+                raw = _call_provider(client, provider, system, user)
+                parsed = model_cls.model_validate(json.loads(_clean_json_str(raw)))
+                if attempts > 1:
+                    logger.info("Provider %s succeeded on attempt %d.", provider.name, attempts)
+                return parsed, provider, attempts
+            except (json.JSONDecodeError, ValidationError) as exc:
+                last_error = exc
+                logger.warning(
+                    "Provider %s returned unparseable output (pass %d): %s",
+                    provider.name, pass_index, exc,
+                )
+            except _ProviderUnavailable as exc:
+                last_error = exc
+                logger.warning("Provider %s unavailable (pass %d): %s", provider.name, pass_index, exc)
+            except Exception as exc:  # noqa: BLE001
+                last_error = exc
+                logger.warning("Provider %s failed (pass %d): %s", provider.name, pass_index, exc)
+
+    raise LLMExtractionError(
+        f"All {len(providers)} provider(s) failed after {attempts} attempts. Last error: {last_error}"
+    )
 
 
 def extract_structured(text: str) -> dict:
-    """Call the LLM to extract structured compliance metadata from document text.
+    """Extract structured compliance metadata from document text.
+
+    Runs a header pass over the leading context and a coverage pass over sampled
+    chunks of the remainder to recover supersession references.
 
     Args:
         text: Full document text to analyse.
 
     Returns:
-        Dict matching the ExtractedDocument schema, with 'verification_flags' absent
-        (added downstream by verify.py).
+        Dict matching the ExtractedDocument schema plus:
+        - superseded_documents: merged identifiers from both passes
+        - extraction_provider / extraction_model / extraction_attempts: provenance
+        - coverage_sourced_fields: fields the coverage pass supplied
 
     Raises:
-        LLMExtractionError: If the LLM fails to return valid structured data after retries.
+        LLMExtractionError: If the header pass fails across every provider.
     """
-    _get_api_key()  # Fast fail if no key configured
+    if not text or not text.strip():
+        raise LLMExtractionError("Empty document text.")
 
-    original_len = len(text)
-    if original_len > _MAX_INPUT_CHARS:
-        logger.warning(
-            "Input text truncated from %d to %d characters before LLM call. "
-            "Content beyond the limit is discarded.",
-            original_len,
-            _MAX_INPUT_CHARS,
+    lead = text[: _lead_chars()]
+    if len(text) > len(lead):
+        logger.info(
+            "Header pass on the first %d of %d characters; remainder handled by the coverage pass.",
+            len(lead), len(text),
         )
-        text = text[:_MAX_INPUT_CHARS]
 
     with httpx.Client() as client:
-        for attempt in range(1, 3):  # Two attempts total: initial + one retry
-            try:
-                raw = _call_apmix(client, text)
-                logger.debug("LLM raw response (attempt %d): %s", attempt, raw[:200])
-                doc = _parse_and_validate(raw)
-                return doc.model_dump()
-            except (json.JSONDecodeError, ValidationError) as exc:
-                logger.warning("Extraction attempt %d failed (parse/validation): %s", attempt, exc)
-                if attempt == 2:
-                    raise LLMExtractionError(
-                        f"LLM returned invalid data after {attempt} attempts. Last error: {exc}"
-                    ) from exc
-            except Exception as exc:  # noqa: BLE001
-                logger.warning("Extraction attempt %d failed (API error): %s", attempt, exc)
-                if attempt == 2:
-                    raise LLMExtractionError(
-                        f"APMix API error after {attempt} attempts. Last error: {exc}"
-                    ) from exc
+        header_doc, provider, attempts = _extract_with_failover(
+            client, _HEADER_PROMPT, lead, ExtractedDocument
+        )
+        result = header_doc.model_dump()
+        result["extraction_provider"] = provider.name
+        result["extraction_model"] = provider.model
+        result["extraction_attempts"] = attempts
+        result["superseded_documents"] = []
+        result["coverage_sourced_fields"] = []
 
-    raise LLMExtractionError("Unexpected exit from retry loop.")
+        remainder = text[len(lead):]
+        if remainder.strip():
+            selected = sample_evenly(chunk_text(remainder), _coverage_chunks())
+            coverage_input = "\n\n---\n\n".join(chunk for _, chunk in selected)
+            try:
+                coverage, _, _ = _extract_with_failover(
+                    client, _COVERAGE_PROMPT, coverage_input, _CoverageResult
+                )
+            except LLMExtractionError as exc:
+                # Coverage is best-effort: a header-only result is still useful.
+                logger.warning("Coverage pass failed, continuing with header fields only: %s", exc)
+            else:
+                if coverage.superseded_documents:
+                    result["superseded_documents"] = coverage.superseded_documents
+                    result["coverage_sourced_fields"].append("superseded_documents")
+                    if not result.get("supersedes"):
+                        result["supersedes"] = coverage.superseded_documents[0]
+                if coverage.date and not result.get("date"):
+                    result["date"] = coverage.date
+                    result["coverage_sourced_fields"].append("date")
+
+    return result

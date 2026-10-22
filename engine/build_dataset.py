@@ -26,14 +26,12 @@ from typing import IO
 # Make the src layout importable regardless of cwd.
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
+from engine.chunking import chunk_text, sample_evenly  # noqa: E402
 from engine.extract import ScannedDocumentError, extract_text  # noqa: E402
 from engine.label_rules import classify  # noqa: E402
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 logger = logging.getLogger(__name__)
-
-_CHUNK_SIZE_CHARS = 1500
-_MIN_CHUNK_CHARS = 200
 
 # Cap chunks per PDF so one 300-page manual cannot dominate the dataset. Sampling
 # is spread across the whole document rather than taking the first N (which would
@@ -41,53 +39,6 @@ _MIN_CHUNK_CHARS = 200
 _DEFAULT_MAX_CHUNKS_PER_PDF = 20
 
 _MANIFEST_NAME = "_manifest.csv"
-
-
-def chunk_text(text: str, chunk_size: int = _CHUNK_SIZE_CHARS) -> list[str]:
-    """Split text into roughly fixed-size chunks, breaking on paragraph boundaries.
-
-    Args:
-        text: Full document text.
-        chunk_size: Target maximum characters per chunk.
-
-    Returns:
-        List of text chunks, each at or below chunk_size where possible, with
-        chunks shorter than _MIN_CHUNK_CHARS discarded.
-    """
-    paragraphs = [p.strip() for p in text.split("\n\n") if p.strip()]
-    chunks: list[str] = []
-    current = ""
-
-    for para in paragraphs:
-        if len(current) + len(para) + 2 <= chunk_size:
-            current = f"{current}\n\n{para}" if current else para
-        else:
-            if current:
-                chunks.append(current)
-            current = para
-
-    if current:
-        chunks.append(current)
-
-    return [c for c in chunks if len(c) >= _MIN_CHUNK_CHARS]
-
-
-def sample_evenly(items: list[str], n: int) -> list[tuple[int, str]]:
-    """Pick at most n items spread evenly across the list.
-
-    Args:
-        items: Full list of chunks.
-        n: Maximum number to keep (<= 0 means keep all).
-
-    Returns:
-        List of (original_index, chunk) pairs, preserving document order.
-    """
-    if n <= 0 or len(items) <= n:
-        return list(enumerate(items))
-
-    step = len(items) / n
-    indices = sorted({int(i * step) for i in range(n)})
-    return [(i, items[i]) for i in indices]
 
 
 def load_manifest(pdf_dir: Path) -> dict[str, str]:

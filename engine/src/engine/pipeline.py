@@ -8,7 +8,7 @@ import logging
 import os
 from pathlib import Path
 
-from engine.classify import predict_relevance
+from engine.classify import predict_document
 from engine.extract import ScannedDocumentError, extract_text
 from engine.llm_extract import LLMExtractionError, extract_structured
 from engine.verify import verify_fields
@@ -46,9 +46,14 @@ def _degraded_result(confidence: float) -> dict:
         "date": None,
         "issuing_authority": None,
         "om_number": None,
+        "doc_type": None,
         "categories": ["other"],
         "supersedes": None,
+        "superseded_documents": [],
         "summary": "",
+        "extraction_provider": "",
+        "extraction_model": "",
+        "coverage_sourced_fields": [],
         "verification_flags": [],
     }
 
@@ -63,6 +68,8 @@ def process_document(file_path: Path) -> dict:
         A dict with at minimum a 'status' key:
         - {"status": "error", "error": "<message>"} on extraction failure.
         - {"status": "not_relevant", "confidence": <float>} if pre-filter rejects it.
+        - {"status": "uncertain", "confidence": <float>} if the pre-filter cannot
+          decide confidently; treated as "needs review" downstream.
         - {"status": "processed", "relevance_confidence": <float>, ...metadata...}
           on successful processing.
         - {"status": "processed", "extraction_status": "llm_unavailable", ...} when
@@ -75,18 +82,28 @@ def process_document(file_path: Path) -> dict:
         logger.error("Text extraction failed for %s: %s", file_path, exc)
         return {"status": "error", "error": str(exc)}
 
-    # Step 2: TF-IDF relevance pre-filter
+    # Step 2: TF-IDF relevance pre-filter (chunk-aggregated)
     # This short-circuit is intentional: irrelevant documents never reach the LLM.
     try:
-        is_relevant, confidence = predict_relevance(text)
+        relevance = predict_document(text)
     except RuntimeError as exc:
         logger.error("Classifier unavailable: %s", exc)
         return {"status": "error", "error": str(exc)}
 
-    if not is_relevant:
-        logger.info("Document %s classified as not relevant (%.3f)", file_path, confidence)
-        return {"status": "not_relevant", "confidence": confidence}
+    if relevance.is_uncertain:
+        logger.info(
+            "Document %s is ambiguous (p_max=%.3f, frac_relevant=%.2f): routing to review",
+            file_path, relevance.p_max, relevance.frac_relevant,
+        )
+        return {"status": "uncertain", "confidence": relevance.confidence}
 
+    if not relevance.is_relevant:
+        logger.info(
+            "Document %s classified as not relevant (%.3f)", file_path, relevance.confidence
+        )
+        return {"status": "not_relevant", "confidence": relevance.confidence}
+
+    confidence = relevance.confidence
     logger.info("Document %s is relevant (%.3f): proceeding to LLM extraction", file_path, confidence)
 
     # ── Step 3: LLM structured extraction ────────────────────────────────────

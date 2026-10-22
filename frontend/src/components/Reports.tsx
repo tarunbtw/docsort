@@ -1,162 +1,171 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
-import { Download, FileText, CheckCircle, AlertTriangle, Clock } from 'lucide-react';
-import { toast } from 'sonner';
+import { Download, CheckCircle, AlertTriangle, Clock } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, LineChart, Line, CartesianGrid, PieChart, Pie, Cell } from 'recharts';
 
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { fetchReportSummary, fetchAudit, exportCsvUrl, ReportSummary, AuditEntry } from '../lib/api';
 
-const trendData = [
-  { name: 'Week 1', compliant: 400, flagged: 24 },
-  { name: 'Week 2', compliant: 300, flagged: 13 },
-  { name: 'Week 3', compliant: 550, flagged: 45 },
-  { name: 'Week 4', compliant: 450, flagged: 20 },
-];
+const PIE_COLORS = ['#f5f5f5', '#a3a3a3', '#525252', '#262626'];
 
-const statusData = [
-  { name: 'Compliant', value: 68 },
-  { name: 'Needs Review', value: 24 },
-  { name: 'Critical', value: 8 },
-];
+const chartTooltip = {
+  backgroundColor: '#0a0a0a',
+  border: '1px solid #262626',
+  borderRadius: '8px',
+  color: '#f5f5f5',
+};
 
-const categoryData = [
-  { name: 'Finance', value: 120 },
-  { name: 'Legal', value: 95 },
-  { name: 'HR', value: 60 },
-  { name: 'Vendor', value: 80 },
-  { name: 'Security', value: 45 },
-];
+function iconFor(action: string) {
+  const lower = action.toLowerCase();
+  if (lower.includes('failed') || lower.includes('review') || lower.includes('superseded')) {
+    return <AlertTriangle size={16} />;
+  }
+  if (lower.includes('uploaded')) return <Clock size={16} />;
+  return <CheckCircle size={16} />;
+}
 
-const PIE_COLORS = ['#f5f5f5', '#525252', '#262626'];
-
-const auditTrail = [
-  { id: '1', action: 'Document Uploaded', user: 'Haris (Admin)', time: '10 mins ago', status: 'success' },
-  { id: '2', action: 'Compliance Override', user: 'Jane Doe', time: '1 hour ago', status: 'warning' },
-  { id: '3', action: 'Risk Acknowledged', user: 'System', time: '3 hours ago', status: 'info' },
-  { id: '4', action: 'Export Generated', user: 'Haris (Admin)', time: '1 day ago', status: 'success' },
-];
+function formatWhen(iso: string) {
+  const d = new Date(iso);
+  return Number.isNaN(d.getTime()) ? iso : d.toLocaleString();
+}
 
 export default function Reports() {
-  const handleExport = () => {
-    toast.success('Generating export...', {
-      description: 'Your report will be ready to download shortly.'
-    });
-    setTimeout(() => {
-      toast.success('Export complete. Downloading report.csv');
-    }, 2000);
-  };
+  const [summary, setSummary] = useState<ReportSummary | null>(null);
+  const [audit, setAudit] = useState<AuditEntry[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    Promise.all([fetchReportSummary(), fetchAudit(undefined, 20)])
+      .then(([s, a]) => {
+        setSummary(s);
+        setAudit(a);
+      })
+      .catch((err) => setError((err as Error).message))
+      .finally(() => setLoading(false));
+  }, []);
+
+  const trendData = (summary?.uploadsPerDay ?? []).map((d) => ({ name: d.date.slice(5), uploads: d.count }));
+  const statusData = (summary?.byCompliance ?? []).filter((s) => s.count > 0);
+  const categoryData = summary?.byCategory ?? [];
+  const total = summary?.total ?? 0;
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-6">
       <header className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-3xl font-light text-[#f5f5f5]">Reports & Analytics</h1>
-          <p className="text-[#a3a3a3] mt-2">Generate and export compliance audit trails and dashboards.</p>
+          <h1 className="text-3xl font-light text-[#f5f5f5]">Reports &amp; Analytics</h1>
+          <p className="text-[#a3a3a3] mt-2">Compliance breakdown and the audit trail behind it.</p>
         </div>
-        <Button className="bg-white text-black hover:bg-gray-200 rounded-full" onClick={handleExport}>
-          <Download className="mr-2 h-4 w-4" /> Export CSV
-        </Button>
+        <a href={exportCsvUrl} download>
+          <Button className="bg-white text-black hover:bg-gray-200 rounded-full">
+            <Download className="mr-2 h-4 w-4" /> Export CSV
+          </Button>
+        </a>
       </header>
 
+      {error && (
+        <div className="bg-[#141414] border border-[#262626] rounded-[1.5rem] p-6 text-[#a3a3a3]">
+          Could not reach the backend: {error}
+        </div>
+      )}
+      {loading && <p className="text-[#a3a3a3]">Loading report…</p>}
+
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Compliance Trend Line Chart */}
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="bg-[#141414] p-6 rounded-[1.5rem] border border-[#262626]">
-          <h3 className="text-lg text-[#f5f5f5] font-medium mb-6">Compliance Trend (30 Days)</h3>
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-[#141414] p-6 rounded-[1.5rem] border border-[#262626]">
+          <h3 className="text-lg text-[#f5f5f5] font-medium mb-6">Uploads (Last 14 Days)</h3>
           <div className="h-[300px] w-full">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={trendData} margin={{ top: 5, right: 10, left: -20, bottom: 5 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#262626" vertical={false} />
                 <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#525252', fontSize: 12 }} dy={10} />
-                <YAxis axisLine={false} tickLine={false} tick={{ fill: '#525252', fontSize: 12 }} />
-                <Tooltip 
-                  contentStyle={{ backgroundColor: '#0a0a0a', border: '1px solid #262626', borderRadius: '8px', color: '#f5f5f5' }}
-                />
-                <Line type="monotone" dataKey="compliant" stroke="#f5f5f5" strokeWidth={2} dot={{ fill: '#f5f5f5', strokeWidth: 2 }} />
-                <Line type="monotone" dataKey="flagged" stroke="#525252" strokeWidth={2} dot={{ fill: '#525252', strokeWidth: 2 }} />
+                <YAxis axisLine={false} tickLine={false} tick={{ fill: '#525252', fontSize: 12 }} allowDecimals={false} />
+                <Tooltip contentStyle={chartTooltip} />
+                <Line type="monotone" dataKey="uploads" stroke="#f5f5f5" strokeWidth={2} dot={{ fill: '#f5f5f5', strokeWidth: 2 }} />
               </LineChart>
             </ResponsiveContainer>
           </div>
         </motion.div>
 
-        {/* Status Breakdown Pie Chart */}
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="bg-[#141414] p-6 rounded-[1.5rem] border border-[#262626]">
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-[#141414] p-6 rounded-[1.5rem] border border-[#262626]">
           <h3 className="text-lg text-[#f5f5f5] font-medium mb-6">Compliance Status Breakdown</h3>
           <div className="h-[300px] w-full relative">
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Pie
-                  data={statusData}
-                  cx="50%"
-                  cy="50%"
-                  innerRadius={60}
-                  outerRadius={100}
-                  paddingAngle={5}
-                  dataKey="value"
-                  stroke="none"
-                >
-                  {statusData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={PIE_COLORS[index % PIE_COLORS.length]} />
-                  ))}
-                </Pie>
-                <Tooltip 
-                  contentStyle={{ backgroundColor: '#0a0a0a', border: '1px solid #262626', borderRadius: '8px', color: '#f5f5f5' }}
-                  itemStyle={{ color: '#f5f5f5' }}
-                />
-              </PieChart>
-            </ResponsiveContainer>
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center pointer-events-none">
-              <span className="block text-2xl font-light text-[#f5f5f5]">100%</span>
-              <span className="block text-xs text-[#a3a3a3]">Total Docs</span>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* Category Bar Chart */}
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="bg-[#141414] p-6 rounded-[1.5rem] border border-[#262626]">
-          <h3 className="text-lg text-[#f5f5f5] font-medium mb-6">Documents by Category</h3>
-          <div className="h-[300px] w-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={categoryData} layout="vertical" margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#262626" horizontal={false} />
-                <XAxis type="number" axisLine={false} tickLine={false} tick={{ fill: '#525252', fontSize: 12 }} />
-                <YAxis dataKey="name" type="category" axisLine={false} tickLine={false} tick={{ fill: '#a3a3a3', fontSize: 12 }} width={80} />
-                <Tooltip 
-                  contentStyle={{ backgroundColor: '#0a0a0a', border: '1px solid #262626', borderRadius: '8px', color: '#f5f5f5' }}
-                  cursor={{ fill: '#262626' }}
-                />
-                <Bar dataKey="value" fill="#f5f5f5" radius={[0, 4, 4, 0]} barSize={20} />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        </motion.div>
-
-        {/* Audit Trail Log */}
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="bg-[#141414] p-6 rounded-[1.5rem] border border-[#262626] flex flex-col">
-          <h3 className="text-lg text-[#f5f5f5] font-medium mb-6">Recent Audit Trail</h3>
-          <div className="flex-1 overflow-y-auto space-y-4">
-            {auditTrail.map((log) => (
-              <div key={log.id} className="flex items-start gap-4 p-4 rounded-xl bg-[#0a0a0a] border border-[#262626] hover:border-[#525252] transition-colors">
-                <div className={`p-2 rounded-full ${
-                  log.status === 'success' ? 'bg-[#141414] text-white border border-[#262626]' :
-                  log.status === 'warning' ? 'bg-[#262626] text-[#a3a3a3] border border-[#525252]' :
-                  'bg-[#141414] text-[#a3a3a3] border border-[#262626]'
-                }`}>
-                  {log.status === 'success' && <CheckCircle size={16} />}
-                  {log.status === 'warning' && <AlertTriangle size={16} />}
-                  {log.status === 'info' && <Clock size={16} />}
+            {statusData.length === 0 ? (
+              <p className="text-[#525252] text-sm pt-24 text-center">No documents processed yet.</p>
+            ) : (
+              <>
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie data={statusData} cx="50%" cy="50%" innerRadius={60} outerRadius={100} paddingAngle={5} dataKey="count" stroke="none">
+                      {statusData.map((entry, index) => (
+                        <Cell key={entry.name} fill={PIE_COLORS[index % PIE_COLORS.length]} />
+                      ))}
+                    </Pie>
+                    <Tooltip contentStyle={chartTooltip} itemStyle={{ color: '#f5f5f5' }} />
+                  </PieChart>
+                </ResponsiveContainer>
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center pointer-events-none">
+                  <span className="block text-2xl font-light text-[#f5f5f5]">{total}</span>
+                  <span className="block text-xs text-[#a3a3a3]">Total Docs</span>
                 </div>
-                <div className="flex-1">
-                  <p className="text-[#f5f5f5] font-medium text-sm">{log.action}</p>
-                  <p className="text-[#525252] text-xs mt-1">by {log.user}</p>
-                </div>
-                <Badge variant="outline" className="text-[#a3a3a3] border-[#262626]">{log.time}</Badge>
-              </div>
+              </>
+            )}
+          </div>
+          <div className="flex flex-wrap gap-3 mt-4">
+            {statusData.map((s, i) => (
+              <span key={s.name} className="text-xs text-[#a3a3a3] flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: PIE_COLORS[i % PIE_COLORS.length] }} />
+                {s.name}: {s.count}
+              </span>
             ))}
           </div>
-          <Button variant="outline" className="w-full mt-4 bg-[#0a0a0a] border-[#262626] text-[#a3a3a3] hover:text-white hover:bg-[#262626]">
-            View Full Audit Log
-          </Button>
+        </motion.div>
+
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-[#141414] p-6 rounded-[1.5rem] border border-[#262626]">
+          <h3 className="text-lg text-[#f5f5f5] font-medium mb-6">Documents by Category</h3>
+          <div className="h-[300px] w-full">
+            {categoryData.length === 0 ? (
+              <p className="text-[#525252] text-sm pt-24 text-center">No categories extracted yet.</p>
+            ) : (
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={categoryData} layout="vertical" margin={{ top: 5, right: 10, left: 0, bottom: 5 }}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#262626" horizontal={false} />
+                  <XAxis type="number" axisLine={false} tickLine={false} tick={{ fill: '#525252', fontSize: 12 }} allowDecimals={false} />
+                  <YAxis dataKey="name" type="category" axisLine={false} tickLine={false} tick={{ fill: '#a3a3a3', fontSize: 12 }} width={110} />
+                  <Tooltip contentStyle={chartTooltip} cursor={{ fill: '#262626' }} />
+                  <Bar dataKey="count" fill="#f5f5f5" radius={[0, 4, 4, 0]} barSize={20} />
+                </BarChart>
+              </ResponsiveContainer>
+            )}
+          </div>
+        </motion.div>
+
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-[#141414] p-6 rounded-[1.5rem] border border-[#262626] flex flex-col">
+          <h3 className="text-lg text-[#f5f5f5] font-medium mb-6">Recent Audit Trail</h3>
+          <div className="flex-1 overflow-y-auto space-y-4 max-h-[300px]">
+            {audit.length === 0 ? (
+              <p className="text-[#525252] text-sm">No audit entries recorded yet.</p>
+            ) : (
+              audit.map((log) => (
+                <div key={log.id} className="flex items-start gap-4 p-4 rounded-xl bg-[#0a0a0a] border border-[#262626]">
+                  <div className="p-2 rounded-full bg-[#141414] text-[#a3a3a3] border border-[#262626]">
+                    {iconFor(log.action)}
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-[#f5f5f5] font-medium text-sm">{log.action}</p>
+                    <p className="text-[#525252] text-xs mt-1">
+                      {log.actor}
+                      {log.detail ? ` — ${log.detail}` : ''}
+                    </p>
+                  </div>
+                  <Badge variant="outline" className="text-[#a3a3a3] border-[#262626] whitespace-nowrap">
+                    {formatWhen(log.createdAt)}
+                  </Badge>
+                </div>
+              ))
+            )}
+          </div>
         </motion.div>
       </div>
     </motion.div>

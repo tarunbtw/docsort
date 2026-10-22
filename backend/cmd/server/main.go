@@ -57,8 +57,15 @@ func main() {
 
 	// 6. Register Routes
 	r.Get("/health", func(w http.ResponseWriter, r *http.Request) {
+		engineStatus := "ok"
+		engineReachable := true
+		if err := mlEngine.HealthCheck(); err != nil {
+			engineStatus = err.Error()
+			engineReachable = false
+		}
 		w.Header().Set("Content-Type", "application/json")
-		fmt.Fprintf(w, `{"status":"ok","service":"docsort-go-backend"}`)
+		fmt.Fprintf(w, `{"status":"ok","service":"docsort-go-backend","mlEngine":{"reachable":%t,"detail":%q}}`,
+			engineReachable, engineStatus)
 	})
 
 	r.Route("/api", func(api chi.Router) {
@@ -67,7 +74,13 @@ func main() {
 		api.Get("/documents/{id}", h.GetDocument)
 		api.Get("/documents/{id}/pdf", h.StreamPDF)
 		api.Delete("/documents/{id}", h.DeleteDocument)
+		api.Post("/documents/{id}/reprocess", h.ReprocessDocument)
+		api.Post("/documents/{id}/review", h.ReviewDocument)
 		api.Get("/stats/dashboard", h.GetDashboardStats)
+		api.Get("/reports/summary", h.GetReportSummary)
+		api.Get("/reports/export", h.ExportCSV)
+		api.Get("/audit", h.ListAudit)
+		api.Get("/departments", h.GetDepartments)
 	})
 
 	addr := ":" + cfg.Port

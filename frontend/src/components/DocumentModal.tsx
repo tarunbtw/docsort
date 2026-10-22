@@ -16,6 +16,7 @@ export default function DocumentModal({ document, isOpen, onClose }: DocumentMod
 
   const meta = document.metadata;
   const flags = meta?.verificationFlags || [];
+  const extractionRan = !document.extractionStatus || document.extractionStatus === 'ok';
 
   return (
     <AnimatePresence>
@@ -37,7 +38,7 @@ export default function DocumentModal({ document, isOpen, onClose }: DocumentMod
                   <Badge
                     variant="outline"
                     className={
-                      document.compliance === 'Compliant'
+                      document.compliance === 'Verified'
                         ? 'bg-white text-black border-transparent'
                         : document.compliance === 'Needs Review'
                         ? 'bg-[#262626] text-[#a3a3a3] border-[#525252]'
@@ -46,9 +47,14 @@ export default function DocumentModal({ document, isOpen, onClose }: DocumentMod
                   >
                     {document.compliance}
                   </Badge>
-                  {document.status === 'not_relevant' && (
+                  {document.status === 'uncertain' && (
                     <Badge variant="outline" className="bg-amber-950/40 text-amber-300 border-amber-800">
-                      Non-Procurement (Filtered)
+                      Low-confidence classification
+                    </Badge>
+                  )}
+                  {document.supersededBy && (
+                    <Badge variant="outline" className="bg-[#262626] text-[#a3a3a3] border-[#525252]">
+                      Superseded by {document.supersededBy.slice(0, 8)}
                     </Badge>
                   )}
                 </div>
@@ -134,7 +140,7 @@ export default function DocumentModal({ document, isOpen, onClose }: DocumentMod
                       Issue Date
                     </label>
                     <p className="text-sm text-white bg-[#0a0a0a] p-2.5 rounded-lg border border-[#262626]">
-                      {meta?.date || 'Undated'}
+                      {meta?.date || (extractionRan ? 'Not found in document' : 'Not extracted')}
                     </p>
                   </div>
                   <div>
@@ -142,9 +148,18 @@ export default function DocumentModal({ document, isOpen, onClose }: DocumentMod
                       Issuing Authority
                     </label>
                     <p className="text-sm text-white bg-[#0a0a0a] p-2.5 rounded-lg border border-[#262626] truncate" title={meta?.issuingAuthority}>
-                      {meta?.issuingAuthority || 'Government Body'}
+                      {meta?.issuingAuthority || (extractionRan ? 'Not found in document' : 'Not extracted')}
                     </p>
                   </div>
+                </div>
+
+                <div>
+                  <label className="text-[11px] uppercase tracking-wider text-[#525252] block mb-1">
+                    Document Type
+                  </label>
+                  <p className="text-sm text-white bg-[#0a0a0a] p-2.5 rounded-lg border border-[#262626]">
+                    {meta?.docType || (extractionRan ? 'Other' : 'Not extracted')}
+                  </p>
                 </div>
 
                 {meta?.categories && meta.categories.length > 0 && (
@@ -176,6 +191,28 @@ export default function DocumentModal({ document, isOpen, onClose }: DocumentMod
                   </div>
                 )}
 
+                {meta?.supersededDocuments && meta.supersededDocuments.length > 0 && (
+                  <div>
+                    <label className="text-[11px] uppercase tracking-wider text-[#525252] block mb-1">
+                      Superseded Documents ({meta.supersededDocuments.length})
+                    </label>
+                    <ul className="text-xs text-[#a3a3a3] bg-[#0a0a0a] p-2.5 rounded-lg border border-[#262626] space-y-1">
+                      {meta.supersededDocuments.map((ref, i) => (
+                        <li key={i} className="font-mono">{ref}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {document.llmProvider && (
+                  <div className="text-[11px] text-[#525252] flex justify-between">
+                    <span>Extraction provider</span>
+                    <span className="text-[#a3a3a3]">
+                      {document.llmProvider}{document.llmModel ? ` / ${document.llmModel}` : ''}
+                    </span>
+                  </div>
+                )}
+
                 {meta?.summary && (
                   <div>
                     <label className="text-[11px] uppercase tracking-wider text-[#525252] block mb-1">
@@ -197,7 +234,16 @@ export default function DocumentModal({ document, isOpen, onClose }: DocumentMod
                   </span>
                 </div>
 
-                {flags.length === 0 ? (
+                {!extractionRan ? (
+                  <div className="flex items-start gap-2.5 bg-[#0f0f0f] border border-[#262626] p-3 rounded-xl text-xs text-[#a3a3a3]">
+                    <AlertCircle size={16} className="shrink-0 mt-0.5" />
+                    <span>
+                      Verification was skipped: metadata extraction did not run
+                      {` (${document.extractionStatus})`}. No extracted values exist to check
+                      against the source document.
+                    </span>
+                  </div>
+                ) : flags.length === 0 ? (
                   <div className="flex items-start gap-2.5 bg-emerald-950/20 border border-emerald-800/40 p-3 rounded-xl text-xs text-emerald-300">
                     <CheckCircle2 size={16} className="shrink-0 mt-0.5" />
                     <span>All extracted factual parameters verified verbatim against normalized document source.</span>

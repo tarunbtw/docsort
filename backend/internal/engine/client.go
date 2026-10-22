@@ -15,7 +15,7 @@ type Client struct {
 }
 
 type ProcessResult struct {
-	Status              string   `json:"status"`                      // processed, not_relevant, error
+	Status              string   `json:"status"`                      // processed, not_relevant, uncertain, error
 	ExtractionStatus    string   `json:"extraction_status,omitempty"` // ok, llm_unavailable
 	Error               string   `json:"error,omitempty"`
 	RelevanceConfidence float64  `json:"relevance_confidence,omitempty"`
@@ -24,10 +24,15 @@ type ProcessResult struct {
 	Date                string   `json:"date,omitempty"`
 	IssuingAuthority    string   `json:"issuing_authority,omitempty"`
 	OMNumber            string   `json:"om_number,omitempty"`
+	DocType             string   `json:"doc_type,omitempty"`
 	Categories          []string `json:"categories,omitempty"`
 	Supersedes          *string  `json:"supersedes,omitempty"`
+	SupersededDocuments []string `json:"superseded_documents,omitempty"`
 	Summary             string   `json:"summary,omitempty"`
 	VerificationFlags   []string `json:"verification_flags,omitempty"`
+	ExtractionProvider  string   `json:"extraction_provider,omitempty"`
+	ExtractionModel     string   `json:"extraction_model,omitempty"`
+	ExtractionAttempts  int      `json:"extraction_attempts,omitempty"`
 }
 
 func NewClient(baseURL string) *Client {
