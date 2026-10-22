@@ -166,7 +166,7 @@ During inference, the probability of relevance is given by:
 \begin{equation}
     P(y = 1 \mid \mathbf{x}) = \sigma(\mathbf{w}^T \mathbf{x} + b) = \frac{1}{1 + \exp(-(\mathbf{w}^T \mathbf{x} + b))}
 \end{equation}
-Documents with $P(y = 1 \mid \mathbf{x}) < 0.5$ are marked as non-relevant and short-circuit the pipeline immediately. This classification executes in under 4 milliseconds on a single CPU thread. At inference the document is segmented with the same chunking used to build the training set and each passage is scored independently; the verdict is taken from the aggregate, so a single atypical page no longer decides a long manual. Documents whose evidence is mixed are surfaced as \emph{uncertain} and routed for review rather than forced into a class.
+Documents with $P(y = 1 \mid \mathbf{x}) < 0.5$ are marked as non-relevant and short-circuit the pipeline immediately. This classification executes in under 4 milliseconds on a single CPU thread. At inference the document is segmented with the same chunking used to build the training set and each passage is scored independently; the verdict is taken from the aggregate, so a single atypical page no longer decides a long manual. Documents whose evidence is mixed are surfaced as \emph{uncertain} and routed for manual review.
 
 \subsection{Stage 2: Constrained Structured Extraction}
 Documents that pass Stage 1 proceed to structured extraction using an instruction-tuned language model accessed through a pool of interchangeable hosted endpoints. Providers are consulted in a configured order, and a request falls through to the next one on a missing key, an HTTP error, a timeout or an unparseable response; this keeps extraction available across free-tier quota boundaries without code changes. Extraction runs in two passes: a header pass over the leading context, and a coverage pass over sampled passages of the remainder, which is where supersession clauses usually appear.
@@ -188,7 +188,7 @@ To prevent category drift, we define an allowed closed category vocabulary:
 We enforce this vocabulary at the schema level using a Pydantic field validator. Any generated category string $c \notin \mathcal{C}_{\text{allowed}}$ is discarded. If all generated tags are invalid, the field defaults to \texttt{["other"]}.
 
 \paragraph{Fault Tolerance}
-Transient network drops, API rate-limit responses, and malformed JSON payloads are handled through a single-retry policy. If the initial API call or schema parse fails, the system executes one immediate retry. If the second attempt fails, the pipeline raises an explicit \texttt{LLMExtractionError} rather than propagating incomplete records.
+Transient network drops, API rate-limit responses, and malformed JSON payloads are handled through a single-retry policy. If the initial API call or schema parse fails, the system executes one immediate retry. If the second attempt fails, the pipeline raises an explicit \texttt{LLMExtractionError} to halt processing.
 
 \subsection{Stage 3: Deterministic Verbatim Verification}
 To ensure auditability, factual fields must be grounded in the source text. We define the set of verifiable factual fields:
@@ -237,7 +237,7 @@ Because public benchmarks for Indian procurement regulations do not exist, we co
 We collected sample documents directly from primary government portals:
 \begin{itemize}
     \item \textbf{Relevant sources}: 18 procurement manuals, circulars and policy documents from the Department of Expenditure (\url{doe.gov.in}), including the Manual for Procurement of Goods, the Works Manuals, the General Financial Rules and GeM payment circulars.
-    \item \textbf{Non-relevant sources}: 32 general administrative documents from the University Grants Commission (\url{ugc.gov.in}) and the Department of Personnel and Training (\url{dopt.gov.in}), spanning academic regulation, establishment and human-resources notices, training circulars, press releases and holiday lists. Documents whose subject could not be established were excluded rather than assumed negative.
+    \item \textbf{Non-relevant sources}: 32 general administrative documents from the University Grants Commission (\url{ugc.gov.in}) and the Department of Personnel and Training (\url{dopt.gov.in}), spanning academic regulation, establishment and human-resources notices, training circulars, press releases and holiday lists. Documents whose subject could not be established were excluded from the dataset.
 \end{itemize}
 
 \subsection{Paragraph-Aware Chunking}
@@ -248,7 +248,7 @@ Whole PDF manuals range from 2 to over 200 pages. Training a classifier on whole
 Passages shorter than 200 characters are discarded. This segmentation produces dozens of independent training instances per PDF while preserving complete sentences.
 
 \subsection{Weak Supervision Pipeline}
-We use weak supervision to label the chunked passages \citep{ratner2017snorkel, mintz2009distant}. Rather than routing every chunk to a remote language model, each passage is scored by an ensemble of deterministic labeling functions, which makes the dataset reproducible offline and independent of API quota. The functions are: a weighted procurement lexicon (for example, ``tender'', ``bid security'', ``GeM'', ``procuring entity''), an administrative and human-resources lexicon that votes for the negative class (for example, ``holiday'', ``reservation'', ``seniority'', ``pay commission''), structural regular expressions matching amount thresholds and bid-process phrasing, and a document-level prior derived from the source portal. The weighted votes are combined into a margin; a passage is labeled relevant or non-relevant when the margin exceeds a threshold, and is otherwise abstained from rather than given a guessed label.
+We use weak supervision to label the chunked passages \citep{ratner2017snorkel, mintz2009distant}. Each passage is scored by an ensemble of deterministic labeling functions, keeping the dataset reproducible offline and independent of external API quotas. The functions are: a weighted procurement lexicon (for example, ``tender'', ``bid security'', ``GeM'', ``procuring entity''), an administrative and human-resources lexicon that votes for the negative class (for example, ``holiday'', ``reservation'', ``seniority'', ``pay commission''), structural regular expressions matching amount thresholds and bid-process phrasing, and a document-level prior derived from the source portal. The weighted votes are combined into a margin. A passage is labeled relevant or non-relevant when the margin exceeds a threshold; otherwise the labeling function abstains.
 
 The data generation script incorporates two engineering mechanisms:
 \begin{enumerate}
@@ -353,7 +353,7 @@ To evaluate the verification layer, we inspected 40 extracted documents from the
 \label{tab:verification}
 \end{table}
 
-The verification module identified discrepancies in approximately 6\% of extracted fields. The most common discrepancy occurred when the model omitted administrative subdivision names from issuing authorities (for example, generating ``Department of Expenditure'' instead of ``Department of Expenditure, Procurement Policy Division''). Because DocSort appends non-destructive flags rather than auto-correcting values, compliance reviewers can quickly inspect the source document to confirm exact wording.
+The verification module identified discrepancies in approximately 6\% of extracted fields. The most common discrepancy occurred when the model omitted administrative subdivision names from issuing authorities (for example, generating ``Department of Expenditure'' instead of ``Department of Expenditure, Procurement Policy Division''). DocSort appends non-destructive flags to preserve original model outputs, letting compliance reviewers inspect the source document directly to confirm exact wording.
 
 \subsection{Closed Taxonomy Validation}
 Table 5 evaluates category classification under unconstrained prompting versus Pydantic schema validation across 120 extraction runs.
