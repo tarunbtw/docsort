@@ -22,8 +22,16 @@ import json
 import logging
 import os
 from dataclasses import dataclass
+from pathlib import Path
+
+from dotenv import load_dotenv
 
 logger = logging.getLogger(__name__)
+
+# Ensure .env from engine root is loaded
+_ENV_PATH = Path(__file__).parent.parent.parent / ".env"
+load_dotenv(_ENV_PATH)
+
 
 DEFAULT_OPENAI_BASE_URL = "https://api.apmix.ai/v1"
 DEFAULT_ANTHROPIC_BASE_URL = "https://api.apmix.ai"

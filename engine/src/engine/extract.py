@@ -1,8 +1,7 @@
-"""Text extraction from PDF documents.
+"""Text extraction from PDF documents with integrated OCR fallback.
 
-OCR extension point: when ScannedDocumentError is raised, the caller could
-pass the file to pytesseract (or similar) without any change to this module's
-public signature, just handle that exception upstream.
+Extracts native text using pdfplumber, falling back to Tesseract OCR via pypdfium2
+when a document has no usable text layer (scanned or image-based).
 """
 
 import logging
@@ -10,21 +9,20 @@ from pathlib import Path
 
 import pdfplumber
 
+from engine.ocr import is_ocr_available, ocr_pdf
+
 logger = logging.getLogger(__name__)
 
-# Documents shorter than this are almost certainly scanned / image-only.
+# Documents yielding fewer characters than this are treated as scanned/image-only.
 _MIN_TEXT_LENGTH = 50
 
 
 class ScannedDocumentError(Exception):
-    """Raised when extracted text is too short to be a text-layer PDF.
-
-    OCR (e.g. pytesseract) is the intended follow-up, not implemented yet.
-    """
+    """Raised when extracted text is too short and OCR could not produce readable text."""
 
 
 def extract_text(file_path: Path) -> str:
-    """Extract raw text from a PDF file.
+    """Extract raw text from a PDF file with automatic OCR fallback.
 
     Args:
         file_path: Absolute or relative path to the PDF.
@@ -35,7 +33,7 @@ def extract_text(file_path: Path) -> str:
     Raises:
         FileNotFoundError: If the path does not exist.
         ValueError: If the file is not a PDF.
-        ScannedDocumentError: If the PDF has no usable text layer.
+        ScannedDocumentError: If neither digital extraction nor OCR produced usable text.
     """
     if not file_path.exists():
         raise FileNotFoundError(f"File not found: {file_path}")
@@ -45,22 +43,50 @@ def extract_text(file_path: Path) -> str:
             f"Unsupported file type '{file_path.suffix}'. Only .pdf is accepted."
         )
 
-    logger.debug("Extracting text from %s", file_path)
+    logger.debug("Extracting digital text from %s", file_path)
 
-    with pdfplumber.open(file_path) as pdf:
-        pages: list[str] = []
-        for page in pdf.pages:
-            page_text = page.extract_text() or ""
-            pages.append(page_text)
-
-    text = "\n\n".join(pages).strip()
+    text = ""
+    try:
+        with pdfplumber.open(file_path) as pdf:
+            pages: list[str] = []
+            for page in pdf.pages:
+                page_text = page.extract_text() or ""
+                pages.append(page_text)
+        text = "\n\n".join(pages).strip()
+    except Exception as exc:
+        logger.warning("Digital text extraction failed on %s: %s; trying OCR.", file_path, exc)
 
     if len(text) < _MIN_TEXT_LENGTH:
-        # OCR (pytesseract) will be wired here in a future iteration.
-        # The function signature stays identical: callers catch ScannedDocumentError.
+        logger.info(
+            "Document %s has insufficient digital text (%d chars). Falling back to OCR...",
+            file_path.name,
+            len(text),
+        )
+
+        if not is_ocr_available():
+            raise ScannedDocumentError(
+                "Document appears to be scanned/image-based, but Tesseract OCR is not installed. "
+                "Install it via 'brew install tesseract' (macOS) or 'apt-get install tesseract-ocr' (Linux)."
+            )
+
+        try:
+            ocr_text = ocr_pdf(file_path)
+            if len(ocr_text) >= _MIN_TEXT_LENGTH:
+                logger.info(
+                    "OCR successfully recovered %d characters for %s",
+                    len(ocr_text),
+                    file_path.name,
+                )
+                return ocr_text
+        except Exception as exc:
+            logger.error("OCR execution failed for %s: %s", file_path, exc)
+            raise ScannedDocumentError(f"Scanned document OCR failed: {exc}") from exc
+
         raise ScannedDocumentError(
-            "Document appears to be scanned/image-based. OCR is not yet implemented."
+            f"Document appears to be scanned/image-based, and OCR extracted insufficient text "
+            f"({len(ocr_text) if 'ocr_text' in locals() else 0} characters)."
         )
 
     logger.debug("Extracted %d characters from %s", len(text), file_path)
     return text
+

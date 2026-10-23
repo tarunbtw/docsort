@@ -17,13 +17,18 @@ from dataclasses import dataclass
 from pathlib import Path
 
 import joblib
+from dotenv import load_dotenv
 from sklearn.pipeline import Pipeline
 
 from engine.chunking import chunk_text
 
 logger = logging.getLogger(__name__)
 
+_ENV_PATH = Path(__file__).parent.parent.parent / ".env"
+load_dotenv(_ENV_PATH)
+
 _MODEL_PATH = Path(__file__).parent.parent.parent / "models" / "tfidf_lr.pkl"
+
 
 # Module-level cache: populated on first call.
 _pipeline: Pipeline | None = None

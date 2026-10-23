@@ -13,6 +13,7 @@ from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
+from engine.ocr import is_ocr_available
 from engine.pipeline import process_document
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
@@ -39,8 +40,13 @@ class ProcessPathRequest(BaseModel):
 
 @app.get("/health")
 def health_check():
-    """Healthcheck endpoint to verify service readiness."""
-    return {"status": "ok", "service": "docsort-ml-engine"}
+    """Healthcheck endpoint to verify service readiness and subsystem capabilities."""
+    return {
+        "status": "ok",
+        "service": "docsort-ml-engine",
+        "ocr_available": is_ocr_available(),
+    }
+
 
 
 @app.post("/process")

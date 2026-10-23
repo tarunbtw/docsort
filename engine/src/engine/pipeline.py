@@ -8,12 +8,18 @@ import logging
 import os
 from pathlib import Path
 
+from dotenv import load_dotenv
+
 from engine.classify import predict_document
 from engine.extract import ScannedDocumentError, extract_text
 from engine.llm_extract import LLMExtractionError, extract_structured
 from engine.verify import verify_fields
 
 logger = logging.getLogger(__name__)
+
+_ENV_PATH = Path(__file__).parent.parent.parent / ".env"
+load_dotenv(_ENV_PATH)
+
 
 
 def _llm_required() -> bool:

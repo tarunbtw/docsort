@@ -168,12 +168,26 @@ class _ProviderUnavailable(Exception):
 
 
 def _clean_json_str(raw: str) -> str:
-    """Strip markdown code block fences and whitespace from raw LLM output."""
+    """Extract valid JSON from raw LLM output, handling markdown code fences and commentary."""
     s = raw.strip()
+    # Match markdown code fences: ```json { ... } ``` or ``` { ... } ```
+    fence_match = re.search(r"```(?:json)?\s*(\{.*?\})\s*```", s, flags=re.DOTALL | re.IGNORECASE)
+    if fence_match:
+        return fence_match.group(1).strip()
+
+    # If raw string starts with or contains ``` without matching ending fence
     if s.startswith("```"):
         s = re.sub(r"^```(?:json)?\s*", "", s, flags=re.IGNORECASE)
         s = re.sub(r"\s*```$", "", s)
-    return s.strip()
+        return s.strip()
+
+    # Extract outermost JSON object if there is conversational preamble/postscript
+    obj_match = re.search(r"(\{.*\})", s, flags=re.DOTALL)
+    if obj_match:
+        return obj_match.group(1).strip()
+
+    return s
+
 
 
 def _extract_text_from_response(data: dict) -> str:
