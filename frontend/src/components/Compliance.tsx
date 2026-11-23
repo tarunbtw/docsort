@@ -1,9 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { AlertTriangle, CheckCircle, XCircle } from 'lucide-react';
+import { AlertTriangle, CheckCircle, XCircle, ShieldAlert, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import {
   Dialog,
   DialogContent,
@@ -15,6 +17,7 @@ import {
   DialogClose,
 } from '@/components/ui/dialog';
 import { fetchDocuments, fetchDocument, reviewDocument, ComplianceStatus } from '../lib/api';
+import { getComplianceBadge } from './Dashboard';
 
 interface FlaggedDoc {
   id: string;
@@ -33,7 +36,12 @@ interface FlaggedDoc {
   summary?: string;
 }
 
-const OVERRIDE_OPTIONS: ComplianceStatus[] = ['Verified', 'Needs Review', 'Superseded', 'Not Procurement'];
+const OVERRIDE_OPTIONS: ComplianceStatus[] = [
+  'Verified',
+  'Needs Review',
+  'Superseded',
+  'Not Procurement',
+];
 
 function explain(doc: FlaggedDoc): string {
   if (doc.compliance === 'Not Procurement') {
@@ -116,119 +124,228 @@ export default function Compliance() {
   };
 
   return (
-    <>
-      <header className="mb-8">
-        <h1 className="text-3xl font-light text-[#f5f5f5]">Compliance Review</h1>
-        <p className="text-[#a3a3a3] mt-2">
-          Documents that were segregated, superseded, or whose extracted fields could not be verified.
-        </p>
-      </header>
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-2xl lg:text-3xl font-semibold tracking-tight text-foreground">
+            Compliance Review Queue
+          </h1>
+          <p className="text-sm text-muted-foreground mt-1">
+            Documents segregated by linear triage, superseded by revisions, or flagged during verbatim verification.
+          </p>
+        </div>
+        <Badge variant="outline" className="font-mono text-xs w-fit">
+          {docs.length} pending review
+        </Badge>
+      </div>
 
       {error && (
-        <div className="bg-[#141414] border border-[#262626] rounded-[1.5rem] p-6 text-[#a3a3a3] mb-4">
-          Could not reach the backend: {error}
+        <Card className="border-destructive/30 bg-destructive/5 text-destructive">
+          <CardContent className="p-4 text-sm flex items-center gap-2">
+            <AlertTriangle className="size-4 shrink-0" />
+            <span>Could not reach backend service: {error}</span>
+          </CardContent>
+        </Card>
+      )}
+
+      {loading && (
+        <div className="py-12 text-center text-sm text-muted-foreground">
+          Loading compliance queue…
         </div>
       )}
-      {loading && <p className="text-[#a3a3a3]">Loading queue…</p>}
 
       <div className="grid gap-4">
         <AnimatePresence>
           {docs.map((doc, i) => (
             <motion.div
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ delay: i * 0.05 }}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.98 }}
+              transition={{ delay: i * 0.04 }}
               key={doc.id}
-              className="bg-[#141414] p-6 rounded-[1.5rem] flex flex-col md:flex-row items-start gap-4 border border-[#262626] hover:border-[#525252] transition-colors"
             >
-              <div className={`p-3 rounded-full shrink-0 border ${
-                doc.compliance === 'Needs Review'
-                  ? 'bg-[#525252] text-[#141414] border-[#a3a3a3]'
-                  : 'bg-[#141414] text-[#f5f5f5] border-[#525252]'
-              }`}>
-                <AlertTriangle size={24} />
-              </div>
+              <Card className="hover:border-foreground/20 transition-all shadow-xs">
+                <CardContent className="p-5 flex flex-col md:flex-row items-start gap-4">
+                  {/* Status Indicator Icon */}
+                  <div
+                    className={`p-3 rounded-xl shrink-0 border ${
+                      doc.compliance === 'Needs Review'
+                        ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/30'
+                        : doc.compliance === 'Not Procurement'
+                        ? 'bg-destructive/10 text-destructive border-destructive/30'
+                        : 'bg-muted text-muted-foreground border-border'
+                    }`}
+                  >
+                    <ShieldAlert size={22} />
+                  </div>
 
-              <div className="flex-1 w-full">
-                <h3 className="text-lg font-medium text-[#f5f5f5] mb-1">
-                  {doc.title} <span className="text-sm text-[#525252] ml-2 font-normal">{doc.docNumber}</span>
-                </h3>
+                  <div className="flex-1 w-full min-w-0">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+                      <div className="flex items-center gap-2">
+                        <span className="font-mono text-xs font-semibold text-muted-foreground">
+                          {doc.docNumber}
+                        </span>
+                        {getComplianceBadge(doc.compliance)}
+                        {doc.status === 'uncertain' && (
+                          <Badge variant="secondary" className="text-[10px]">
+                            Low confidence
+                          </Badge>
+                        )}
+                      </div>
+                      <span className="text-xs text-muted-foreground">
+                        Uploaded: {doc.uploadDate}
+                      </span>
+                    </div>
 
-                <div className="flex flex-wrap gap-4 mb-4 mt-2">
-                  <p className="text-sm text-[#a3a3a3]">Status: <span className="text-[#f5f5f5]">{doc.compliance}</span></p>
-                  <p className="text-sm text-[#a3a3a3]">Category: {doc.category}</p>
-                  <p className="text-sm text-[#a3a3a3]">Authority: {doc.department || '—'}</p>
-                  {doc.docType && <p className="text-sm text-[#a3a3a3]">Type: {doc.docType}</p>}
-                  <p className="text-sm text-[#a3a3a3]">Score: {doc.complianceScore}%</p>
-                  <p className="text-sm text-[#a3a3a3]">Uploaded: {doc.uploadDate}</p>
-                </div>
+                    <h3 className="text-base font-semibold text-foreground mb-2">
+                      {doc.title}
+                    </h3>
 
-                <div className="bg-[#0a0a0a] border border-[#262626] rounded-xl p-4 mb-4">
-                  <p className="text-sm text-[#a3a3a3] leading-relaxed">
-                    <strong className="text-[#f5f5f5]">Review reason:</strong> {explain(doc)}
-                  </p>
-                </div>
+                    {/* Metadata attributes */}
+                    <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground mb-3">
+                      <span>Authority: <strong className="text-foreground font-medium">{doc.department || '—'}</strong></span>
+                      <span>&bull;</span>
+                      <span>Category: <strong className="text-foreground font-medium">{doc.category}</strong></span>
+                      {doc.docType && (
+                        <>
+                          <span>&bull;</span>
+                          <span>Type: <strong className="text-foreground font-medium">{doc.docType}</strong></span>
+                        </>
+                      )}
+                      <span>&bull;</span>
+                      <span>Compliance Score: <strong className="text-foreground font-medium font-mono">{doc.complianceScore}%</strong></span>
+                    </div>
 
-                <div className="flex flex-wrap items-center gap-3">
-                  <Dialog>
-                    <DialogTrigger render={<Button className="bg-white text-black hover:bg-gray-200" disabled={busyId === doc.id} />}>
-                      <CheckCircle className="mr-2 h-4 w-4" /> Acknowledge
-                    </DialogTrigger>
-                    <DialogContent className="bg-[#141414] border-[#262626] text-[#f5f5f5]">
-                      <DialogHeader>
-                        <DialogTitle>Acknowledge</DialogTitle>
-                        <DialogDescription className="text-[#a3a3a3]">
-                          Records that a reviewer inspected this document. It will be marked <strong>Verified</strong> and the action written to the audit log.
-                        </DialogDescription>
-                      </DialogHeader>
-                      <DialogFooter>
-                        <DialogClose render={<Button variant="outline" className="border-[#525252] text-[#a3a3a3] hover:bg-[#262626]" />}>Cancel</DialogClose>
-                        <DialogClose render={<Button className="bg-white text-black hover:bg-gray-200" onClick={() => handleAction(doc, 'acknowledge')} />}>Confirm</DialogClose>
-                      </DialogFooter>
-                    </DialogContent>
-                  </Dialog>
+                    {/* Review Reason Callout */}
+                    <div className="bg-muted/40 border border-border rounded-xl p-3.5 mb-4">
+                      <p className="text-xs text-muted-foreground leading-relaxed">
+                        <span className="font-semibold text-foreground">Trigger Reason: </span>
+                        {explain(doc)}
+                      </p>
+                    </div>
 
-                  <Dialog>
-                    <DialogTrigger render={<Button variant="outline" className="bg-[#262626] text-[#f5f5f5] border-[#525252] hover:bg-[#525252] hover:text-white" disabled={busyId === doc.id} />}>
-                      <XCircle className="mr-2 h-4 w-4" /> Override Status
-                    </DialogTrigger>
-                    <DialogContent className="bg-[#141414] border-[#262626] text-[#f5f5f5]">
-                      <DialogHeader>
-                        <DialogTitle>Override Status</DialogTitle>
-                        <DialogDescription className="text-[#a3a3a3]">
-                          Sets the compliance status directly. The change is persisted and audited.
-                        </DialogDescription>
-                      </DialogHeader>
-                      <select
-                        value={overrideStatus}
-                        onChange={(e) => setOverrideStatus(e.target.value as ComplianceStatus)}
-                        className="w-full bg-[#0a0a0a] border border-[#262626] rounded-lg px-3 py-2 text-sm text-[#f5f5f5]"
-                      >
-                        {OVERRIDE_OPTIONS.map((opt) => (
-                          <option key={opt} value={opt}>{opt}</option>
-                        ))}
-                      </select>
-                      <DialogFooter>
-                        <DialogClose render={<Button variant="outline" className="border-[#525252] text-[#a3a3a3] hover:bg-[#262626]" />}>Cancel</DialogClose>
-                        <DialogClose render={<Button className="bg-white text-black hover:bg-gray-200" onClick={() => handleAction(doc, 'override')} />}>Confirm Override</DialogClose>
-                      </DialogFooter>
-                    </DialogContent>
-                  </Dialog>
-                </div>
-              </div>
+                    {/* Action Dialogs */}
+                    <div className="flex flex-wrap items-center gap-3">
+                      {/* Acknowledge Dialog */}
+                      <Dialog>
+                        <DialogTrigger
+                          render={
+                            <Button
+                              variant="default"
+                              size="sm"
+                              disabled={busyId === doc.id}
+                              className="gap-1.5"
+                            />
+                          }
+                        >
+                          <CheckCircle className="size-4" />
+                          <span>Acknowledge Risk</span>
+                        </DialogTrigger>
+                        <DialogContent className="max-w-md">
+                          <DialogHeader>
+                            <DialogTitle>Acknowledge Compliance Warning</DialogTitle>
+                            <DialogDescription>
+                              Records that an authorized reviewer manually validated this document. It will be marked <strong className="text-foreground">Verified</strong> and an entry logged in the audit trail.
+                            </DialogDescription>
+                          </DialogHeader>
+                          <DialogFooter className="gap-2 sm:gap-0">
+                            <DialogClose render={<Button variant="outline" size="sm" />}>
+                              Cancel
+                            </DialogClose>
+                            <DialogClose
+                              render={
+                                <Button
+                                  variant="default"
+                                  size="sm"
+                                  onClick={() => handleAction(doc, 'acknowledge')}
+                                />
+                              }
+                            >
+                              Confirm Verification
+                            </DialogClose>
+                          </DialogFooter>
+                        </DialogContent>
+                      </Dialog>
+
+                      {/* Override Status Dialog */}
+                      <Dialog>
+                        <DialogTrigger
+                          render={
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              disabled={busyId === doc.id}
+                              className="gap-1.5"
+                            />
+                          }
+                        >
+                          <XCircle className="size-4" />
+                          <span>Override Status</span>
+                        </DialogTrigger>
+                        <DialogContent className="max-w-md">
+                          <DialogHeader>
+                            <DialogTitle>Manual Status Override</DialogTitle>
+                            <DialogDescription>
+                              Select the explicit status to designate for document <strong className="font-mono text-foreground">{doc.docNumber}</strong>.
+                            </DialogDescription>
+                          </DialogHeader>
+                          <div className="py-2">
+                            <label className="text-xs font-medium text-muted-foreground block mb-2">
+                              Target Compliance State
+                            </label>
+                            <select
+                              value={overrideStatus}
+                              onChange={(e) => setOverrideStatus(e.target.value as ComplianceStatus)}
+                              className="w-full bg-background border border-border rounded-lg px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-ring"
+                            >
+                              {OVERRIDE_OPTIONS.map((opt) => (
+                                <option key={opt} value={opt}>
+                                  {opt}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
+                          <DialogFooter className="gap-2 sm:gap-0">
+                            <DialogClose render={<Button variant="outline" size="sm" />}>
+                              Cancel
+                            </DialogClose>
+                            <DialogClose
+                              render={
+                                <Button
+                                  variant="default"
+                                  size="sm"
+                                  onClick={() => handleAction(doc, 'override')}
+                                />
+                              }
+                            >
+                              Apply Override
+                            </DialogClose>
+                          </DialogFooter>
+                        </DialogContent>
+                      </Dialog>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             </motion.div>
           ))}
         </AnimatePresence>
 
         {!loading && !error && docs.length === 0 && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-12 bg-[#141414] rounded-[1.5rem] border border-[#262626]">
-            <CheckCircle size={48} className="text-[#525252] mx-auto mb-4" />
-            <h3 className="text-[#f5f5f5] font-medium text-lg">Nothing to review</h3>
-            <p className="text-[#a3a3a3]">No segregated, superseded or unverified documents are waiting.</p>
-          </motion.div>
+          <Card className="text-center py-12">
+            <CardContent className="flex flex-col items-center justify-center">
+              <div className="size-12 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-3">
+                <CheckCircle size={24} />
+              </div>
+              <h3 className="text-base font-semibold text-foreground">Queue is Clear</h3>
+              <p className="text-xs text-muted-foreground mt-1 max-w-sm">
+                No segregated, superseded, or unverified documents are pending compliance review.
+              </p>
+            </CardContent>
+          </Card>
         )}
       </div>
-    </>
+    </div>
   );
 }
