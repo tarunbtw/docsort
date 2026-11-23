@@ -1,10 +1,41 @@
 import React, { useState, useEffect } from 'react';
-import { Search, List, Layers, Clock, AlertTriangle, FileCheck, MoreVertical } from 'lucide-react';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, Radar } from 'recharts';
+import {
+  Search,
+  List,
+  Layers,
+  Clock,
+  AlertTriangle,
+  FileCheck,
+  MoreVertical,
+  ExternalLink,
+  Eye,
+  Trash2,
+  ArrowUpRight,
+} from 'lucide-react';
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+  RadarChart,
+  PolarGrid,
+  PolarAngleAxis,
+  Radar,
+} from 'recharts';
 import { motion } from 'motion/react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Tab } from '../App';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,6 +45,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { toast } from 'sonner';
 
+import { Tab } from '../App';
 import {
   fetchDashboardStats,
   fetchReportSummary,
@@ -27,10 +59,51 @@ import DocumentModal from './DocumentModal';
 
 const KPI_ICONS = [List, FileCheck, Clock, AlertTriangle, Layers];
 
-function complianceBadgeClass(compliance: string) {
-  if (compliance === 'Verified') return 'bg-white text-black border-transparent hover:bg-gray-200';
-  if (compliance === 'Needs Review') return 'bg-[#262626] text-[#a3a3a3] border-[#525252] hover:bg-[#262626]';
-  return 'bg-[#0a0a0a] text-white border-[#525252] hover:bg-[#0a0a0a]';
+export function getComplianceBadge(compliance: string) {
+  switch (compliance) {
+    case 'Verified':
+      return (
+        <Badge
+          variant="outline"
+          className="bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border-emerald-500/30 font-medium"
+        >
+          Verified
+        </Badge>
+      );
+    case 'Needs Review':
+      return (
+        <Badge
+          variant="outline"
+          className="bg-amber-500/10 text-amber-700 dark:text-amber-300 border-amber-500/30 font-medium"
+        >
+          Needs Review
+        </Badge>
+      );
+    case 'Superseded':
+      return (
+        <Badge
+          variant="outline"
+          className="bg-muted text-muted-foreground border-border font-medium"
+        >
+          Superseded
+        </Badge>
+      );
+    case 'Not Procurement':
+      return (
+        <Badge
+          variant="outline"
+          className="bg-destructive/10 text-destructive border-destructive/30 font-medium"
+        >
+          Not Procurement
+        </Badge>
+      );
+    default:
+      return (
+        <Badge variant="outline" className="font-medium">
+          {compliance}
+        </Badge>
+      );
+  }
 }
 
 export default function Dashboard({ setActiveTab }: { setActiveTab: (tab: Tab) => void }) {
@@ -66,205 +139,370 @@ export default function Dashboard({ setActiveTab }: { setActiveTab: (tab: Tab) =
     }
   };
 
-  const uploadsPerDay = (summary?.uploadsPerDay ?? []).map((d) => ({ name: d.date.slice(5), uploads: d.count }));
+  const uploadsPerDay = (summary?.uploadsPerDay ?? []).map((d) => ({
+    name: d.date.slice(5),
+    uploads: d.count,
+  }));
   const byDocType = (summary?.byDocType ?? []).map((d) => ({ subject: d.name, count: d.count }));
   const complianceTotals = summary?.byCompliance ?? [];
 
   return (
-    <>
-      <header className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-light text-[#f5f5f5]">Dashboard</h1>
-        <div className="flex items-center gap-6">
+    <div className="space-y-8">
+      {/* Header bar */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-2xl lg:text-3xl font-semibold tracking-tight text-foreground">
+            Dashboard
+          </h1>
+          <p className="text-sm text-muted-foreground mt-1">
+            Real-time regulatory document triage and compliance overview.
+          </p>
+        </div>
+        <div className="flex items-center gap-3">
           <Button
             variant="outline"
+            size="sm"
             onClick={() => setActiveTab('repository')}
-            className="bg-[#141414] text-[#a3a3a3] border-[#262626] rounded-full hover:bg-[#262626] hover:text-white"
+            className="rounded-lg shadow-xs"
           >
-            <Search className="mr-2 size-4" /> Search documents
+            <Search className="size-4 mr-1.5 text-muted-foreground" />
+            <span>Search documents</span>
           </Button>
-          <div className="flex items-center gap-3">
-            <img
-              src="https://api.dicebear.com/7.x/notionists/svg?seed=Haris&backgroundColor=11212D"
-              alt="User profile"
-              className="w-9 h-9 rounded-full bg-[#141414] border border-[#262626]"
-            />
-            <span className="text-sm text-[#a3a3a3] font-medium">Compliance Officer</span>
-          </div>
         </div>
-      </header>
+      </div>
 
       {error && (
-        <div className="bg-[#141414] border border-[#262626] rounded-[1.5rem] p-6 text-[#a3a3a3] mb-6">
-          Could not reach the backend: {error}
-        </div>
+        <Card className="border-destructive/30 bg-destructive/5 text-destructive">
+          <CardContent className="p-4 text-sm flex items-center gap-2">
+            <AlertTriangle className="size-4 shrink-0" />
+            <span>Could not reach backend service: {error}</span>
+          </CardContent>
+        </Card>
       )}
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-6 mb-6">
+      {/* KPI Cards Grid */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 lg:gap-4">
         {kpiCards.map((kpi, index) => {
           const Icon = KPI_ICONS[index % KPI_ICONS.length];
+          const isHighlighted = kpi.highlight;
           return (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.05 }}
+              transition={{ delay: index * 0.04 }}
               key={kpi.title}
-              className={`p-6 rounded-[1.5rem] flex flex-col items-center justify-center text-center transition-all ${
-                kpi.highlight ? 'bg-white text-black border border-white' : 'bg-[#141414] text-[#f5f5f5] border border-[#262626]'
-              }`}
             >
-              <Icon size={20} className={`mb-3 ${kpi.highlight ? 'text-black' : 'text-[#a3a3a3]'}`} />
-              <span className="text-3xl font-semibold tracking-tight mb-1">{kpi.value}</span>
-              <span className={`text-xs font-medium mb-3 ${kpi.highlight ? 'text-gray-600' : 'text-[#525252]'}`}>{kpi.title}</span>
-              <div className={`text-[10px] font-semibold px-2 py-1 rounded-full ${
-                kpi.highlight ? 'text-white bg-black' : 'text-[#a3a3a3] bg-[#262626]'
-              }`}>
-                {kpi.label}
-              </div>
+              <Card
+                className={`h-full border transition-all ${
+                  isHighlighted
+                    ? 'border-primary/40 bg-accent/40 shadow-xs ring-1 ring-primary/20'
+                    : 'hover:border-foreground/20'
+                }`}
+              >
+                <CardContent className="p-5 flex flex-col justify-between h-full">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-xs font-medium text-muted-foreground line-clamp-1">
+                      {kpi.title}
+                    </span>
+                    <div
+                      className={`p-1.5 rounded-md ${
+                        isHighlighted
+                          ? 'bg-primary text-primary-foreground'
+                          : 'bg-muted text-muted-foreground'
+                      }`}
+                    >
+                      <Icon size={14} />
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-2xl lg:text-3xl font-bold tracking-tight text-foreground mb-1">
+                      {kpi.value}
+                    </div>
+                    <Badge
+                      variant="secondary"
+                      className="text-[10px] font-mono font-medium py-0 px-1.5"
+                    >
+                      {kpi.label}
+                    </Badge>
+                  </div>
+                </CardContent>
+              </Card>
             </motion.div>
           );
         })}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-        <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }} className="lg:col-span-2 bg-[#141414] p-6 rounded-[1.5rem] border border-[#262626]">
-          <div className="flex justify-between items-center mb-8">
-            <h3 className="text-[#f5f5f5] font-medium text-lg">Uploads (Last 14 Days)</h3>
-            <span className="text-xs text-[#525252]">{summary?.total ?? 0} documents total</span>
-          </div>
-
-          <div className="h-[250px] w-full">
-            {uploadsPerDay.length === 0 ? (
-              <p className="text-[#525252] text-sm pt-24 text-center">No uploads recorded yet.</p>
-            ) : (
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={uploadsPerDay} margin={{ top: 0, right: 0, left: -20, bottom: 0 }}>
-                  <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#525252', fontSize: 12 }} dy={10} />
-                  <YAxis axisLine={false} tickLine={false} tick={{ fill: '#525252', fontSize: 12 }} allowDecimals={false} />
-                  <Tooltip
-                    cursor={{ fill: '#262626', opacity: 0.4 }}
-                    contentStyle={{ backgroundColor: '#141414', border: '1px solid #262626', borderRadius: '8px', color: '#f5f5f5' }}
-                    itemStyle={{ color: '#f5f5f5' }}
-                  />
-                  <Bar dataKey="uploads" fill="#a3a3a3" radius={[4, 4, 0, 0]} barSize={14} />
-                </BarChart>
-              </ResponsiveContainer>
-            )}
-          </div>
-        </motion.div>
-
-        <motion.div initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }} className="lg:col-span-1 bg-[#141414] p-6 rounded-[1.5rem] border border-[#262626]">
-          <div className="flex justify-between items-center mb-4">
-            <h3 className="text-[#f5f5f5] font-medium text-lg">Documents by Type</h3>
-          </div>
-
-          <div className="h-[250px] w-full -ml-4">
-            {byDocType.length < 3 ? (
-              <div className="h-full flex flex-col items-center justify-center gap-2 text-sm text-[#a3a3a3]">
-                {byDocType.length === 0 ? (
-                  <span className="text-[#525252]">No document types extracted yet.</span>
-                ) : (
-                  byDocType.map((t) => (
-                    <span key={t.subject}>{t.subject}: <span className="text-[#f5f5f5]">{t.count}</span></span>
-                  ))
-                )}
+      {/* Analytics Charts */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Upload trend bar chart */}
+        <Card className="lg:col-span-2">
+          <CardHeader className="pb-2">
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle className="text-base font-semibold">Uploads Activity</CardTitle>
+                <CardDescription>Daily document intake across the last 14 days</CardDescription>
               </div>
-            ) : (
-              <ResponsiveContainer width="100%" height="100%">
-                <RadarChart cx="50%" cy="50%" outerRadius="70%" data={byDocType}>
-                  <PolarGrid stroke="#262626" />
-                  <PolarAngleAxis dataKey="subject" tick={{ fill: '#a3a3a3', fontSize: 11 }} />
-                  <Radar name="Documents" dataKey="count" stroke="#f5f5f5" fill="#f5f5f5" fillOpacity={0.6} />
-                  <Tooltip contentStyle={{ backgroundColor: '#141414', border: '1px solid #262626', borderRadius: '8px' }} />
-                </RadarChart>
-              </ResponsiveContainer>
-            )}
-          </div>
+              <Badge variant="outline" className="font-mono text-xs">
+                {summary?.total ?? 0} total
+              </Badge>
+            </div>
+          </CardHeader>
+          <CardContent className="pt-4">
+            <div className="h-[260px] w-full">
+              {uploadsPerDay.length === 0 ? (
+                <div className="h-full flex items-center justify-center text-sm text-muted-foreground">
+                  No uploads recorded yet.
+                </div>
+              ) : (
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={uploadsPerDay} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                    <XAxis
+                      dataKey="name"
+                      axisLine={false}
+                      tickLine={false}
+                      tick={{ fill: 'currentColor', opacity: 0.5, fontSize: 11 }}
+                      dy={8}
+                    />
+                    <YAxis
+                      axisLine={false}
+                      tickLine={false}
+                      tick={{ fill: 'currentColor', opacity: 0.5, fontSize: 11 }}
+                      allowDecimals={false}
+                    />
+                    <Tooltip
+                      cursor={{ fill: 'currentColor', opacity: 0.05 }}
+                      content={({ active, payload }) => {
+                        if (active && payload && payload.length) {
+                          return (
+                            <div className="rounded-lg border border-border bg-popover px-3 py-2 text-xs shadow-md">
+                              <span className="text-muted-foreground">Date: </span>
+                              <span className="font-medium text-popover-foreground">
+                                {payload[0].payload.name}
+                              </span>
+                              <br />
+                              <span className="text-muted-foreground">Uploads: </span>
+                              <span className="font-bold text-popover-foreground">
+                                {payload[0].value}
+                              </span>
+                            </div>
+                          );
+                        }
+                        return null;
+                      }}
+                    />
+                    <Bar
+                      dataKey="uploads"
+                      className="fill-primary"
+                      radius={[6, 6, 0, 0]}
+                      barSize={18}
+                    />
+                  </BarChart>
+                </ResponsiveContainer>
+              )}
+            </div>
+          </CardContent>
+        </Card>
 
-          <div className="flex flex-wrap justify-center gap-4 mt-2">
-            {complianceTotals.map((c) => (
-              <span key={c.name} className="text-xs text-[#a3a3a3]">
-                {c.name}: <span className="text-[#f5f5f5]">{c.count}</span>
-              </span>
-            ))}
-          </div>
-        </motion.div>
+        {/* Documents by Type radar / breakdown */}
+        <Card className="lg:col-span-1 flex flex-col">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-base font-semibold">Distribution by Type</CardTitle>
+            <CardDescription>Classified regulatory document taxonomy</CardDescription>
+          </CardHeader>
+          <CardContent className="pt-2 flex-1 flex flex-col justify-between">
+            <div className="h-[210px] w-full">
+              {byDocType.length < 3 ? (
+                <div className="h-full flex flex-col items-center justify-center gap-2 text-sm text-muted-foreground">
+                  {byDocType.length === 0 ? (
+                    <span>No document types extracted yet.</span>
+                  ) : (
+                    byDocType.map((t) => (
+                      <div key={t.subject} className="flex justify-between w-full max-w-xs px-2 py-1 bg-muted/40 rounded-md">
+                        <span className="font-medium text-foreground">{t.subject}</span>
+                        <span className="font-mono text-muted-foreground">{t.count}</span>
+                      </div>
+                    ))
+                  )}
+                </div>
+              ) : (
+                <ResponsiveContainer width="100%" height="100%">
+                  <RadarChart cx="50%" cy="50%" outerRadius="72%" data={byDocType}>
+                    <PolarGrid stroke="currentColor" opacity={0.15} />
+                    <PolarAngleAxis
+                      dataKey="subject"
+                      tick={{ fill: 'currentColor', opacity: 0.6, fontSize: 10 }}
+                    />
+                    <Radar
+                      name="Documents"
+                      dataKey="count"
+                      stroke="var(--color-primary)"
+                      fill="var(--color-primary)"
+                      fillOpacity={0.25}
+                    />
+                    <Tooltip
+                      content={({ active, payload }) => {
+                        if (active && payload && payload.length) {
+                          return (
+                            <div className="rounded-lg border border-border bg-popover px-3 py-1.5 text-xs shadow-md">
+                              <span className="font-medium text-popover-foreground">
+                                {payload[0].payload.subject}: {payload[0].value}
+                              </span>
+                            </div>
+                          );
+                        }
+                        return null;
+                      }}
+                    />
+                  </RadarChart>
+                </ResponsiveContainer>
+              )}
+            </div>
+
+            {/* Compliance totals summary pills */}
+            <div className="flex flex-wrap gap-1.5 justify-center pt-3 border-t border-border">
+              {complianceTotals.map((c) => (
+                <Badge
+                  key={c.name}
+                  variant="outline"
+                  className="text-[11px] font-normal py-0.5 px-2 bg-muted/30"
+                >
+                  <span className="text-muted-foreground mr-1">{c.name}:</span>
+                  <span className="font-semibold text-foreground">{c.count}</span>
+                </Badge>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="bg-[#141414] p-6 rounded-[1.5rem] border border-[#262626]">
-        <div className="flex justify-between items-center mb-6">
-          <h3 className="text-lg text-[#f5f5f5] font-medium">Recent Documents</h3>
-          <Button variant="outline" onClick={() => setActiveTab('repository')} className="bg-[#0a0a0a] border-[#262626] text-[#a3a3a3] rounded-full hover:bg-[#262626] hover:text-[#f5f5f5] transition-colors">
-            See all
+      {/* Recent Documents Table Card */}
+      <Card>
+        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
+          <div>
+            <CardTitle className="text-base font-semibold">Recent Documents</CardTitle>
+            <CardDescription>Latest parsed regulatory circulars and policy orders</CardDescription>
+          </div>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setActiveTab('repository')}
+            className="text-xs"
+          >
+            <span>See all documents</span>
+            <ArrowUpRight className="size-3.5 ml-1" />
           </Button>
-        </div>
-
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-sm">
-            <thead className="text-[#525252] border-b border-[#262626]">
-              <tr>
-                <th className="pb-4 font-medium">Ref ID</th>
-                <th className="pb-4 font-medium">Title</th>
-                <th className="pb-4 font-medium">Type</th>
-                <th className="pb-4 font-medium">Authority</th>
-                <th className="pb-4 font-medium">Score</th>
-                <th className="pb-4 font-medium">Uploaded</th>
-                <th className="pb-4 font-medium">Compliance</th>
-                <th className="pb-4 font-medium text-right pr-4">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
+        </CardHeader>
+        <CardContent className="p-0">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="w-[120px]">Ref ID</TableHead>
+                <TableHead>Title</TableHead>
+                <TableHead>Type</TableHead>
+                <TableHead>Issuing Authority</TableHead>
+                <TableHead>Score</TableHead>
+                <TableHead>Uploaded</TableHead>
+                <TableHead>Status</TableHead>
+                <TableHead className="w-[60px] text-right">Action</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
               {recentDocs.map((doc) => (
-                <tr
+                <TableRow
                   key={doc.id}
                   onClick={() => handlePreview(doc.id)}
-                  className="border-b border-[#262626] last:border-0 hover:bg-[#0a0a0a] transition-colors group cursor-pointer"
+                  className="cursor-pointer group"
                 >
-                  <td className="py-4 text-[#a3a3a3] group-hover:text-[#f5f5f5] transition-colors font-mono text-xs">{doc.docNumber}</td>
-                  <td className="py-4 text-[#f5f5f5] font-medium pr-4">{doc.title}</td>
-                  <td className="py-4 text-[#a3a3a3] pr-4 whitespace-nowrap">{doc.docType || '—'}</td>
-                  <td className="py-4 text-[#a3a3a3] pr-4">{doc.department || '—'}</td>
-                  <td className="py-4 text-[#a3a3a3]">{doc.complianceScore}%</td>
-                  <td className="py-4 text-[#525252] pr-4 whitespace-nowrap">{doc.uploadDate}</td>
-                  <td className="py-4">
-                    <Badge variant="outline" className={`font-medium ${complianceBadgeClass(doc.compliance)}`}>
-                      {doc.compliance}
-                    </Badge>
-                  </td>
-                  <td className="py-4 text-right pr-4" onClick={(e) => e.stopPropagation()}>
-                    <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <DropdownMenu>
-                        <DropdownMenuTrigger render={<Button variant="ghost" size="icon" className="h-8 w-8 text-[#a3a3a3] hover:text-white hover:bg-[#262626]" />}>
-                          <MoreVertical size={16} />
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent className="bg-[#141414] border-[#262626] text-[#a3a3a3]">
-                          <DropdownMenuItem className="hover:bg-[#262626] hover:text-white cursor-pointer" onClick={(e) => handlePreview(doc.id, e)}>
-                            Preview
+                  <TableCell className="font-mono text-xs text-muted-foreground group-hover:text-foreground font-medium">
+                    {doc.docNumber}
+                  </TableCell>
+                  <TableCell className="font-medium text-foreground max-w-sm truncate">
+                    {doc.title}
+                  </TableCell>
+                  <TableCell className="text-xs text-muted-foreground whitespace-nowrap">
+                    {doc.docType || '—'}
+                  </TableCell>
+                  <TableCell className="text-xs text-muted-foreground max-w-[180px] truncate">
+                    {doc.department || '—'}
+                  </TableCell>
+                  <TableCell className="text-xs font-mono font-medium">
+                    <span
+                      className={
+                        doc.complianceScore >= 80
+                          ? 'text-emerald-600 dark:text-emerald-400'
+                          : doc.complianceScore >= 50
+                          ? 'text-amber-600 dark:text-amber-400'
+                          : 'text-destructive'
+                      }
+                    >
+                      {doc.complianceScore}%
+                    </span>
+                  </TableCell>
+                  <TableCell className="text-xs text-muted-foreground whitespace-nowrap">
+                    {doc.uploadDate}
+                  </TableCell>
+                  <TableCell>{getComplianceBadge(doc.compliance)}</TableCell>
+                  <TableCell className="text-right" onClick={(e) => e.stopPropagation()}>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger
+                        render={
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="size-7 text-muted-foreground hover:text-foreground"
+                          />
+                        }
+                      >
+                        <MoreVertical size={14} />
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end" className="min-w-36">
+                        <DropdownMenuItem
+                          onClick={(e) => handlePreview(doc.id, e)}
+                          className="cursor-pointer"
+                        >
+                          <Eye className="size-3.5 mr-2" />
+                          <span>Preview</span>
+                        </DropdownMenuItem>
+                        {doc.fileUrl && (
+                          <DropdownMenuItem
+                            onClick={() => window.open(doc.fileUrl, '_blank')}
+                            className="cursor-pointer"
+                          >
+                            <ExternalLink className="size-3.5 mr-2" />
+                            <span>Open Tab</span>
                           </DropdownMenuItem>
-                          {doc.fileUrl && (
-                            <DropdownMenuItem className="hover:bg-[#262626] hover:text-white cursor-pointer" onClick={() => window.open(doc.fileUrl, '_blank')}>
-                              Open in Tab
-                            </DropdownMenuItem>
-                          )}
-                          <DropdownMenuSeparator className="bg-[#262626]" />
-                          <DropdownMenuItem className="text-red-500 hover:bg-red-950/30 hover:text-red-400 cursor-pointer" onClick={() => toast.error('To delete, please use the Repository tab')}>
-                            Delete
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </div>
-                  </td>
-                </tr>
+                        )}
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem
+                          variant="destructive"
+                          onClick={() => toast.error('To delete, please use the Repository tab')}
+                          className="cursor-pointer"
+                        >
+                          <Trash2 className="size-3.5 mr-2" />
+                          <span>Delete</span>
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </TableCell>
+                </TableRow>
               ))}
-            </tbody>
-          </table>
+              {recentDocs.length === 0 && !error && (
+                <TableRow>
+                  <TableCell colSpan={8} className="h-28 text-center text-muted-foreground">
+                    No documents uploaded yet.
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
 
-          {recentDocs.length === 0 && !error && (
-            <p className="text-[#525252] text-sm py-8 text-center">No documents uploaded yet.</p>
-          )}
-        </div>
-      </motion.div>
-
-      <DocumentModal isOpen={isModalOpen} document={selectedDoc} onClose={() => setIsModalOpen(false)} />
-    </>
+      <DocumentModal
+        isOpen={isModalOpen}
+        document={selectedDoc}
+        onClose={() => setIsModalOpen(false)}
+      />
+    </div>
   );
 }
